@@ -36,7 +36,7 @@
         android:layout_below="@id/main_toolbar"
         android:layout_marginStart="12dp"
         android:layout_marginTop="10dp"
-        android:text="Popular"
+        android:text="@string/popular"
         android:textAppearance="@style/TitleTheme" />
 
     <androidx.recyclerview.widget.RecyclerView
