@@ -1,6 +1,7 @@
 package com.scudderapps.moviesup.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.scudderapps.moviesup.MovieDetailActivity
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.api.POSTER_BASE_URL
 import com.scudderapps.moviesup.models.Movie
@@ -80,6 +82,13 @@ class MoviePageListAdapter(private val context: Context) :
                 .load(posterUrl)
                 .placeholder(R.drawable.icon)
                 .into(itemView.movie_image)
+
+            itemView.setOnClickListener {
+                val intent = Intent(context, MovieDetailActivity::class.java)
+                intent.putExtra("id", movie?.id)
+                context.startActivity(intent)
+
+            }
         }
     }
 

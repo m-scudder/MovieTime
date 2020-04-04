@@ -1,5 +1,5 @@
 package com.scudderapps.moviesup.api
-
+import com.scudderapps.moviesup.models.MovieDetail
 import com.scudderapps.moviesup.models.MovieResponse
 import io.reactivex.Single
 import retrofit2.http.GET
@@ -13,5 +13,10 @@ interface TheTMDBApiInterface {
         @Path("type") type: String,
         @Query("page") page: Int
     ): Single<MovieResponse>
+
+    @GET("movie/{movie_id}")
+    fun getMovieDetails(
+        @Path("movie_id") movieId: Int
+    ): Single<MovieDetail>
 
 }
