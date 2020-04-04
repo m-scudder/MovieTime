@@ -1,5 +1,15 @@
 <resources>
-    <string name="app_name">Movies Up</string>
+    <string name="app_name">moviesUp</string>
     <string name="popular">Popular</string>
+    <string name="top_rated">Top rated</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="release_date">Release Date:</string>
+    <string name="imdb_rating">IMDB Rating:</string>
+    <string name="the_synopsis">The Synopsis</string>
+    <string name="the_genres">The Genres</string>
+    <string name="the_cast">The Cast</string>
+    <string name="website">Website</string>
+    <string name="imdb">IMDB</string>
+    <string name="trailer">Trailer</string>
     <string name="search">Search</string>
 </resources>

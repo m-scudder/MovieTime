@@ -10,46 +10,42 @@
     <style name="ToolBarStyle" parent="AppTheme">
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="windowActionBar">false</item>
-        <item name="android:fontFamily">@font/baloo_da</item>
-        <item name="android:textStyle">bold</item>
-        <item name="titleTextColor">@color/colorAccent</item>
         <item name="titleTextAppearance">@style/HeaderTheme</item>
-        <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:actionMenuTextAppearance">@color/colorAccent</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
     <style name="DescriptionTextTheme">
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:fontFamily">@font/raleway_medium</item>
-        <item name="android:textSize">14dp</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="HeaderTheme">
-        <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:fontFamily">@font/holtwood_one_sc</item>
+        <item name="android:textColor">@color/ornage</item>
+        <item name="android:fontFamily">@font/montserrat</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">24dp</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">24sp</item>
     </style>
 
     <style name="TitleTheme">
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:fontFamily">@font/raleway_medium</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">24dp</item>
+        <item name="android:textSize">22sp</item>
     </style>
 
     <style name="TitleTextTheme">
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:fontFamily">@font/raleway_medium</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">16dp</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="ButtonTheme">
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:fontFamily">@font/lato</item>
-        <item name="android:textSize">15dp</item>
+        <item name="android:textSize">15sp</item>
         <item name="textAllCaps">false</item>
     </style>
 

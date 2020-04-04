@@ -3,7 +3,7 @@ package com.scudderapps.moviesup
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
-import android.view.View
+import android.view.MenuItem
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +19,6 @@ import butterknife.ButterKnife
 import com.scudderapps.moviesup.adapter.MoviePageListAdapter
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
-import com.scudderapps.moviesup.repository.NetworkState
 import com.scudderapps.moviesup.repository.movielist.MoviePagedListRepository
 import com.scudderapps.moviesup.viewmodel.MovieListViewModel
 
@@ -28,8 +27,14 @@ class MainActivity : AppCompatActivity() {
     @BindView(R.id.main_toolbar)
     lateinit var toolbar: Toolbar
 
-    @BindView(R.id.movieList)
+    @BindView(R.id.popularMovieList)
     lateinit var popularMovieView: RecyclerView
+
+    @BindView(R.id.trendingMovieList)
+    lateinit var trendingMovieView: RecyclerView
+
+    @BindView(R.id.upcomingMovieList)
+    lateinit var upcomingMovieView: RecyclerView
 
     @BindView(R.id.progressBarPopular)
     lateinit var progressBar: ProgressBar
@@ -50,8 +55,17 @@ class MainActivity : AppCompatActivity() {
         moviePagedListRepository = MoviePagedListRepository(apiService)
 
         val popularAdapter = MoviePageListAdapter(this)
+        val trendingAdapter = MoviePageListAdapter(this)
+        val upcomingAdapter = MoviePageListAdapter(this)
+
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
+
+        val linearLayoutManager2 = LinearLayoutManager(this)
+        linearLayoutManager2.orientation = LinearLayoutManager.HORIZONTAL
+
+        val linearLayoutManager3 = LinearLayoutManager(this)
+        linearLayoutManager3.orientation = LinearLayoutManager.HORIZONTAL
 
         listViewModel = getViewModel()
 
@@ -62,24 +76,23 @@ class MainActivity : AppCompatActivity() {
             popularMovieView.adapter = popularAdapter
 
         })
-//        listViewModel.topRatedMoviePagedList.observe(this, Observer {
-//            trendingAdapter.submitList(it)
-//            trendingMovieView.layoutManager = linearLayoutManager
-//            trendingMovieView.setHasFixedSize(true)
-//            trendingMovieView.adapter = trendingAdapter
-//        })
-
-        listViewModel.networkState.observe(this, Observer {
-            progressBar.visibility =
-                if (listViewModel.listIsEmpty() && it == NetworkState.LOADING) View.VISIBLE else View.GONE
-            errorTextView.visibility =
-                if (listViewModel.listIsEmpty() && it == NetworkState.ERROR) View.VISIBLE else View.GONE
-
-            if (!listViewModel.listIsEmpty()) {
-//                trendingAdapter.setNetworkState(it)
-                popularAdapter.setNetworkState(it)
-            }
+        listViewModel.topRatedMoviePagedList.observe(this, Observer {
+            trendingAdapter.submitList(it)
+            trendingMovieView.layoutManager = linearLayoutManager2
+            trendingMovieView.setHasFixedSize(true)
+            trendingMovieView.adapter = trendingAdapter
         })
+
+        listViewModel.upcomingMoviePagedList.observe(this, Observer {
+            upcomingAdapter.submitList(it)
+            upcomingMovieView.layoutManager = linearLayoutManager3
+            upcomingMovieView.setHasFixedSize(true)
+            upcomingMovieView.adapter = upcomingAdapter
+        })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return super.onOptionsItemSelected(item)
     }
 
     private fun getViewModel(): MovieListViewModel {

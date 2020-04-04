@@ -15,6 +15,15 @@ class MovieListViewModel(private val movieRepository: MoviePagedListRepository) 
     val popularMoviePagedList: LiveData<PagedList<Movie>> by lazy {
         movieRepository.fetchingMovieList(compositeDisposable, "popular")
     }
+
+    val topRatedMoviePagedList: LiveData<PagedList<Movie>> by lazy {
+        movieRepository.fetchingMovieList(compositeDisposable, "top_rated")
+    }
+
+    val upcomingMoviePagedList: LiveData<PagedList<Movie>> by lazy {
+        movieRepository.fetchingMovieList(compositeDisposable, "upcoming")
+    }
+
     val networkState: LiveData<NetworkState> by lazy {
         movieRepository.getNerworkState()
     }
