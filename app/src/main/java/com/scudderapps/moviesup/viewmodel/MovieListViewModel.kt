@@ -30,7 +30,9 @@ class MovieListViewModel(private val movieRepository: MoviePagedListRepository) 
 
     fun listIsEmpty(): Boolean {
 
-        return popularMoviePagedList.value?.isEmpty() ?:true
+        return popularMoviePagedList.value?.isEmpty() ?: true &&
+                topRatedMoviePagedList.value?.isEmpty() ?: true &&
+                upcomingMoviePagedList.value?.isEmpty() ?: true
     }
 
     override fun onCleared() {

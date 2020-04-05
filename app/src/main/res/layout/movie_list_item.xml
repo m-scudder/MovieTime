@@ -35,4 +35,11 @@
         android:textColor="@android:color/white"
         android:transitionName="titleTransition"/>
 
+    <include layout="@layout/network_state_item"
+        android:id="@+id/movie_list_error_layout"
+        android:visibility="gone"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
+
+
 </androidx.cardview.widget.CardView>

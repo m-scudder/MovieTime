@@ -33,12 +33,12 @@ class MoviePageListAdapter(private val context: Context) :
         val layoutInflater = LayoutInflater.from(parent.context)
         val view: View
 
-        if (viewType == POPULAR_MOVIE_VIEW_TYPE) {
+        return if (viewType == POPULAR_MOVIE_VIEW_TYPE) {
             view = layoutInflater.inflate(R.layout.movie_list_item, parent, false)
-            return MovieItemVieHolder(view)
+            MovieItemVieHolder(view)
         } else {
             view = layoutInflater.inflate(R.layout.network_state_item, parent, false)
-            return MovieItemVieHolder(view)
+            MovieItemVieHolder(view)
         }
     }
 

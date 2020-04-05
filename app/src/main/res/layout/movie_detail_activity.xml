@@ -47,14 +47,14 @@
                 android:id="@+id/movie_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="2dp"
+                android:layout_gravity="bottom"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_gravity="bottom"
                 android:fitsSystemWindows="true"
-                app:layout_collapseMode="pin"
+                android:padding="2dp"
+                android:textAppearance="@style/MovieNameThem"
                 android:transitionName="titleTransition"
-                android:textAppearance="@style/MovieNameThem" />
+                app:layout_collapseMode="pin" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -92,14 +92,14 @@
                 android:layout_height="160dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                app:cardCornerRadius="8dp"
-                android:transitionName="imageTransition">
+                android:transitionName="imageTransition"
+                app:cardCornerRadius="8dp">
 
                 <ImageView
                     android:id="@+id/poster_image"
-                    android:scaleType="center"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:scaleType="center"
                     tools:ignore="ContentDescription" />
 
             </androidx.cardview.widget.CardView>
@@ -137,9 +137,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/movie_release_date"
-                android:layout_toEndOf="@id/poster_card"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_toEndOf="@id/poster_card"
                 android:textAlignment="viewStart"
                 android:textAppearance="@style/NumberTextTheme" />
 
@@ -158,11 +158,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/runTime"
-                android:layout_toEndOf="@id/poster_card"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:textAlignment="viewStart"
+                android:layout_toEndOf="@id/poster_card"
                 android:text="@string/the_genres"
+                android:textAlignment="viewStart"
                 android:textAppearance="@style/TitleTheme" />
 
             <TextView
@@ -170,9 +170,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/genres"
-                android:layout_toEndOf="@id/poster_card"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_toEndOf="@id/poster_card"
                 android:textAlignment="viewStart"
                 android:textAppearance="@style/TitleTextTheme" />
 
@@ -198,6 +198,23 @@
                 android:textAlignment="viewStart"
                 android:textAppearance="@style/TitleTextTheme" />
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/trailer_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/movie_overview"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="8dp">
+
+                <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                    android:id="@+id/videoViewItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/movie_overview"
+                    app:enableAutomaticInitialization="true"
+                    app:handleNetworkEvents="true" />
+
+            </androidx.cardview.widget.CardView>
 
         </RelativeLayout>
 

@@ -45,6 +45,9 @@ dependencies {
 
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
 
+    //YoutubePlayer
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
     // LiveData

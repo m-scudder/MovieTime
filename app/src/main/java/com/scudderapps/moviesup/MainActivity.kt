@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +20,7 @@ import butterknife.ButterKnife
 import com.scudderapps.moviesup.adapter.MoviePageListAdapter
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
+import com.scudderapps.moviesup.repository.NetworkState
 import com.scudderapps.moviesup.repository.movielist.MoviePagedListRepository
 import com.scudderapps.moviesup.viewmodel.MovieListViewModel
 
@@ -89,6 +91,20 @@ class MainActivity : AppCompatActivity() {
             upcomingMovieView.setHasFixedSize(true)
             upcomingMovieView.adapter = upcomingAdapter
         })
+
+        listViewModel.networkState.observe(this, Observer {
+            progressBar.visibility =
+                if (listViewModel.listIsEmpty() && it == NetworkState.LOADING) View.VISIBLE else View.GONE
+            errorTextView.visibility =
+                if (listViewModel.listIsEmpty() && it == NetworkState.ERROR) View.VISIBLE else View.GONE
+
+            if (listViewModel.listIsEmpty() && it == NetworkState.ERROR) {
+                trendingAdapter.setNetworkState(it)
+                popularAdapter.setNetworkState(it)
+                upcomingAdapter.setNetworkState(it)
+            }
+        })
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

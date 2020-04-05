@@ -3,8 +3,9 @@ package com.scudderapps.moviesup.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.scudderapps.moviesup.models.MovieDetail
-import com.scudderapps.moviesup.repository.moviedetails.MovieDetailRepository
+import com.scudderapps.moviesup.models.VideoResponse
 import com.scudderapps.moviesup.repository.NetworkState
+import com.scudderapps.moviesup.repository.moviedetails.MovieDetailRepository
 import io.reactivex.disposables.CompositeDisposable
 
 class MovieDetailViewModel(private val movieDetailRepository: MovieDetailRepository, movieId: Int) :
@@ -14,6 +15,10 @@ class MovieDetailViewModel(private val movieDetailRepository: MovieDetailReposit
 
     val movieDetails: LiveData<MovieDetail> by lazy {
         movieDetailRepository.fetchingMoviesDetails(compositeDisposable, movieId)
+    }
+
+    val videoDetails: LiveData<VideoResponse> by lazy {
+        movieDetailRepository.fetchingMoviesVideos(compositeDisposable, movieId)
     }
 
     val networkState: LiveData<NetworkState> by lazy {
