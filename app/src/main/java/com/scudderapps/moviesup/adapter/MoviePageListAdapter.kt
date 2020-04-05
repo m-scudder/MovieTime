@@ -1,5 +1,7 @@
 package com.scudderapps.moviesup.adapter
 
+import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -16,6 +18,7 @@ import com.scudderapps.moviesup.models.Movie
 import com.scudderapps.moviesup.repository.NetworkState
 import kotlinx.android.synthetic.main.movie_list_item.view.*
 import kotlinx.android.synthetic.main.network_state_item.view.*
+import android.util.Pair as UtilPair
 
 class MoviePageListAdapter(private val context: Context) :
     PagedListAdapter<Movie, RecyclerView.ViewHolder>(MovieDiffCallback()) {
@@ -84,9 +87,15 @@ class MoviePageListAdapter(private val context: Context) :
                 .into(itemView.movie_image)
 
             itemView.setOnClickListener {
+
                 val intent = Intent(context, MovieDetailActivity::class.java)
                 intent.putExtra("id", movie?.id)
-                context.startActivity(intent)
+                val options = ActivityOptions.makeSceneTransitionAnimation(
+                    context as Activity?,
+                    UtilPair<View, String>(itemView.itemCard, "imageTransition"),
+                    UtilPair<View, String>(itemView.title, "titleTransition")
+                )
+                context.startActivity(intent, options.toBundle())
 
             }
         }

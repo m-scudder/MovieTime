@@ -53,6 +53,7 @@
                 android:layout_gravity="bottom"
                 android:fitsSystemWindows="true"
                 app:layout_collapseMode="pin"
+                android:transitionName="titleTransition"
                 android:textAppearance="@style/MovieNameThem" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -91,15 +92,14 @@
                 android:layout_height="160dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:background="@android:color/black"
-                app:cardCornerRadius="8dp">
+                app:cardCornerRadius="8dp"
+                android:transitionName="imageTransition">
 
                 <ImageView
                     android:id="@+id/poster_image"
+                    android:scaleType="center"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="center"
-                    android:src="@drawable/card_background"
                     tools:ignore="ContentDescription" />
 
             </androidx.cardview.widget.CardView>

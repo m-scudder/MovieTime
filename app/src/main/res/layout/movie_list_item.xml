@@ -2,17 +2,17 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/itemCard"
     android:layout_width="100dp"
     android:layout_height="160dp"
     android:layout_margin="8dp"
     app:cardCornerRadius="8dp"
-    android:background="@drawable/card_background"
-    android:foreground="?attr/selectableItemBackground">
+    android:transitionName="imageTransition">
 
     <ImageView
         android:id="@+id/movie_image"
         android:scaleType="center"
-        android:layout_width="120dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <View
@@ -32,6 +32,7 @@
         android:textAppearance="@style/TitleTextTheme"
         android:layout_gravity="bottom"
         android:gravity="center"
-        android:textColor="@android:color/white"/>
+        android:textColor="@android:color/white"
+        android:transitionName="titleTransition"/>
 
 </androidx.cardview.widget.CardView>
