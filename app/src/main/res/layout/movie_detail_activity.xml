@@ -105,29 +105,19 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/imdb_rating"
+                android:id="@+id/likes_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_toEndOf="@id/poster_card"
-                android:textAlignment="center"
-                android:textAppearance="@style/NumberTextTheme" />
-
-            <TextView
-                android:id="@+id/likes_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_toEndOf="@id/imdb_rating"
                 android:textAppearance="@style/NumberTextTheme" />
 
             <TextView
                 android:id="@+id/movie_release_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_toEndOf="@id/likes_count"
                 android:textAppearance="@style/NumberTextTheme" />
@@ -154,29 +144,6 @@
                 android:textAppearance="@style/NumberTextTheme" />
 
             <TextView
-                android:id="@+id/genres"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/runTime"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_toEndOf="@id/poster_card"
-                android:text="@string/the_genres"
-                android:textAlignment="viewStart"
-                android:textAppearance="@style/TitleTheme" />
-
-            <TextView
-                android:id="@+id/genresName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/genres"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_toEndOf="@id/poster_card"
-                android:textAlignment="viewStart"
-                android:textAppearance="@style/TitleTextTheme" />
-
-            <TextView
                 android:id="@+id/synopsis"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -199,12 +166,33 @@
                 android:textAppearance="@style/TitleTextTheme" />
 
             <TextView
-                android:id="@+id/the_trailers"
+                android:id="@+id/genres"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/movie_overview"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/the_genres"
+                android:textAlignment="viewStart"
+                android:textAppearance="@style/TitleTheme" />
+
+            <TextView
+                android:id="@+id/genresName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/genres"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:textAlignment="viewStart"
+                android:textAppearance="@style/TitleTextTheme" />
+
+            <TextView
+                android:id="@+id/the_trailers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/genresName"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/trailers_amp_clips"
                 android:textAlignment="viewStart"
                 android:textAppearance="@style/TitleTheme" />
@@ -217,6 +205,27 @@
                 android:layout_alignParentStart="true"
                 android:layout_margin="8dp" />
 
+            <TextView
+                android:id="@+id/the_cast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/trailerListView"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/cast"
+                android:textAlignment="viewStart"
+                android:textAppearance="@style/TitleTheme" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/castListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/the_cast"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="10dp" />
 
         </RelativeLayout>
 

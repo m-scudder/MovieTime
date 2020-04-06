@@ -16,10 +16,12 @@ import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.bumptech.glide.Glide
+import com.scudderapps.moviesup.adapter.CastListAdapter
 import com.scudderapps.moviesup.adapter.TrailerListAdapter
 import com.scudderapps.moviesup.api.POSTER_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
+import com.scudderapps.moviesup.models.CastDetail
 import com.scudderapps.moviesup.models.Genre
 import com.scudderapps.moviesup.models.MovieDetail
 import com.scudderapps.moviesup.models.VideoDetail
@@ -45,9 +47,6 @@ class MovieDetailActivity : AppCompatActivity() {
     @BindView(R.id.movie_release_date)
     lateinit var movieReleaseDate: TextView
 
-    @BindView(R.id.imdb_rating)
-    lateinit var imdbRating: TextView
-
     @BindView(R.id.likes_count)
     lateinit var likeCount: TextView
 
@@ -72,11 +71,17 @@ class MovieDetailActivity : AppCompatActivity() {
     @BindView(R.id.trailerListView)
     lateinit var trailerList: RecyclerView
 
+    @BindView(R.id.castListView)
+    lateinit var castList: RecyclerView
+
     private lateinit var viewModel: MovieDetailViewModel
     private lateinit var movieRepository: MovieDetailRepository
 
-    private lateinit var adapter: TrailerListAdapter
+    private lateinit var trailerAdapter: TrailerListAdapter
     private lateinit var trailerDetail: ArrayList<VideoDetail>
+
+    private lateinit var castAdapter: CastListAdapter
+    private lateinit var castDetail: ArrayList<CastDetail>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,6 +97,9 @@ class MovieDetailActivity : AppCompatActivity() {
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
 
+        val linearLayoutManager2 = LinearLayoutManager(this)
+        linearLayoutManager2.orientation = LinearLayoutManager.HORIZONTAL
+
         val apiService: TheTMDBApiInterface = TheTMDBClient.getClient()
         movieRepository =
             MovieDetailRepository(
@@ -101,10 +109,19 @@ class MovieDetailActivity : AppCompatActivity() {
 
         viewModel.videoDetails.observe(this, Observer {
             trailerDetail = it.videosList
-            adapter = TrailerListAdapter(trailerDetail, this)
+            trailerAdapter = TrailerListAdapter(trailerDetail, this)
             trailerList.layoutManager = linearLayoutManager
             trailerList.setHasFixedSize(true)
-            trailerList.adapter = adapter
+            trailerList.adapter = trailerAdapter
+
+        })
+
+        viewModel.castDetails.observe(this, Observer {
+            castDetail = it.castDetail
+            castAdapter = CastListAdapter(castDetail, this)
+            castList.layoutManager = linearLayoutManager2
+            castList.setHasFixedSize(true)
+            castList.adapter = castAdapter
 
         })
 
@@ -122,7 +139,6 @@ class MovieDetailActivity : AppCompatActivity() {
     fun bindUI(it: MovieDetail) {
         title.text = it.title
         movieOverview.text = it.overview
-        imdbRating.text = "\uD83C\uDF1F " + it.voteAverage.toString()
         likeCount.text = "\uD83D\uDC4D " + it.voteCount
         movieReleaseDate.text = "\uD83D\uDCC5 " + it.releaseDate
         runTime.text = "Runtime: " + it.runtime.toString() + " Min"

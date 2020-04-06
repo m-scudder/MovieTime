@@ -1,5 +1,6 @@
 package com.scudderapps.moviesup.api
 
+import com.scudderapps.moviesup.models.CastResponse
 import com.scudderapps.moviesup.models.MovieDetail
 import com.scudderapps.moviesup.models.MovieResponse
 import com.scudderapps.moviesup.models.VideoResponse
@@ -25,4 +26,9 @@ interface TheTMDBApiInterface {
     fun getMovieVideos(
         @Path("id") movieId: Int
     ): Single<VideoResponse>
+
+    @GET("movie/{id}/credits")
+    fun getMovieCast(
+        @Path("id") movieId: Int
+    ): Single<CastResponse>
 }

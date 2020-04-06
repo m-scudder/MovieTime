@@ -79,6 +79,7 @@ class MoviePageListAdapter(private val context: Context) :
     class MovieItemVieHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(movie: Movie?, context: Context) {
             itemView.title.text = movie?.title
+            itemView.rating_view.text = "\uD83C\uDF1F " + movie?.voteAverage.toString()
 
             val posterUrl = POSTER_BASE_URL + movie?.posterPath
             Glide.with(itemView.context)

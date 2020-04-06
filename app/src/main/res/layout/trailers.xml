@@ -16,22 +16,18 @@
     <View
         android:id="@+id/title_background"
         android:layout_width="match_parent"
-        android:layout_height="28dp"
+        android:layout_height="32dp"
         android:layout_gravity="bottom"
-        android:alpha="0.9"
-        android:background="@color/colorPrimaryDark"
+        android:alpha="1"
+        android:background="@android:color/black"
         android:gravity="center" />
-
 
     <TextView
         android:id="@+id/trailerName"
         android:layout_width="match_parent"
-        android:layout_height="28dp"
+        android:layout_height="32dp"
         android:layout_gravity="bottom"
         android:gravity="center"
-        android:padding="2dp"
-        android:textAppearance="@style/TitleTextTheme"
-        android:textColor="@android:color/white"
-        android:transitionName="titleTransition" />
+        android:textAppearance="@style/DescriptionTheme" />
 
 </androidx.cardview.widget.CardView>
