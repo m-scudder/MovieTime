@@ -51,6 +51,12 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="DescriptionTheme">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/raleway_medium</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <style name="ButtonTheme">
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:fontFamily">@font/lato</item>

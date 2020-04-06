@@ -12,6 +12,8 @@ const val BASE_URL: String = "https://api.themoviedb.org/3/"
 const val POSTER_BASE_URL = "https://image.tmdb.org/t/p/w780"
 const val FIRST_PAGE = 1
 const val POST_PER_PAGE = 20
+const val TRAILER_THUMBNAIL_BASE_URL = "https://img.youtube.com/vi/"
+const val TRAILER_THUMBNAIL_END_URL = "/0.jpg"
 
 object TheTMDBClient {
     fun getClient(): TheTMDBApiInterface {

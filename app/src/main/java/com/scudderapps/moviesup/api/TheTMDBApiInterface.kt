@@ -1,4 +1,5 @@
 package com.scudderapps.moviesup.api
+
 import com.scudderapps.moviesup.models.MovieDetail
 import com.scudderapps.moviesup.models.MovieResponse
 import com.scudderapps.moviesup.models.VideoResponse

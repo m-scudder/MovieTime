@@ -198,23 +198,25 @@
                 android:textAlignment="viewStart"
                 android:textAppearance="@style/TitleTextTheme" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/trailer_card"
+            <TextView
+                android:id="@+id/the_trailers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/movie_overview"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/trailers_amp_clips"
+                android:textAlignment="viewStart"
+                android:textAppearance="@style/TitleTheme" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/trailerListView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/movie_overview"
-                android:layout_margin="10dp"
-                app:cardCornerRadius="8dp">
+                android:layout_below="@id/the_trailers"
+                android:layout_alignParentStart="true"
+                android:layout_margin="8dp" />
 
-                <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-                    android:id="@+id/videoViewItem"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/movie_overview"
-                    app:enableAutomaticInitialization="true"
-                    app:handleNetworkEvents="true" />
-
-            </androidx.cardview.widget.CardView>
 
         </RelativeLayout>
 

@@ -1,29 +1,28 @@
 package com.scudderapps.moviesup
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.bumptech.glide.Glide
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+import com.scudderapps.moviesup.adapter.TrailerListAdapter
 import com.scudderapps.moviesup.api.POSTER_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.Genre
 import com.scudderapps.moviesup.models.MovieDetail
+import com.scudderapps.moviesup.models.VideoDetail
 import com.scudderapps.moviesup.repository.NetworkState
 import com.scudderapps.moviesup.repository.moviedetails.MovieDetailRepository
 import com.scudderapps.moviesup.viewmodel.MovieDetailViewModel
@@ -70,11 +69,15 @@ class MovieDetailActivity : AppCompatActivity() {
     @BindView(R.id.text_error_movie_detail)
     lateinit var errorTextView: TextView
 
-    @BindView(R.id.videoViewItem)
-    lateinit var trailerVideoView: YouTubePlayerView
+    @BindView(R.id.trailerListView)
+    lateinit var trailerList: RecyclerView
 
     private lateinit var viewModel: MovieDetailViewModel
     private lateinit var movieRepository: MovieDetailRepository
+
+    private lateinit var adapter: TrailerListAdapter
+    private lateinit var trailerDetail: ArrayList<VideoDetail>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,6 +89,9 @@ class MovieDetailActivity : AppCompatActivity() {
         val data = intent.extras
         var movieId = data!!.getInt("id")
 
+        val linearLayoutManager = LinearLayoutManager(this)
+        linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
+
         val apiService: TheTMDBApiInterface = TheTMDBClient.getClient()
         movieRepository =
             MovieDetailRepository(
@@ -93,20 +99,13 @@ class MovieDetailActivity : AppCompatActivity() {
             )
         viewModel = getViewModel(movieId)
 
-        lifecycle.addObserver(trailerVideoView)
-
         viewModel.videoDetails.observe(this, Observer {
-            val trailerDetail = it.videosList
-            trailerVideoView.addYouTubePlayerListener(object :
-                AbstractYouTubePlayerListener() {
-                override fun onReady(@NonNull youTubePlayer: YouTubePlayer) {
-                    for (i in trailerDetail) {
-                        val videoId = i.key
-                        Log.v("key", videoId)
-                        youTubePlayer.loadVideo(videoId, 0f)
-                    }
-                }
-            })
+            trailerDetail = it.videosList
+            adapter = TrailerListAdapter(trailerDetail, this)
+            trailerList.layoutManager = linearLayoutManager
+            trailerList.setHasFixedSize(true)
+            trailerList.adapter = adapter
+
         })
 
         viewModel.movieDetails.observe(this, Observer {

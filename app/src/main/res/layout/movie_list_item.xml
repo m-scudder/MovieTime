@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/itemCard"
     android:layout_width="100dp"
     android:layout_height="160dp"
     android:layout_margin="8dp"
-    app:cardCornerRadius="8dp"
-    android:transitionName="imageTransition">
+    android:transitionName="imageTransition"
+    app:cardCornerRadius="8dp">
 
     <ImageView
         android:id="@+id/movie_image"
-        android:scaleType="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:scaleType="center" />
 
     <View
         android:id="@+id/title_background"
@@ -22,24 +21,25 @@
         android:layout_gravity="bottom"
         android:alpha="0.6"
         android:background="@color/colorPrimaryDark"
-        android:gravity="center"/>
+        android:gravity="center" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:padding="2dp"
-        android:textAppearance="@style/TitleTextTheme"
         android:layout_gravity="bottom"
         android:gravity="center"
+        android:padding="2dp"
+        android:textAppearance="@style/TitleTextTheme"
         android:textColor="@android:color/white"
-        android:transitionName="titleTransition"/>
+        android:transitionName="titleTransition" />
 
-    <include layout="@layout/network_state_item"
+    <include
         android:id="@+id/movie_list_error_layout"
-        android:visibility="gone"
+        layout="@layout/network_state_item"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_width="match_parent"/>
+        android:visibility="gone" />
 
 
 </androidx.cardview.widget.CardView>

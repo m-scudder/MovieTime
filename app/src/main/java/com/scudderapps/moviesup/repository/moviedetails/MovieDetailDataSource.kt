@@ -24,7 +24,7 @@ class MovieDetailDataSource(
 
     private val _movieVideoResponse = MutableLiveData<VideoResponse>()
     val movieVideoResponse: LiveData<VideoResponse>
-    get() = _movieVideoResponse
+        get() = _movieVideoResponse
 
     fun fetchMovieDetails(movieId: Int) {
         _networkState.postValue(NetworkState.LOADING)
