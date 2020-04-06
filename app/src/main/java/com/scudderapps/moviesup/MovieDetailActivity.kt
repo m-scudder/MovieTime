@@ -44,9 +44,6 @@ class MovieDetailActivity : AppCompatActivity() {
     @BindView(R.id.movie_title)
     lateinit var title: TextView
 
-    @BindView(R.id.movie_release_date)
-    lateinit var movieReleaseDate: TextView
-
     @BindView(R.id.likes_count)
     lateinit var likeCount: TextView
 
@@ -55,9 +52,6 @@ class MovieDetailActivity : AppCompatActivity() {
 
     @BindView(R.id.runTime)
     lateinit var runTime: TextView
-
-    @BindView(R.id.status)
-    lateinit var movieStatus: TextView
 
     @BindView(R.id.detail_toolbar)
     lateinit var toolbar: Toolbar
@@ -137,12 +131,14 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     fun bindUI(it: MovieDetail) {
+
+//        val parsedDate =
+//            LocalDate.parse(it.releaseDate, DateTimeFormatter.ofPattern("yyyy MMMM d"))
+
         title.text = it.title
         movieOverview.text = it.overview
         likeCount.text = "\uD83D\uDC4D " + it.voteCount
-        movieReleaseDate.text = "\uD83D\uDCC5 " + it.releaseDate
-        runTime.text = "Runtime: " + it.runtime.toString() + " Min"
-        movieStatus.text = "Status: " + it.status
+        runTime.text = it.runtime.toString() + " Min ● " + it.status + " ● " + it.releaseDate
 
         val genre: ArrayList<Genre> = it.genres
         for (i in genre) {
