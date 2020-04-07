@@ -13,4 +13,6 @@
     <string name="search">Search</string>
     <string name="trailers_amp_clips"><![CDATA[Trailers & Clips]]></string>
     <string name="cast">Cast</string>
+    <string name="no_internet_connection">Please, Check Your Internet Connection</string>
+    <string name="try_again">Try Again</string>
 </resources>

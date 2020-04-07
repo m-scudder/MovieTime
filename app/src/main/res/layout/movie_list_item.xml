@@ -51,12 +51,4 @@
         android:textAppearance="@style/TitleTextTheme"
         android:transitionName="titleTransition" />
 
-    <include
-        android:id="@+id/movie_list_error_layout"
-        layout="@layout/network_state_item"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
-
-
 </androidx.cardview.widget.CardView>

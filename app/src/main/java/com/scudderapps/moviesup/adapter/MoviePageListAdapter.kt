@@ -28,24 +28,22 @@ class MoviePageListAdapter(private val context: Context) :
 
     private var networkState: NetworkState? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieItemVieHolder {
 
         val layoutInflater = LayoutInflater.from(parent.context)
-        val view: View
-
-        return if (viewType == POPULAR_MOVIE_VIEW_TYPE) {
+        lateinit var view: View
+        if (viewType == POPULAR_MOVIE_VIEW_TYPE) {
             view = layoutInflater.inflate(R.layout.movie_list_item, parent, false)
-            MovieItemVieHolder(view)
-        } else {
+        } else if (viewType == NETWORK_VIEW_TYPE) {
             view = layoutInflater.inflate(R.layout.network_state_item, parent, false)
-            MovieItemVieHolder(view)
         }
+        return MovieItemVieHolder(view)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == POPULAR_MOVIE_VIEW_TYPE) {
             (holder as MovieItemVieHolder).bind(getItem(position), context)
-        } else {
+        } else if (getItemViewType(position) == NETWORK_VIEW_TYPE) {
             (holder as NetworkStateItemViewHolder).bind(networkState)
         }
     }
@@ -104,20 +102,11 @@ class MoviePageListAdapter(private val context: Context) :
 
     class NetworkStateItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(netwrokState: NetworkState?) {
-            if (netwrokState != null && netwrokState == NetworkState.LOADING) {
+        fun bind(networkState: NetworkState?) {
+            if (networkState != null && networkState == NetworkState.LOADING) {
                 itemView.networkStateBar.visibility = View.VISIBLE
             } else {
                 itemView.networkStateBar.visibility = View.GONE
-            }
-            if (netwrokState != null && netwrokState == NetworkState.ERROR) {
-                itemView.text_error_state.visibility = View.VISIBLE
-                itemView.text_error_state.text = netwrokState.msg
-            } else if (netwrokState != null && netwrokState == NetworkState.ENDOFLIST) {
-                itemView.text_error_state.visibility = View.VISIBLE
-                itemView.text_error_state.text = netwrokState.msg
-            } else {
-                itemView.text_error_state.visibility = View.GONE
             }
         }
     }

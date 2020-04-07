@@ -28,6 +28,9 @@ import com.scudderapps.moviesup.models.VideoDetail
 import com.scudderapps.moviesup.repository.NetworkState
 import com.scudderapps.moviesup.repository.moviedetails.MovieDetailRepository
 import com.scudderapps.moviesup.viewmodel.MovieDetailViewModel
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class MovieDetailActivity : AppCompatActivity() {
@@ -58,9 +61,6 @@ class MovieDetailActivity : AppCompatActivity() {
 
     @BindView(R.id.detailProgressBar)
     lateinit var progressBar: ProgressBar
-
-    @BindView(R.id.text_error_movie_detail)
-    lateinit var errorTextView: TextView
 
     @BindView(R.id.trailerListView)
     lateinit var trailerList: RecyclerView
@@ -126,19 +126,20 @@ class MovieDetailActivity : AppCompatActivity() {
         viewModel.networkState.observe(this, Observer {
             progressBar.visibility = if (it == NetworkState.LOADING) View.VISIBLE else View.GONE
 //            relativeLayout.visibility = if (it == NetwrokState.LOADED) View.VISIBLE else View.GONE
-            errorTextView.visibility = if (it == NetworkState.ERROR) View.VISIBLE else View.GONE
         })
     }
 
     fun bindUI(it: MovieDetail) {
 
-//        val parsedDate =
-//            LocalDate.parse(it.releaseDate, DateTimeFormatter.ofPattern("yyyy MMMM d"))
+        val originalFormat: DateFormat = SimpleDateFormat("yyyy-MM-d", Locale.ENGLISH)
+        val targetFormat: DateFormat = SimpleDateFormat("MMMM dd, yyyy")
+        val date: Date = originalFormat.parse(it.releaseDate)
+        val formattedDate: String = targetFormat.format(date)
 
         title.text = it.title
         movieOverview.text = it.overview
         likeCount.text = "\uD83D\uDC4D " + it.voteCount
-        runTime.text = it.runtime.toString() + " Min ● " + it.status + " ● " + it.releaseDate
+        runTime.text = it.runtime.toString() + " Min ● " + it.status + " ● " + formattedDate
 
         val genre: ArrayList<Genre> = it.genres
         for (i in genre) {

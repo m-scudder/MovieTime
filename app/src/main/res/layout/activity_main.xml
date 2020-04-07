@@ -7,87 +7,93 @@
     android:background="@color/colorPrimary"
     tools:context=".MainActivity">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <include
             android:id="@+id/main_toolbar"
             layout="@layout/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true" />
+            android:layout_height="wrap_content" />
 
-        <ProgressBar
-            android:id="@+id/progressBarPopular"
+        <LinearLayout
+            android:id="@+id/error_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:visibility="gone" />
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
 
-        <TextView
-            android:id="@+id/errorTextPopular"
-            style="@style/HeaderTheme"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:visibility="gone" />
+            <ImageView
+                android:id="@+id/no_internet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/no_internet" />
+
+            <TextView
+                android:id="@+id/errorTextPopular"
+                style="@style/HeaderTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:text="@string/try_again"
+                android:id="@+id/tryAgainBtn"
+                style="@style/ButtonTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/popular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/main_toolbar"
             android:layout_marginStart="13dp"
             android:layout_marginTop="10dp"
             android:text="@string/popular"
-            android:textAppearance="@style/DescriptionTheme" />
+            android:textAppearance="@style/DescriptionTheme"
+            android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/popularMovieList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/popular"
-            android:layout_alignParentStart="true"
             android:layout_margin="8dp" />
 
         <TextView
             android:id="@+id/trending"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/popularMovieList"
             android:layout_marginStart="13dp"
             android:layout_marginTop="10dp"
             android:text="@string/top_rated"
-            android:textAppearance="@style/DescriptionTheme" />
+            android:textAppearance="@style/DescriptionTheme"
+            android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/trendingMovieList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/trending"
-            android:layout_alignParentStart="true"
             android:layout_margin="8dp" />
 
         <TextView
             android:id="@+id/upcoming"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/trendingMovieList"
             android:layout_marginStart="13dp"
             android:layout_marginTop="10dp"
             android:text="@string/upcoming"
-            android:textAppearance="@style/DescriptionTheme" />
+            android:textAppearance="@style/DescriptionTheme"
+            android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/upcomingMovieList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/upcoming"
-            android:layout_alignParentStart="true"
             android:layout_margin="8dp" />
-
-    </RelativeLayout>
-
+    </LinearLayout>
 </ScrollView>

@@ -1,12 +1,16 @@
 package com.scudderapps.moviesup
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.ProgressBar
+import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
@@ -38,14 +42,32 @@ class MainActivity : AppCompatActivity() {
     @BindView(R.id.upcomingMovieList)
     lateinit var upcomingMovieView: RecyclerView
 
-    @BindView(R.id.progressBarPopular)
-    lateinit var progressBar: ProgressBar
-
     @BindView(R.id.errorTextPopular)
     lateinit var errorTextView: TextView
 
+    @BindView(R.id.popular)
+    lateinit var popularTextView: TextView
+
+    @BindView(R.id.trending)
+    lateinit var trendingTextView: TextView
+
+    @BindView(R.id.upcoming)
+    lateinit var upcomingTextView: TextView
+
+    @BindView(R.id.error_layout)
+    lateinit var errorLayout: LinearLayout
+
+    @BindView(R.id.tryAgainBtn)
+    lateinit var try_again_btn: Button
+
     private lateinit var listViewModel: MovieListViewModel
     lateinit var moviePagedListRepository: MoviePagedListRepository
+    private val popularAdapter = MoviePageListAdapter(this)
+    private val trendingAdapter = MoviePageListAdapter(this)
+    private val upcomingAdapter = MoviePageListAdapter(this)
+    private val linearLayoutManager = LinearLayoutManager(this)
+    private val linearLayoutManager2 = LinearLayoutManager(this)
+    private val linearLayoutManager3 = LinearLayoutManager(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,55 +78,33 @@ class MainActivity : AppCompatActivity() {
         val apiService: TheTMDBApiInterface = TheTMDBClient.getClient()
         moviePagedListRepository = MoviePagedListRepository(apiService)
 
-        val popularAdapter = MoviePageListAdapter(this)
-        val trendingAdapter = MoviePageListAdapter(this)
-        val upcomingAdapter = MoviePageListAdapter(this)
-
-        val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
-
-        val linearLayoutManager2 = LinearLayoutManager(this)
         linearLayoutManager2.orientation = LinearLayoutManager.HORIZONTAL
-
-        val linearLayoutManager3 = LinearLayoutManager(this)
         linearLayoutManager3.orientation = LinearLayoutManager.HORIZONTAL
 
         listViewModel = getViewModel()
 
-        listViewModel.popularMoviePagedList.observe(this, Observer {
-            popularAdapter.submitList(it)
-            popularMovieView.layoutManager = linearLayoutManager
-            popularMovieView.setHasFixedSize(true)
-            popularMovieView.adapter = popularAdapter
-
-        })
-        listViewModel.topRatedMoviePagedList.observe(this, Observer {
-            trendingAdapter.submitList(it)
-            trendingMovieView.layoutManager = linearLayoutManager2
-            trendingMovieView.setHasFixedSize(true)
-            trendingMovieView.adapter = trendingAdapter
-        })
-
-        listViewModel.upcomingMoviePagedList.observe(this, Observer {
-            upcomingAdapter.submitList(it)
-            upcomingMovieView.layoutManager = linearLayoutManager3
-            upcomingMovieView.setHasFixedSize(true)
-            upcomingMovieView.adapter = upcomingAdapter
-        })
-
-        listViewModel.networkState.observe(this, Observer {
-            progressBar.visibility =
-                if (listViewModel.listIsEmpty() && it == NetworkState.LOADING) View.VISIBLE else View.GONE
-            errorTextView.visibility =
-                if (listViewModel.listIsEmpty() && it == NetworkState.ERROR) View.VISIBLE else View.GONE
-
-            if (listViewModel.listIsEmpty() && it == NetworkState.ERROR) {
-                trendingAdapter.setNetworkState(it)
-                popularAdapter.setNetworkState(it)
-                upcomingAdapter.setNetworkState(it)
-            }
-        })
-
+        if (isNetworkAvailable()) {
+            populatingViews()
+        } else {
+            try_again_btn.setOnClickListener(View.OnClickListener {
+                if (isNetworkAvailable()) {
+                    populatingViews()
+                } else {
+                    Toast.makeText(this, "Still Not Connected", Toast.LENGTH_LONG).show()
+                    errorLayout.visibility = View.VISIBLE
+                    errorTextView.text = getString(R.string.no_internet_connection)
+                    popularTextView.visibility = View.GONE
+                    trendingTextView.visibility = View.GONE
+                    upcomingTextView.visibility = View.GONE
+                }
+            })
+            errorLayout.visibility = View.VISIBLE
+            errorTextView.text = getString(R.string.no_internet_connection)
+            popularTextView.visibility = View.GONE
+            trendingTextView.visibility = View.GONE
+            upcomingTextView.visibility = View.GONE
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -124,5 +124,57 @@ class MainActivity : AppCompatActivity() {
         var inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.main_menu, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetworkInfo = connectivityManager.activeNetworkInfo
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected
+    }
+
+    private fun populatingViews() {
+
+        errorLayout.visibility = View.GONE
+        listViewModel.popularMoviePagedList.observe(this, Observer {
+            popularAdapter.submitList(it)
+            popularMovieView.layoutManager = linearLayoutManager
+            popularMovieView.setHasFixedSize(true)
+            popularMovieView.adapter = popularAdapter
+            popularTextView.visibility = View.VISIBLE
+
+        })
+        listViewModel.topRatedMoviePagedList.observe(this, Observer {
+            trendingAdapter.submitList(it)
+            trendingMovieView.layoutManager = linearLayoutManager2
+            trendingMovieView.setHasFixedSize(true)
+            trendingMovieView.adapter = trendingAdapter
+            trendingTextView.visibility = View.VISIBLE
+        })
+
+        listViewModel.upcomingMoviePagedList.observe(this, Observer {
+            upcomingAdapter.submitList(it)
+            upcomingMovieView.layoutManager = linearLayoutManager3
+            upcomingMovieView.setHasFixedSize(true)
+            upcomingMovieView.adapter = upcomingAdapter
+            upcomingTextView.visibility = View.VISIBLE
+        })
+
+        listViewModel.networkState.observe(this, Observer {
+            if (listViewModel.listIsEmpty() && it == NetworkState.LOADING) {
+                popularTextView.visibility = View.GONE
+                trendingTextView.visibility = View.GONE
+                upcomingTextView.visibility = View.GONE
+            } else {
+                popularTextView.visibility = View.VISIBLE
+                trendingTextView.visibility = View.VISIBLE
+                upcomingTextView.visibility = View.VISIBLE
+            }
+            if (listViewModel.listIsEmpty() && it == NetworkState.ERROR) {
+                popularAdapter.setNetworkState(it)
+                trendingAdapter.setNetworkState(it)
+                upcomingAdapter.setNetworkState(it)
+            }
+        })
     }
 }
