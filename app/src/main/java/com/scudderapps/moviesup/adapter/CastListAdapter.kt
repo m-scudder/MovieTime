@@ -1,11 +1,16 @@
 package com.scudderapps.moviesup.adapter
 
+import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Context
+import android.content.Intent
+import android.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.scudderapps.moviesup.CastDetailActivity
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.api.POSTER_BASE_URL
 import com.scudderapps.moviesup.models.CastDetail
@@ -45,6 +50,16 @@ class CastListAdapter(private val cast: ArrayList<CastDetail>, private val conte
 
             itemView.setOnClickListener(View.OnClickListener {
 
+                val intent = Intent(context, CastDetailActivity::class.java)
+                intent.putExtra("name", cast?.name)
+                intent.putExtra("profileUrl", profileUrl)
+                intent.putExtra("characterName", cast?.character)
+                val options = ActivityOptions.makeSceneTransitionAnimation(
+                    context as Activity?,
+                    Pair<View, String>(itemView.cast_image, "castImageTransition"),
+                    Pair<View, String>(itemView.cast_name, "castNameTransition")
+                )
+                context.startActivity(intent, options.toBundle())
             })
         }
     }

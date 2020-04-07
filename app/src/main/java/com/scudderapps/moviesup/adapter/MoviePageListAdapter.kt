@@ -25,30 +25,31 @@ class MoviePageListAdapter(private val context: Context) :
 
     private val POPULAR_MOVIE_VIEW_TYPE = 1
     private val NETWORK_VIEW_TYPE = 2
-
     private var networkState: NetworkState? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieItemVieHolder {
 
         val layoutInflater = LayoutInflater.from(parent.context)
         lateinit var view: View
-        if (viewType == POPULAR_MOVIE_VIEW_TYPE) {
+        return if (viewType == POPULAR_MOVIE_VIEW_TYPE) {
             view = layoutInflater.inflate(R.layout.movie_list_item, parent, false)
-        } else if (viewType == NETWORK_VIEW_TYPE) {
+            MovieItemVieHolder(view)
+        } else {
             view = layoutInflater.inflate(R.layout.network_state_item, parent, false)
+            MovieItemVieHolder(view)
         }
-        return MovieItemVieHolder(view)
+
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == POPULAR_MOVIE_VIEW_TYPE) {
-            (holder as MovieItemVieHolder).bind(getItem(position), context)
+            (holder as MovieItemVieHolder).bindMovieData(getItem(position), context)
         } else if (getItemViewType(position) == NETWORK_VIEW_TYPE) {
-            (holder as NetworkStateItemViewHolder).bind(networkState)
+            (holder as MovieItemVieHolder).bindNetworkState(networkState)
         }
     }
 
-    fun hasAnyExtraRow(): Boolean {
+    private fun hasAnyExtraRow(): Boolean {
         return networkState != null && networkState != NetworkState.LOADED
     }
 
@@ -75,7 +76,7 @@ class MoviePageListAdapter(private val context: Context) :
     }
 
     class MovieItemVieHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(movie: Movie?, context: Context) {
+        fun bindMovieData(movie: Movie?, context: Context) {
             itemView.title.text = movie?.title
             itemView.rating_view.text = "\uD83C\uDF1F " + movie?.voteAverage.toString()
 
@@ -98,14 +99,11 @@ class MoviePageListAdapter(private val context: Context) :
 
             }
         }
-    }
 
-    class NetworkStateItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
-        fun bind(networkState: NetworkState?) {
+        fun bindNetworkState(networkState: NetworkState?) {
             if (networkState != null && networkState == NetworkState.LOADING) {
                 itemView.networkStateBar.visibility = View.VISIBLE
-            } else {
+            } else if (networkState != null && networkState == NetworkState.LOADED) {
                 itemView.networkStateBar.visibility = View.GONE
             }
         }
@@ -124,7 +122,7 @@ class MoviePageListAdapter(private val context: Context) :
                 notifyItemInserted(super.getItemCount())
             }
         } else if (hasExtraRow && previousState != newNetworkState) {
-            notifyItemChanged(itemCount - 1)
+            notifyItemChanged(super.getItemCount() - 1)
         }
     }
 }

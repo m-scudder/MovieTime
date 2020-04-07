@@ -79,8 +79,11 @@ class MainActivity : AppCompatActivity() {
         moviePagedListRepository = MoviePagedListRepository(apiService)
 
         linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
+        linearLayoutManager.reverseLayout = false
         linearLayoutManager2.orientation = LinearLayoutManager.HORIZONTAL
+        linearLayoutManager2.reverseLayout = false
         linearLayoutManager3.orientation = LinearLayoutManager.HORIZONTAL
+        linearLayoutManager3.reverseLayout = false
 
         listViewModel = getViewModel()
 
@@ -141,7 +144,6 @@ class MainActivity : AppCompatActivity() {
             popularMovieView.layoutManager = linearLayoutManager
             popularMovieView.setHasFixedSize(true)
             popularMovieView.adapter = popularAdapter
-            popularTextView.visibility = View.VISIBLE
 
         })
         listViewModel.topRatedMoviePagedList.observe(this, Observer {
@@ -149,7 +151,6 @@ class MainActivity : AppCompatActivity() {
             trendingMovieView.layoutManager = linearLayoutManager2
             trendingMovieView.setHasFixedSize(true)
             trendingMovieView.adapter = trendingAdapter
-            trendingTextView.visibility = View.VISIBLE
         })
 
         listViewModel.upcomingMoviePagedList.observe(this, Observer {
@@ -157,20 +158,10 @@ class MainActivity : AppCompatActivity() {
             upcomingMovieView.layoutManager = linearLayoutManager3
             upcomingMovieView.setHasFixedSize(true)
             upcomingMovieView.adapter = upcomingAdapter
-            upcomingTextView.visibility = View.VISIBLE
         })
 
         listViewModel.networkState.observe(this, Observer {
-            if (listViewModel.listIsEmpty() && it == NetworkState.LOADING) {
-                popularTextView.visibility = View.GONE
-                trendingTextView.visibility = View.GONE
-                upcomingTextView.visibility = View.GONE
-            } else {
-                popularTextView.visibility = View.VISIBLE
-                trendingTextView.visibility = View.VISIBLE
-                upcomingTextView.visibility = View.VISIBLE
-            }
-            if (listViewModel.listIsEmpty() && it == NetworkState.ERROR) {
+            if (listViewModel.listIsEmpty() && it == NetworkState.LOADING || it == NetworkState.LOADED) {
                 popularAdapter.setNetworkState(it)
                 trendingAdapter.setNetworkState(it)
                 upcomingAdapter.setNetworkState(it)

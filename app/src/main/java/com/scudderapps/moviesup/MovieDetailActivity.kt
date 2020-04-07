@@ -47,19 +47,22 @@ class MovieDetailActivity : AppCompatActivity() {
     @BindView(R.id.movie_title)
     lateinit var title: TextView
 
-    @BindView(R.id.likes_count)
-    lateinit var likeCount: TextView
-
-    @BindView(R.id.genresName)
-    lateinit var genresName: TextView
+    @BindView(R.id.releaseDate)
+    lateinit var releaseDate: TextView
 
     @BindView(R.id.runTime)
     lateinit var runTime: TextView
 
+    @BindView(R.id.status)
+    lateinit var status: TextView
+
+    @BindView(R.id.genresName)
+    lateinit var genresName: TextView
+
     @BindView(R.id.detail_toolbar)
     lateinit var toolbar: Toolbar
 
-    @BindView(R.id.detailProgressBar)
+    @BindView(R.id.movieDetailBar)
     lateinit var progressBar: ProgressBar
 
     @BindView(R.id.trailerListView)
@@ -125,21 +128,21 @@ class MovieDetailActivity : AppCompatActivity() {
 
         viewModel.networkState.observe(this, Observer {
             progressBar.visibility = if (it == NetworkState.LOADING) View.VISIBLE else View.GONE
-//            relativeLayout.visibility = if (it == NetwrokState.LOADED) View.VISIBLE else View.GONE
         })
     }
 
     fun bindUI(it: MovieDetail) {
 
         val originalFormat: DateFormat = SimpleDateFormat("yyyy-MM-d", Locale.ENGLISH)
-        val targetFormat: DateFormat = SimpleDateFormat("MMMM dd, yyyy")
+        val targetFormat: DateFormat = SimpleDateFormat(getString(R.string.dateFormat))
         val date: Date = originalFormat.parse(it.releaseDate)
         val formattedDate: String = targetFormat.format(date)
 
         title.text = it.title
+        releaseDate.text = "Release Date : $formattedDate"
+        runTime.text = "Runtime : ${it.runtime} Min"
+        status.text = "Status : ${it.status}"
         movieOverview.text = it.overview
-        likeCount.text = "\uD83D\uDC4D " + it.voteCount
-        runTime.text = it.runtime.toString() + " Min ● " + it.status + " ● " + formattedDate
 
         val genre: ArrayList<Genre> = it.genres
         for (i in genre) {

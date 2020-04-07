@@ -52,7 +52,7 @@
                 android:layout_marginEnd="10dp"
                 android:fitsSystemWindows="true"
                 android:padding="2dp"
-                android:textAppearance="@style/MovieNameThem"
+                android:textAppearance="@style/HeaderTheme"
                 android:transitionName="titleTransition"
                 app:layout_collapseMode="pin" />
 
@@ -61,6 +61,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/movieDetailScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
@@ -70,13 +71,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <ProgressBar
-                android:id="@+id/detailProgressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:visibility="visible" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/poster_card"
@@ -97,35 +91,57 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
+                android:id="@+id/releaseDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@id/poster_card"
+                android:textAlignment="viewStart"
+                android:textAppearance="@style/TitleTextTheme" />
+
+            <TextView
                 android:id="@+id/runTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_below="@id/releaseDate"
                 android:layout_toEndOf="@id/poster_card"
                 android:textAlignment="viewStart"
                 android:textAppearance="@style/TitleTextTheme" />
 
             <TextView
-                android:id="@+id/likes_count"
+                android:id="@+id/status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/runTime"
                 android:layout_marginStart="10dp"
+                android:layout_below="@id/runTime"
                 android:layout_marginTop="10dp"
                 android:layout_toEndOf="@id/poster_card"
+                android:textAlignment="viewStart"
                 android:textAppearance="@style/TitleTextTheme" />
+
 
             <TextView
                 android:id="@+id/genresName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/likes_count"
+                android:layout_below="@+id/status"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_toEndOf="@id/poster_card"
                 android:textAlignment="viewStart"
                 android:textAppearance="@style/TitleTextTheme" />
+
+            <ProgressBar
+                android:id="@+id/movieDetailBar"
+                style="@style/HeaderTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:padding="8dp"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/synopsis"

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".CastDetailActivity">
+
+    <include
+        android:id="@+id/cast_toolbar"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cast_profile_card"
+        android:layout_width="100dp"
+        android:layout_height="160dp"
+        android:layout_below="@id/cast_toolbar"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="8dp">
+
+        <ImageView
+            android:id="@+id/cast_profile_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="center"
+            android:transitionName="castImageTransition"
+            tools:ignore="ContentDescription" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/cast_profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cast_toolbar"
+        android:layout_toEndOf="@id/cast_profile_card"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:textAlignment="viewStart"
+        android:transitionName="castNameTransition"
+        android:textAppearance="@style/HeaderTheme" />
+
+    <TextView
+        android:id="@+id/cast_profile_character"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cast_profile_name"
+        android:layout_toEndOf="@id/cast_profile_card"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:textAlignment="viewStart"
+        android:textAppearance="@style/TitleTheme" />
+
+</RelativeLayout>

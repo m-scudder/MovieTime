@@ -15,4 +15,6 @@
     <string name="cast">Cast</string>
     <string name="no_internet_connection">Please, Check Your Internet Connection</string>
     <string name="try_again">Try Again</string>
+    <string name="dateFormat">MMMM dd, yyyy</string>
+    <string name="release">Release Date : </string>
 </resources>
