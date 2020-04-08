@@ -139,9 +139,9 @@ class MovieDetailActivity : AppCompatActivity() {
         val formattedDate: String = targetFormat.format(date)
 
         title.text = it.title
-        releaseDate.text = "Release Date : $formattedDate"
-        runTime.text = "Runtime : ${it.runtime} Min"
-        status.text = "Status : ${it.status}"
+        releaseDate.text = formattedDate + "  ●"
+        runTime.text = "${it.runtime} Min"
+        status.text = it.status
         movieOverview.text = it.overview
 
         val genre: ArrayList<Genre> = it.genres
@@ -154,12 +154,10 @@ class MovieDetailActivity : AppCompatActivity() {
 
         Glide.with(this)
             .load(backDropURL)
-            .placeholder(R.drawable.no_image_found)
             .into(backdropImage)
 
         Glide.with(this)
             .load(moviePosterURL)
-            .placeholder(R.drawable.no_image_found)
             .into(posterImage)
 
     }

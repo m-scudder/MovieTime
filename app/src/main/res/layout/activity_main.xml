@@ -27,6 +27,12 @@
             android:orientation="vertical"
             android:visibility="gone">
 
+            <TextView
+                android:id="@+id/errorTextPopular"
+                style="@style/TitleTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
             <ImageView
                 android:id="@+id/no_internet"
                 android:layout_width="wrap_content"
@@ -34,63 +40,64 @@
                 android:background="@drawable/no_internet" />
 
             <TextView
-                android:id="@+id/errorTextPopular"
-                style="@style/HeaderTheme"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:text="@string/try_again"
                 android:id="@+id/tryAgainBtn"
-                style="@style/ButtonTheme"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/try_again"
+                android:textAppearance="@style/HeaderTheme" />
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/popular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="13dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/popular"
-            android:textAppearance="@style/DescriptionTheme" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/popularMovieList"
+        <LinearLayout
+            android:id="@+id/movie_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/trending"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="13dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/top_rated"
-            android:textAppearance="@style/DescriptionTheme" />
+            <TextView
+                android:id="@+id/popular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/popular"
+                android:textAppearance="@style/TitleTheme" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/trendingMovieList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/popularMovieList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp" />
 
-        <TextView
-            android:id="@+id/upcoming"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="13dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/upcoming"
-            android:textAppearance="@style/DescriptionTheme" />
+            <TextView
+                android:id="@+id/trending"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/top_rated"
+                android:textAppearance="@style/TitleTheme" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/upcomingMovieList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/trendingMovieList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp" />
+
+            <TextView
+                android:id="@+id/upcoming"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/upcoming"
+                android:textAppearance="@style/TitleTheme" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/upcomingMovieList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

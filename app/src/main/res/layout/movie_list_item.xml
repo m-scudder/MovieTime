@@ -2,8 +2,8 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/itemCard"
-    android:layout_width="100dp"
-    android:layout_height="160dp"
+    android:layout_width="80dp"
+    android:layout_height="130dp"
     android:layout_margin="8dp"
     android:transitionName="imageTransition"
     app:cardCornerRadius="8dp">
@@ -12,6 +12,7 @@
         android:id="@+id/movie_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
         android:scaleType="center" />
 
     <View
@@ -36,7 +37,7 @@
     <View
         android:id="@+id/title_background"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="36dp"
         android:layout_gravity="bottom"
         android:alpha="0.8"
         android:background="@android:color/black"
@@ -45,7 +46,7 @@
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="36dp"
         android:layout_gravity="bottom"
         android:gravity="center"
         android:textAppearance="@style/TitleTextTheme"

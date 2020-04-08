@@ -83,7 +83,6 @@ class MoviePageListAdapter(private val context: Context) :
             val posterUrl = POSTER_BASE_URL + movie?.posterPath
             Glide.with(itemView.context)
                 .load(posterUrl)
-                .placeholder(R.drawable.icon)
                 .into(itemView.movie_image)
 
             itemView.setOnClickListener {

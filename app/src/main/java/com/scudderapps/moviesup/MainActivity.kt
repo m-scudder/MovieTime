@@ -3,11 +3,7 @@ package com.scudderapps.moviesup
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -58,7 +54,10 @@ class MainActivity : AppCompatActivity() {
     lateinit var errorLayout: LinearLayout
 
     @BindView(R.id.tryAgainBtn)
-    lateinit var try_again_btn: Button
+    lateinit var try_again_btn: TextView
+
+    @BindView(R.id.movie_layout)
+    lateinit var movieLayout: LinearLayout
 
     private lateinit var listViewModel: MovieListViewModel
     lateinit var moviePagedListRepository: MoviePagedListRepository
@@ -96,22 +95,15 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     Toast.makeText(this, "Still Not Connected", Toast.LENGTH_LONG).show()
                     errorLayout.visibility = View.VISIBLE
+                    movieLayout.visibility = View.GONE
                     errorTextView.text = getString(R.string.no_internet_connection)
-                    popularTextView.visibility = View.GONE
-                    trendingTextView.visibility = View.GONE
-                    upcomingTextView.visibility = View.GONE
+
                 }
             })
             errorLayout.visibility = View.VISIBLE
             errorTextView.text = getString(R.string.no_internet_connection)
-            popularTextView.visibility = View.GONE
-            trendingTextView.visibility = View.GONE
-            upcomingTextView.visibility = View.GONE
+            movieLayout.visibility = View.GONE
         }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return super.onOptionsItemSelected(item)
     }
 
     private fun getViewModel(): MovieListViewModel {
@@ -123,11 +115,6 @@ class MainActivity : AppCompatActivity() {
         })[MovieListViewModel::class.java]
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        var inflater: MenuInflater = menuInflater
-        inflater.inflate(R.menu.main_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
 
     private fun isNetworkAvailable(): Boolean {
         val connectivityManager =
@@ -139,6 +126,7 @@ class MainActivity : AppCompatActivity() {
     private fun populatingViews() {
 
         errorLayout.visibility = View.GONE
+        movieLayout.visibility = View.VISIBLE
         listViewModel.popularMoviePagedList.observe(this, Observer {
             popularAdapter.submitList(it)
             popularMovieView.layoutManager = linearLayoutManager

@@ -6,15 +6,15 @@
     <string name="release_date">Release Date:</string>
     <string name="imdb_rating">IMDB Rating:</string>
     <string name="the_synopsis">Synopsis</string>
-    <string name="the_genres">Genres</string>
     <string name="website">Website</string>
     <string name="imdb">IMDB</string>
     <string name="trailer">Trailer</string>
-    <string name="search">Search</string>
     <string name="trailers_amp_clips"><![CDATA[Trailers & Clips]]></string>
     <string name="cast">Cast</string>
     <string name="no_internet_connection">Please, Check Your Internet Connection</string>
     <string name="try_again">Try Again</string>
     <string name="dateFormat">MMMM dd, yyyy</string>
     <string name="release">Release Date : </string>
+    <string name="search">Search</string>
+    <string name="genres">Genres</string>
 </resources>
