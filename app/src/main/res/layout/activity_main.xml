@@ -1,103 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <include
-            android:id="@+id/main_toolbar"
-            layout="@layout/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
         <LinearLayout
-            android:id="@+id/error_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <TextView
-                android:id="@+id/errorTextPopular"
-                style="@style/TitleTheme"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <ImageView
-                android:id="@+id/no_internet"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/no_internet" />
-
-            <TextView
-                android:id="@+id/tryAgainBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/try_again"
-                android:textAppearance="@style/HeaderTheme" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/movie_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/popular"
+            <include
+                android:id="@+id/main_toolbar"
+                layout="@layout/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:id="@+id/error_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="13dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/popular"
-                android:textAppearance="@style/TitleTheme" />
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="60dp"
+                android:orientation="vertical"
+                android:visibility="gone">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/popularMovieList"
+                <TextView
+                    android:id="@+id/errorTextPopular"
+                    style="@style/TitleTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:id="@+id/no_internet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/no_internet" />
+
+                <TextView
+                    android:id="@+id/tryAgainBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/try_again"
+                    android:textAppearance="@style/HeaderTheme" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/movie_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/trending"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="13dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/top_rated"
-                android:textAppearance="@style/TitleTheme" />
+                <TextView
+                    android:id="@+id/popular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/popular"
+                    android:textAppearance="@style/TitleTheme" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/trendingMovieList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/popularMovieList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp" />
 
-            <TextView
-                android:id="@+id/upcoming"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="13dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/upcoming"
-                android:textAppearance="@style/TitleTheme" />
+                <TextView
+                    android:id="@+id/trending"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/top_rated"
+                    android:textAppearance="@style/TitleTheme" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/upcomingMovieList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/trendingMovieList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp" />
+
+                <TextView
+                    android:id="@+id/upcoming"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/upcoming"
+                    android:textAppearance="@style/TitleTheme" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/upcomingMovieList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/searchFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main_toolbar"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/orange"
+        android:padding="8dp"
+        android:src="@drawable/search500"
+        app:fabSize="normal"
+        app:layout_anchor="@id/movie_layout"
+        app:layout_anchorGravity="bottom|right|end" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

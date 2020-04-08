@@ -1,8 +1,12 @@
 package com.scudderapps.moviesup
 
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -17,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.scudderapps.moviesup.adapter.MoviePageListAdapter
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
@@ -58,6 +63,9 @@ class MainActivity : AppCompatActivity() {
 
     @BindView(R.id.movie_layout)
     lateinit var movieLayout: LinearLayout
+
+    @BindView(R.id.searchFab)
+    lateinit var searchFabBtn: FloatingActionButton
 
     private lateinit var listViewModel: MovieListViewModel
     lateinit var moviePagedListRepository: MoviePagedListRepository
@@ -104,6 +112,11 @@ class MainActivity : AppCompatActivity() {
             errorTextView.text = getString(R.string.no_internet_connection)
             movieLayout.visibility = View.GONE
         }
+
+        searchFabBtn.setOnClickListener(View.OnClickListener {
+            intent = Intent(this, SearchActivity::class.java)
+            startActivity(intent)
+        })
     }
 
     private fun getViewModel(): MovieListViewModel {
@@ -155,5 +168,12 @@ class MainActivity : AppCompatActivity() {
                 upcomingAdapter.setNetworkState(it)
             }
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        var inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.main_menu, menu)
+//        val item = menu?.findItem(R.id.search)
+        return super.onCreateOptionsMenu(menu)
     }
 }

@@ -32,8 +32,8 @@ interface TheTMDBApiInterface {
         @Path("id") movieId: Int
     ): Single<CastResponse>
 
-    @GET("person/{person_id}")
+    @GET("search/movie/{query}")
     fun getMPersonDetails(
-        @Path("person_id") personId: Int
+        @Query("query") query: Query
     )
 }

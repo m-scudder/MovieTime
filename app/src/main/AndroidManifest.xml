@@ -23,7 +23,10 @@
             android:parentActivityName=".MainActivity" />
 
         <activity android:name=".CastDetailActivity"
-            android:parentActivityName=".CastDetailActivity"/>
+            android:parentActivityName=".MovieDetailActivity"/>
+
+        <activity android:name=".SearchActivity"
+            android:parentActivityName=".MainActivity"/>
 
         <meta-data
             android:name="preloaded_fonts"

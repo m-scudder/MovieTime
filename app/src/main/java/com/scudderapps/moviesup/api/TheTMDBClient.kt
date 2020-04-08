@@ -15,6 +15,8 @@ const val POST_PER_PAGE = 20
 const val TRAILER_THUMBNAIL_BASE_URL = "https://img.youtube.com/vi/"
 const val TRAILER_THUMBNAIL_END_URL = "/0.jpg"
 
+
+
 object TheTMDBClient {
     fun getClient(): TheTMDBApiInterface {
 

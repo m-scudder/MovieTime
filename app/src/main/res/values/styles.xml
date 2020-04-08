@@ -13,6 +13,7 @@
         <item name="windowActionBar">false</item>
         <item name="titleTextAppearance">@style/HeaderTheme</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="colorControlNormal">@color/colorAccent</item>
     </style>
 
     <style name="NumberTextTheme">
