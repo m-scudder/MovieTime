@@ -16,7 +16,7 @@ class MovieDetailDataSource(
     private val compositeDisposable: CompositeDisposable
 ) {
     private val _networkState = MutableLiveData<NetworkState>()
-    val netwrokState: LiveData<NetworkState>
+    val networkState: LiveData<NetworkState>
         get() = _networkState
 
     private val _movieDetailsResponse = MutableLiveData<MovieDetail>()

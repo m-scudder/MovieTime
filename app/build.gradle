@@ -77,6 +77,7 @@ dependencies {
     //RX
     implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
     implementation 'io.reactivex.rxjava2:rxjava:2.2.7'
+    implementation "com.jakewharton.rxbinding2:rxbinding:2.0.0"
 
     //Paging
     implementation "androidx.paging:paging-runtime:2.1.0"

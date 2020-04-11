@@ -55,6 +55,6 @@ class MovieDetailRepository(private val apiService: TheTMDBApiInterface) {
     }
 
     fun getMovieDetailNetworkState(): LiveData<NetworkState> {
-        return movieDetailDataSource.netwrokState
+        return movieDetailDataSource.networkState
     }
 }
