@@ -1,6 +1,7 @@
 package com.scudderapps.moviesup
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -21,10 +22,7 @@ import com.scudderapps.moviesup.adapter.TrailerListAdapter
 import com.scudderapps.moviesup.api.POSTER_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
-import com.scudderapps.moviesup.models.CastDetail
-import com.scudderapps.moviesup.models.Genre
-import com.scudderapps.moviesup.models.MovieDetail
-import com.scudderapps.moviesup.models.VideoDetail
+import com.scudderapps.moviesup.models.*
 import com.scudderapps.moviesup.repository.NetworkState
 import com.scudderapps.moviesup.repository.moviedetails.MovieDetailRepository
 import com.scudderapps.moviesup.viewmodel.MovieDetailViewModel
@@ -71,6 +69,18 @@ class MovieDetailActivity : AppCompatActivity() {
     @BindView(R.id.castListView)
     lateinit var castList: RecyclerView
 
+    @BindView(R.id.posterMedia)
+    lateinit var posterMedia: ImageView
+
+    @BindView(R.id.backdropMedia)
+    lateinit var backdropMedia: ImageView
+
+    @BindView(R.id.posterCount)
+    lateinit var poster_count: TextView
+
+    @BindView(R.id.backdropCount)
+    lateinit var backdrop_count: TextView
+
     private lateinit var viewModel: MovieDetailViewModel
     private lateinit var movieRepository: MovieDetailRepository
 
@@ -79,7 +89,8 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private lateinit var castAdapter: CastListAdapter
     private lateinit var castDetail: ArrayList<CastDetail>
-
+    private lateinit var movieBackdrops: List<Backdrop>
+    private lateinit var moviePosters: List<Poster>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -120,6 +131,21 @@ class MovieDetailActivity : AppCompatActivity() {
             castList.setHasFixedSize(true)
             castList.adapter = castAdapter
 
+        })
+
+        viewModel.movieMedia.observe(this, Observer {
+            movieBackdrops = it.backdrops
+            moviePosters = it.posters
+            var mediaPosterURL = moviePosters.get(0).filePath
+            var mediaBackdropURL = movieBackdrops.get(0).filePath
+            val mediaPosterUrl: String = POSTER_BASE_URL + mediaPosterURL
+            val mediaBackdropUrl: String = POSTER_BASE_URL + mediaBackdropURL
+            Log.v("ImagePath", mediaPosterUrl)
+            Glide.with(this).load(mediaPosterUrl).into(posterMedia)
+            Glide.with(this).load(mediaBackdropUrl).into(backdropMedia)
+
+            poster_count.text = moviePosters.size.toString() + " Posters"
+            backdrop_count.text = movieBackdrops.size.toString() + " Backdrops"
         })
 
         viewModel.movieDetails.observe(this, Observer {

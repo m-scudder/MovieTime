@@ -17,7 +17,7 @@ class MovieListViewModel(private val movieRepository: MoviePagedListRepository) 
     }
 
     val topRatedMoviePagedList: LiveData<PagedList<Movie>> by lazy {
-        movieRepository.fetchingMovieList(compositeDisposable, "top_rated")
+        movieRepository.fetchingMovieList(compositeDisposable, "now_playing")
     }
 
     val upcomingMoviePagedList: LiveData<PagedList<Movie>> by lazy {

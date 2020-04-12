@@ -3,6 +3,7 @@ package com.scudderapps.moviesup.repository.moviedetails
 import androidx.lifecycle.LiveData
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
 import com.scudderapps.moviesup.models.CastResponse
+import com.scudderapps.moviesup.models.MediaResponse
 import com.scudderapps.moviesup.models.MovieDetail
 import com.scudderapps.moviesup.models.VideoResponse
 import com.scudderapps.moviesup.repository.NetworkState
@@ -56,5 +57,19 @@ class MovieDetailRepository(private val apiService: TheTMDBApiInterface) {
 
     fun getMovieDetailNetworkState(): LiveData<NetworkState> {
         return movieDetailDataSource.networkState
+    }
+
+    fun fetchingMovieMedia(
+        compositeDisposable: CompositeDisposable,
+        movieID: Int
+    ): LiveData<MediaResponse> {
+        movieDetailDataSource =
+            MovieDetailDataSource(
+                apiService,
+                compositeDisposable
+            )
+        movieDetailDataSource.fetchMoviesMedia(movieID)
+
+        return movieDetailDataSource.movieMediaResponse
     }
 }

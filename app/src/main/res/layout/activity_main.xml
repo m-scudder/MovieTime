@@ -63,6 +63,21 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/trending"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/now_playing"
+                    android:textAppearance="@style/TitleTheme" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/trendingMovieList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp" />
+
+                <TextView
                     android:id="@+id/popular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -77,20 +92,6 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp" />
 
-                <TextView
-                    android:id="@+id/trending"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="13dp"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/top_rated"
-                    android:textAppearance="@style/TitleTheme" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/trendingMovieList"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp" />
 
                 <TextView
                     android:id="@+id/upcoming"
