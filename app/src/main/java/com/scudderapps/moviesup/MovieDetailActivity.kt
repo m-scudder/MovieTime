@@ -3,6 +3,7 @@ package com.scudderapps.moviesup
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -81,6 +82,12 @@ class MovieDetailActivity : AppCompatActivity() {
     @BindView(R.id.backdropCount)
     lateinit var backdrop_count: TextView
 
+    @BindView(R.id.posterlayout)
+    lateinit var posterLayout: LinearLayout
+
+    @BindView(R.id.backdropLayout)
+    lateinit var backdropLayout: LinearLayout
+
     private lateinit var viewModel: MovieDetailViewModel
     private lateinit var movieRepository: MovieDetailRepository
 
@@ -109,10 +116,7 @@ class MovieDetailActivity : AppCompatActivity() {
         linearLayoutManager2.orientation = LinearLayoutManager.HORIZONTAL
 
         val apiService: TheTMDBApiInterface = TheTMDBClient.getClient()
-        movieRepository =
-            MovieDetailRepository(
-                apiService
-            )
+        movieRepository = MovieDetailRepository(apiService)
         viewModel = getViewModel(movieId)
 
         viewModel.videoDetails.observe(this, Observer {
@@ -147,41 +151,47 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun setMedia(it: MediaResponse) {
-        movieBackdrops = it.backdrops
-        moviePosters = it.posters
-        var mediaPosterURL = moviePosters.get(0).filePath
-        var mediaBackdropURL = movieBackdrops.get(0).filePath
-        val mediaPosterUrl: String = IMAGE_BASE_URL + mediaPosterURL
-        val mediaBackdropUrl: String = IMAGE_BASE_URL + mediaBackdropURL
-        Glide.with(this).load(mediaPosterUrl).into(posterMedia)
-        Glide.with(this).load(mediaBackdropUrl).into(backdropMedia)
-
-        poster_count.text = moviePosters.size.toString() + " Posters"
-        backdrop_count.text = movieBackdrops.size.toString() + " Backdrops"
-
-        posterMedia.setOnClickListener(View.OnClickListener {
-
-            StfalconImageViewer.Builder(
-                this,
-                moviePosters
-            ) { posterMedia: ImageView, poster: Poster ->
-                Glide.with(this).load(IMAGE_BASE_URL + poster.filePath).into(posterMedia)
+            movieBackdrops = it.backdrops
+            moviePosters = it.posters
+            if (!moviePosters.isNullOrEmpty()) {
+                posterLayout.visibility = View.VISIBLE
+                var mediaPosterURL = moviePosters[0].filePath
+                val mediaPosterUrl: String = IMAGE_BASE_URL + mediaPosterURL
+                Glide.with(this).load(mediaPosterUrl).into(posterMedia)
+                poster_count.text = moviePosters.size.toString() + " Posters"
+                posterMedia.setOnClickListener(View.OnClickListener {
+                    StfalconImageViewer.Builder(
+                        this,
+                        moviePosters
+                    ) { posterMedia: ImageView, poster: Poster ->
+                        Glide.with(this).load(IMAGE_BASE_URL + poster.filePath).into(posterMedia)
+                    }
+                        .withHiddenStatusBar(false)
+                        .show()
+                })
+            } else {
+                posterLayout.visibility = View.GONE
             }
-                .withHiddenStatusBar(false)
-                .show()
-        })
-
-        backdropMedia.setOnClickListener(View.OnClickListener {
-
-            StfalconImageViewer.Builder(
-                this,
-                movieBackdrops
-            ) { backdropMedia: ImageView, backdrop: Backdrop ->
-                Glide.with(this).load(IMAGE_BASE_URL + backdrop.filePath).into(backdropMedia)
-            }
-                .withHiddenStatusBar(false)
-                .show()
-        })
+            if (!movieBackdrops.isNullOrEmpty()) {
+                backdropLayout.visibility = View.VISIBLE
+                var mediaBackdropURL = movieBackdrops[0].filePath
+                val mediaBackdropUrl: String = IMAGE_BASE_URL + mediaBackdropURL
+                Glide.with(this).load(mediaBackdropUrl).into(backdropMedia)
+                backdrop_count.text = movieBackdrops.size.toString() + " Backdrops"
+                backdropMedia.setOnClickListener(View.OnClickListener {
+                    StfalconImageViewer.Builder(
+                        this,
+                        movieBackdrops
+                    ) { backdropMedia: ImageView, backdrop: Backdrop ->
+                        Glide.with(this).load(IMAGE_BASE_URL + backdrop.filePath)
+                            .into(backdropMedia)
+                    }
+                        .withHiddenStatusBar(false)
+                        .show()
+                })
+            } else{
+                backdropLayout.visibility = View.GONE
+        }
     }
 
     fun bindUI(it: MovieDetail) {
@@ -216,7 +226,6 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun getViewModel(movieId: Int): MovieDetailViewModel {
-//        return ViewModelProvider(this).get(MovieDetailViewModel::class.java)
         return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 @Suppress("UNCHECKED_CAST")
