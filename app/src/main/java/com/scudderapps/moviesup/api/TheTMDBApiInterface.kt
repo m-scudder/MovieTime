@@ -43,4 +43,9 @@ interface TheTMDBApiInterface {
     fun getPeople(
         @Query("page") page: Int
     ): Single<PeopleResponse>
+
+    @GET("person/{id}")
+    fun getPeopleDetails(
+        @Path("id") id: Int
+    ): Single<PeopleDetails>
 }

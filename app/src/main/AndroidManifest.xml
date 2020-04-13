@@ -22,7 +22,7 @@
             android:name=".MovieDetailActivity"
             android:parentActivityName=".MainActivity" />
 
-        <activity android:name=".CastDetailActivity"
+        <activity android:name=".PeopleDetailActivity"
             android:parentActivityName=".MovieDetailActivity"/>
 
         <activity android:name=".SearchActivity"

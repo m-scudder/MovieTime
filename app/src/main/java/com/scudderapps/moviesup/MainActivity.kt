@@ -25,7 +25,7 @@ import com.scudderapps.moviesup.api.TheTMDBApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.repository.NetworkState
 import com.scudderapps.moviesup.repository.movielist.MoviePagedListRepository
-import com.scudderapps.moviesup.repository.people.PeoplePagedListRepository
+import com.scudderapps.moviesup.repository.peoplelist.PeoplePagedListRepository
 import com.scudderapps.moviesup.viewmodel.MovieListViewModel
 import com.scudderapps.moviesup.viewmodel.PeopleListViewModel
 

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.bumptech.glide.Glide
+import com.ms.square.android.expandabletextview.ExpandableTextView
 import com.scudderapps.moviesup.adapter.CastListAdapter
 import com.scudderapps.moviesup.adapter.TrailerListAdapter
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
@@ -41,7 +42,7 @@ class MovieDetailActivity : AppCompatActivity() {
     lateinit var posterImage: ImageView
 
     @BindView(R.id.movie_overview)
-    lateinit var movieOverview: TextView
+    lateinit var movieOverview: ExpandableTextView
 
     @BindView(R.id.movie_title)
     lateinit var title: TextView
@@ -233,4 +234,6 @@ class MovieDetailActivity : AppCompatActivity() {
             }
         })[MovieDetailViewModel::class.java]
     }
+
+
 }

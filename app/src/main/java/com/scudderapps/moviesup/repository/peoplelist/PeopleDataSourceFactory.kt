@@ -1,4 +1,4 @@
-package com.scudderapps.moviesup.repository.people
+package com.scudderapps.moviesup.repository.peoplelist
 
 
 import androidx.lifecycle.MutableLiveData

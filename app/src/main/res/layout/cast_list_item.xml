@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/peopleCard"
     android:layout_width="60dp"
     android:layout_height="80dp"
-    android:id="@+id/castCard"
     android:layout_marginEnd="8dp"
     android:orientation="vertical">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/cast_image"
+        android:id="@+id/peopleImage"
         android:layout_width="54dp"
         android:layout_height="54dp"
         android:layout_gravity="center"
-        android:transitionName="castImageTransition"
-        android:src="@drawable/default_avatar" />
+        android:src="@drawable/default_avatar"
+        android:transitionName="peopleImageTransition" />
 
     <TextView
-        android:id="@+id/cast_name"
+        android:id="@+id/peopleName"
         android:layout_width="match_parent"
         android:layout_height="16dp"
         android:layout_gravity="bottom|center"
         android:layout_margin="4dp"
         android:gravity="center"
-        android:transitionName="castNameTransition"
-        android:textAppearance="@style/DescriptionTheme" />
+        android:textAppearance="@style/DescriptionTheme"
+        android:transitionName="peopleNameTransition" />
 
 </LinearLayout>

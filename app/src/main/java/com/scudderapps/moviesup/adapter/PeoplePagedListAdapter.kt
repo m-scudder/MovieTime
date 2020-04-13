@@ -1,6 +1,9 @@
 package com.scudderapps.moviesup.adapter
 
+import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,12 +11,14 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.scudderapps.moviesup.PeopleDetailActivity
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.models.People
 import com.scudderapps.moviesup.repository.NetworkState
 import kotlinx.android.synthetic.main.cast_list_item.view.*
 import kotlinx.android.synthetic.main.network_state_item.view.*
+import android.util.Pair as UtilPair
 
 class PeoplePagedListAdapter(private val context: Context) :
     PagedListAdapter<People, RecyclerView.ViewHolder>(MovieDiffCallback()) {
@@ -72,24 +77,24 @@ class PeoplePagedListAdapter(private val context: Context) :
 
     class PeopleItemVieHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bindMovieData(people: People?, context: Context) {
-            itemView.cast_name.text = people?.name
+            itemView.peopleName.text = people?.name
             val posterUrl = IMAGE_BASE_URL + people?.profilePath
             Glide.with(itemView.context)
                 .load(posterUrl)
-                .into(itemView.cast_image)
+                .into(itemView.peopleImage)
 
-//            itemView.setOnClickListener {
-//
-//                val intent = Intent(context, MovieDetailActivity::class.java)
-//                intent.putExtra("id", people?.id)
-//                val options = ActivityOptions.makeSceneTransitionAnimation(
-//                    context as Activity?,
-//                    UtilPair<View, String>(itemView.itemCard, "imageTransition"),
-//                    UtilPair<View, String>(itemView.title, "titleTransition")
-//                )
-//                context.startActivity(intent, options.toBundle())
-//
-//            }
+            itemView.setOnClickListener {
+
+                val intent = Intent(context, PeopleDetailActivity::class.java)
+                intent.putExtra("id", people?.id)
+                val options = ActivityOptions.makeSceneTransitionAnimation(
+                    context as Activity?,
+                    UtilPair<View, String>(itemView.peopleImage, "peopleImageTransition"),
+                    UtilPair<View, String>(itemView.peopleName, "peopleNameTransition")
+                )
+                context.startActivity(intent, options.toBundle())
+
+            }
         }
 
         fun bindNetworkState(networkState: NetworkState?) {
