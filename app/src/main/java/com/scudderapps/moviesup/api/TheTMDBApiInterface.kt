@@ -34,8 +34,13 @@ interface TheTMDBApiInterface {
         @Path("id") movieId: Int
     ): Single<MediaResponse>
 
-    @GET("search/movie")
+    @GET("search/multi")
     fun getSearchResults(
         @Query("query") query: String
     ): Single<MovieResponse>
+
+    @GET("person/popular")
+    fun getPeople(
+        @Query("page") page: Int
+    ): Single<PeopleResponse>
 }

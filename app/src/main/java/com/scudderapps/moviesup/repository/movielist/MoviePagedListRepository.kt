@@ -31,7 +31,7 @@ class MoviePagedListRepository(private val apiService: TheTMDBApiInterface) {
         return moviePageList
     }
 
-    fun getNerworkState(): LiveData<NetworkState> {
+    fun getNetworkState(): LiveData<NetworkState> {
         return Transformations.switchMap<MovieDataSource, NetworkState>(
             movieDataSourceFactory.moviesLiveDataSource, MovieDataSource::networkState
         )

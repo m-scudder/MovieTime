@@ -18,7 +18,7 @@ import butterknife.ButterKnife
 import com.bumptech.glide.Glide
 import com.scudderapps.moviesup.adapter.CastListAdapter
 import com.scudderapps.moviesup.adapter.TrailerListAdapter
-import com.scudderapps.moviesup.api.POSTER_BASE_URL
+import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.*
@@ -151,8 +151,8 @@ class MovieDetailActivity : AppCompatActivity() {
         moviePosters = it.posters
         var mediaPosterURL = moviePosters.get(0).filePath
         var mediaBackdropURL = movieBackdrops.get(0).filePath
-        val mediaPosterUrl: String = POSTER_BASE_URL + mediaPosterURL
-        val mediaBackdropUrl: String = POSTER_BASE_URL + mediaBackdropURL
+        val mediaPosterUrl: String = IMAGE_BASE_URL + mediaPosterURL
+        val mediaBackdropUrl: String = IMAGE_BASE_URL + mediaBackdropURL
         Glide.with(this).load(mediaPosterUrl).into(posterMedia)
         Glide.with(this).load(mediaBackdropUrl).into(backdropMedia)
 
@@ -165,11 +165,10 @@ class MovieDetailActivity : AppCompatActivity() {
                 this,
                 moviePosters
             ) { posterMedia: ImageView, poster: Poster ->
-                Glide.with(this).load(POSTER_BASE_URL + poster.filePath).into(posterMedia)
+                Glide.with(this).load(IMAGE_BASE_URL + poster.filePath).into(posterMedia)
             }
                 .withHiddenStatusBar(false)
                 .show()
-
         })
 
         backdropMedia.setOnClickListener(View.OnClickListener {
@@ -178,11 +177,10 @@ class MovieDetailActivity : AppCompatActivity() {
                 this,
                 movieBackdrops
             ) { backdropMedia: ImageView, backdrop: Backdrop ->
-                Glide.with(this).load(POSTER_BASE_URL + backdrop.filePath).into(backdropMedia)
+                Glide.with(this).load(IMAGE_BASE_URL + backdrop.filePath).into(backdropMedia)
             }
                 .withHiddenStatusBar(false)
                 .show()
-
         })
     }
 
@@ -204,8 +202,8 @@ class MovieDetailActivity : AppCompatActivity() {
             genresName.append("\u25CF ${i.name}  ")
         }
 
-        val moviePosterURL: String = POSTER_BASE_URL + it.posterPath
-        val backDropURL: String = POSTER_BASE_URL + it.backdropPath
+        val moviePosterURL: String = IMAGE_BASE_URL + it.posterPath
+        val backDropURL: String = IMAGE_BASE_URL + it.backdropPath
 
         Glide.with(this)
             .load(backDropURL)

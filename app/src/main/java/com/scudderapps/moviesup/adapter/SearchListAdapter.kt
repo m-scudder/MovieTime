@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.scudderapps.moviesup.MovieDetailActivity
 import com.scudderapps.moviesup.R
-import com.scudderapps.moviesup.api.POSTER_BASE_URL
+import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.models.Movie
 import kotlinx.android.synthetic.main.search_list_item.view.*
 
@@ -38,7 +38,7 @@ class SearchListAdapter(private val movies: ArrayList<Movie>, private val contex
             itemView.search_title.text = movie?.title
             itemView.search_rating_view.text = "\uD83C\uDF1F " + movie?.voteAverage.toString()
 
-            val posterUrl = POSTER_BASE_URL + movie?.posterPath
+            val posterUrl = IMAGE_BASE_URL + movie?.posterPath
             Glide.with(itemView.context)
                 .load(posterUrl)
                 .into(itemView.search_image)

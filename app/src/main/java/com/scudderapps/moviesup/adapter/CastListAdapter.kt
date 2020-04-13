@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.scudderapps.moviesup.CastDetailActivity
 import com.scudderapps.moviesup.R
-import com.scudderapps.moviesup.api.POSTER_BASE_URL
+import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.models.CastDetail
 import kotlinx.android.synthetic.main.cast_list_item.view.*
 
@@ -42,7 +42,7 @@ class CastListAdapter(private val cast: ArrayList<CastDetail>, private val conte
             this.cast = cast
             this.context = context
             itemView.cast_name.text = cast.name
-            val profileUrl = POSTER_BASE_URL + cast?.profilePath
+            val profileUrl = IMAGE_BASE_URL + cast?.profilePath
             Glide.with(view)
                 .load(profileUrl)
                 .placeholder(R.drawable.default_avatar)
