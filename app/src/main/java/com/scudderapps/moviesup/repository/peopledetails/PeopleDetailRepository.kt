@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
 import com.scudderapps.moviesup.models.MovieCredits
 import com.scudderapps.moviesup.models.PeopleDetails
+import com.scudderapps.moviesup.models.PeopleImages
 import io.reactivex.disposables.CompositeDisposable
 
 class PeopleDetailRepository(private val apiService: TheTMDBApiInterface) {
@@ -36,6 +37,20 @@ class PeopleDetailRepository(private val apiService: TheTMDBApiInterface) {
         peopleDetailDataSource.fetchMovieCredits(peopleID)
 
         return peopleDetailDataSource.movieCreditsResponse
+    }
+
+    fun fetchingPeopleImages(
+        compositeDisposable: CompositeDisposable,
+        peopleID: Int
+    ): LiveData<PeopleImages> {
+        peopleDetailDataSource =
+            PeopleDetailDataSource(
+                apiService,
+                compositeDisposable
+            )
+        peopleDetailDataSource.fetchPeopleImages(peopleID)
+
+        return peopleDetailDataSource.peopleProfileImages
     }
 
 }

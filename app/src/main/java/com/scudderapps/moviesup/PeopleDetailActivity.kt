@@ -1,9 +1,9 @@
 package com.scudderapps.moviesup
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -23,8 +23,10 @@ import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.PeopleDetails
+import com.scudderapps.moviesup.models.PeopleProfileImages
 import com.scudderapps.moviesup.repository.peopledetails.PeopleDetailRepository
 import com.scudderapps.moviesup.viewmodel.PeopleDetailViewModel
+import com.stfalcon.imageviewer.StfalconImageViewer
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -58,12 +60,22 @@ class PeopleDetailActivity : AppCompatActivity() {
     @BindView(R.id.people_toolbar)
     lateinit var peopleToolbar: Toolbar
 
+    @BindView(R.id.images_layout)
+    lateinit var imagesLayout: LinearLayout
+
+    @BindView(R.id.people_media)
+    lateinit var peopleMedia: ImageView
+
+    @BindView(R.id.people_count)
+    lateinit var peopleCount: TextView
+
     lateinit var peopleDetailRepository: PeopleDetailRepository
     private lateinit var peopleDetailViewModel: PeopleDetailViewModel
     lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var textViewAdapter: TextViewAdapter
     private lateinit var movieAdapter: MovieAdapter
     private lateinit var linearLayoutManager2: LinearLayoutManager
+    private lateinit var peopleProfiles: List<PeopleProfileImages>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,11 +101,32 @@ class PeopleDetailActivity : AppCompatActivity() {
         })
 
         peopleDetailViewModel.movieCredits.observe(this, Observer {
-            Log.d("cast", it.cast.toString())
             movieAdapter = MovieAdapter(it.cast, this)
             movieCreditList.layoutManager = linearLayoutManager2
             movieCreditList.setHasFixedSize(true)
             movieCreditList.adapter = movieAdapter
+        })
+        peopleDetailViewModel.peopleImages.observe(this, Observer {
+            peopleProfiles = it.profiles
+            if (!peopleProfiles.isNullOrEmpty()) {
+                imagesLayout.visibility = View.VISIBLE
+                var mediaPosterURL = peopleProfiles[0].filePath
+                val mediaPosterUrl: String = IMAGE_BASE_URL + mediaPosterURL
+                Glide.with(this).load(mediaPosterUrl).into(peopleMedia)
+                peopleCount.text = peopleProfiles.size.toString() + " Images"
+                peopleMedia.setOnClickListener(View.OnClickListener {
+                    StfalconImageViewer.Builder(
+                        this,
+                        peopleProfiles
+                    ) { posterMedia: ImageView, profile: PeopleProfileImages ->
+                        Glide.with(this).load(IMAGE_BASE_URL + profile.filePath).into(posterMedia)
+                    }
+                        .withHiddenStatusBar(false)
+                        .show()
+                })
+            } else {
+                imagesLayout.visibility = View.GONE
+            }
         })
 
     }
