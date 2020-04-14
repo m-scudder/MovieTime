@@ -1,6 +1,5 @@
 package com.scudderapps.moviesup
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -90,6 +89,12 @@ class MovieDetailActivity : AppCompatActivity() {
     @BindView(R.id.backdropLayout)
     lateinit var backdropLayout: LinearLayout
 
+    @BindView(R.id.trailer_layout)
+    lateinit var trailerLayout: LinearLayout
+
+    @BindView(R.id.synopsis_layout)
+    lateinit var synopsisLayout: LinearLayout
+
     private lateinit var viewModel: MovieDetailViewModel
     private lateinit var movieRepository: MovieDetailRepository
 
@@ -122,11 +127,15 @@ class MovieDetailActivity : AppCompatActivity() {
         viewModel = getViewModel(movieId)
 
         viewModel.videoDetails.observe(this, Observer {
-            trailerDetail = it.videosList
-            trailerAdapter = TrailerListAdapter(trailerDetail, this)
-            trailerList.layoutManager = linearLayoutManager
-            trailerList.setHasFixedSize(true)
-            trailerList.adapter = trailerAdapter
+
+            if (!it.videosList.isNullOrEmpty()) {
+                trailerAdapter = TrailerListAdapter(it.videosList, this)
+                trailerList.layoutManager = linearLayoutManager
+                trailerList.setHasFixedSize(true)
+                trailerList.adapter = trailerAdapter
+            } else {
+                trailerLayout.visibility = View.GONE
+            }
 
         })
 
@@ -144,7 +153,7 @@ class MovieDetailActivity : AppCompatActivity() {
         })
 
         viewModel.movieDetails.observe(this, Observer {
-            bindUI(it)
+            bindUi(it)
         })
 
         viewModel.networkState.observe(this, Observer {
@@ -160,7 +169,7 @@ class MovieDetailActivity : AppCompatActivity() {
             var mediaPosterURL = moviePosters[0].filePath
             val mediaPosterUrl: String = IMAGE_BASE_URL + mediaPosterURL
             Glide.with(this).load(mediaPosterUrl).into(posterMedia)
-            poster_count.text = moviePosters.size.toString() + " Posters"
+            poster_count.text = moviePosters.size.toString() + " Poster"
             posterMedia.setOnClickListener(View.OnClickListener {
                 StfalconImageViewer.Builder(
                     this,
@@ -179,7 +188,7 @@ class MovieDetailActivity : AppCompatActivity() {
             var mediaBackdropURL = movieBackdrops[0].filePath
             val mediaBackdropUrl: String = IMAGE_BASE_URL + mediaBackdropURL
             Glide.with(this).load(mediaBackdropUrl).into(backdropMedia)
-            backdrop_count.text = movieBackdrops.size.toString() + " Backdrops"
+            backdrop_count.text = movieBackdrops.size.toString() + " Backdrop"
             backdropMedia.setOnClickListener(View.OnClickListener {
                 StfalconImageViewer.Builder(
                     this,
@@ -196,7 +205,7 @@ class MovieDetailActivity : AppCompatActivity() {
         }
     }
 
-    fun bindUI(it: MovieDetail) {
+    private fun bindUi(it: MovieDetail) {
 
         val originalFormat: DateFormat = SimpleDateFormat("yyyy-MM-d", Locale.ENGLISH)
         val targetFormat: DateFormat = SimpleDateFormat(getString(R.string.dateFormat))
@@ -207,8 +216,12 @@ class MovieDetailActivity : AppCompatActivity() {
         releaseDate.text = formattedDate + "  ●"
         runTime.text = "${it.runtime} Min"
         status.text = it.status
-        movieOverview.text = it.overview
 
+        if (!it.overview.isNullOrEmpty()) {
+            movieOverview.text = it.overview
+        } else {
+            synopsisLayout.visibility = View.GONE
+        }
         val genre: ArrayList<Genre> = it.genres
         for (i in genre) {
             genresName.append("\u25CF ${i.name}  ")
@@ -238,7 +251,6 @@ class MovieDetailActivity : AppCompatActivity() {
         }
 
 
-
     }
 
     private fun getViewModel(movieId: Int): MovieDetailViewModel {
@@ -251,8 +263,7 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+        finish()
         super.onBackPressed()
     }
 }

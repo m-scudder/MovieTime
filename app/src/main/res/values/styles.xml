@@ -16,12 +16,6 @@
         <item name="colorControlNormal">@color/colorAccent</item>
     </style>
 
-    <style name="NumberTextTheme">
-        <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:fontFamily">@font/montserrat</item>
-        <item name="android:textSize">14sp</item>
-    </style>
-
     <style name="HeaderTheme">
         <item name="android:textColor">@color/orange</item>
         <item name="android:fontFamily">@font/montserrat</item>
@@ -39,30 +33,21 @@
     </style>
 
     <style name="TitleTheme">
-        <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:fontFamily">@font/raleway_medium</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textSize">18sp</item>
-    </style>
-
-    <style name="TitleTextTheme">
-        <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:fontFamily">@font/raleway_medium</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">12sp</item>
     </style>
 
-    <style name="DescriptionTheme">
+    <style name="MainTitleTheme">
         <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:fontFamily">@font/raleway_medium</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">13sp</item>
     </style>
 
-    <style name="ButtonTheme">
-        <item name="android:textColor">@color/colorPrimaryDark</item>
-        <item name="android:fontFamily">@font/lato</item>
-        <item name="android:textSize">15sp</item>
-        <item name="textAllCaps">false</item>
+    <style name="TitleTextTheme">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textStyle">bold</item>
+        <item name="alpha">0.6</item>
+        <item name="android:textSize">12sp</item>
     </style>
-
 </resources>

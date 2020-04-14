@@ -60,14 +60,24 @@ class PeopleDetailActivity : AppCompatActivity() {
     @BindView(R.id.people_toolbar)
     lateinit var peopleToolbar: Toolbar
 
-    @BindView(R.id.images_layout)
-    lateinit var imagesLayout: LinearLayout
-
     @BindView(R.id.people_media)
     lateinit var peopleMedia: ImageView
 
     @BindView(R.id.people_count)
     lateinit var peopleCount: TextView
+
+    @BindView(R.id.images_layout)
+    lateinit var imagesLayout: LinearLayout
+
+    @BindView(R.id.movie_credit_layout)
+    lateinit var movieCreditLayout: LinearLayout
+
+    @BindView(R.id.knonAs_layout)
+    lateinit var knownAsLayout: LinearLayout
+
+    @BindView(R.id.bio_layout)
+    lateinit var bioLayout: LinearLayout
+
 
     lateinit var peopleDetailRepository: PeopleDetailRepository
     private lateinit var peopleDetailViewModel: PeopleDetailViewModel
@@ -99,12 +109,16 @@ class PeopleDetailActivity : AppCompatActivity() {
         peopleDetailViewModel.peopleDetails.observe(this, Observer {
             bindUI(it)
         })
-
         peopleDetailViewModel.movieCredits.observe(this, Observer {
-            movieAdapter = MovieAdapter(it.cast, this)
-            movieCreditList.layoutManager = linearLayoutManager2
-            movieCreditList.setHasFixedSize(true)
-            movieCreditList.adapter = movieAdapter
+
+            if (!it.cast.isNullOrEmpty()) {
+                movieAdapter = MovieAdapter(it.cast, this)
+                movieCreditList.layoutManager = linearLayoutManager2
+                movieCreditList.setHasFixedSize(true)
+                movieCreditList.adapter = movieAdapter
+            } else {
+                movieCreditLayout.visibility = View.GONE
+            }
         })
         peopleDetailViewModel.peopleImages.observe(this, Observer {
             peopleProfiles = it.profiles
@@ -113,7 +127,7 @@ class PeopleDetailActivity : AppCompatActivity() {
                 var mediaPosterURL = peopleProfiles[0].filePath
                 val mediaPosterUrl: String = IMAGE_BASE_URL + mediaPosterURL
                 Glide.with(this).load(mediaPosterUrl).into(peopleMedia)
-                peopleCount.text = peopleProfiles.size.toString() + " Images"
+                peopleCount.text = peopleProfiles.size.toString() + " Image"
                 peopleMedia.setOnClickListener(View.OnClickListener {
                     StfalconImageViewer.Builder(
                         this,
@@ -138,29 +152,34 @@ class PeopleDetailActivity : AppCompatActivity() {
             val targetFormat: DateFormat = SimpleDateFormat(getString(R.string.dateFormat))
             val date: Date = originalFormat.parse(it.birthday)
             val formattedDate: String = targetFormat.format(date)
-            peopleBirthdate.text = "Born on : $formattedDate"
+            peopleBirthdate.text = formattedDate
         } else {
             peopleBirthdate.visibility = View.GONE
         }
 
-        if (!it.placeOfBirth.isNullOrEmpty()) {
-            peopleBirthplace.text = "From : " + it.placeOfBirth
-        } else {
-            peopleBirthplace.visibility = View.GONE
-        }
+
+        peopleBirthplace.text = it.placeOfBirth
         peopleName.text = it.name
-        peopleBiography.text = it.biography
+
+        if (!it.biography.isNullOrEmpty()) {
+            peopleBiography.text = it.biography
+        } else {
+            bioLayout.visibility = View.GONE
+        }
+        if (!it.alsoKnownAs.isNullOrEmpty()) {
+            textViewAdapter = TextViewAdapter(it.alsoKnownAs, this)
+            linearLayoutManager = LinearLayoutManager(this)
+            linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
+            alsoKnowAsView.layoutManager = linearLayoutManager
+            alsoKnowAsView.setHasFixedSize(true)
+            alsoKnowAsView.adapter = textViewAdapter
+        } else {
+            knownAsLayout.visibility = View.GONE
+        }
         var profilePath = it.profilePath
         val finalPath = IMAGE_BASE_URL + profilePath
-        peopleDepartment.text = "Department: " + it.knownForDepartment
+        peopleDepartment.text = it.knownForDepartment
         Glide.with(this).load(finalPath).into(peopleImage)
-
-        textViewAdapter = TextViewAdapter(it.alsoKnownAs, this)
-        linearLayoutManager = LinearLayoutManager(this)
-        linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
-        alsoKnowAsView.layoutManager = linearLayoutManager
-        alsoKnowAsView.setHasFixedSize(true)
-        alsoKnowAsView.adapter = textViewAdapter
 
     }
 

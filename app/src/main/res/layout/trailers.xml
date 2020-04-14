@@ -28,6 +28,6 @@
         android:layout_height="32dp"
         android:layout_gravity="bottom"
         android:gravity="center"
-        android:textAppearance="@style/DescriptionTheme" />
+        android:textAppearance="@style/TitleTextTheme" />
 
 </androidx.cardview.widget.CardView>

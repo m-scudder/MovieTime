@@ -69,7 +69,7 @@
                     android:layout_marginStart="13dp"
                     android:layout_marginTop="10dp"
                     android:text="@string/now_playing"
-                    android:textAppearance="@style/TitleTheme" />
+                    android:textAppearance="@style/MainTitleTheme" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/trendingMovieList"
@@ -84,7 +84,7 @@
                     android:layout_marginStart="13dp"
                     android:layout_marginTop="10dp"
                     android:text="@string/popular"
-                    android:textAppearance="@style/TitleTheme" />
+                    android:textAppearance="@style/MainTitleTheme" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/popularMovieList"
@@ -100,7 +100,7 @@
                     android:layout_marginStart="13dp"
                     android:layout_marginTop="10dp"
                     android:text="@string/upcoming"
-                    android:textAppearance="@style/TitleTheme" />
+                    android:textAppearance="@style/MainTitleTheme" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/upcomingMovieList"
@@ -116,7 +116,7 @@
                     android:layout_marginTop="10dp"
                     android:text="@string/popular_people"
                     android:textAlignment="viewStart"
-                    android:textAppearance="@style/TitleTheme" />
+                    android:textAppearance="@style/MainTitleTheme" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/peopleListView"
