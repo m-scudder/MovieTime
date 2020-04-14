@@ -1,5 +1,6 @@
 package com.scudderapps.moviesup
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -152,46 +153,46 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun setMedia(it: MediaResponse) {
-            movieBackdrops = it.backdrops
-            moviePosters = it.posters
-            if (!moviePosters.isNullOrEmpty()) {
-                posterLayout.visibility = View.VISIBLE
-                var mediaPosterURL = moviePosters[0].filePath
-                val mediaPosterUrl: String = IMAGE_BASE_URL + mediaPosterURL
-                Glide.with(this).load(mediaPosterUrl).into(posterMedia)
-                poster_count.text = moviePosters.size.toString() + " Posters"
-                posterMedia.setOnClickListener(View.OnClickListener {
-                    StfalconImageViewer.Builder(
-                        this,
-                        moviePosters
-                    ) { posterMedia: ImageView, poster: Poster ->
-                        Glide.with(this).load(IMAGE_BASE_URL + poster.filePath).into(posterMedia)
-                    }
-                        .withHiddenStatusBar(false)
-                        .show()
-                })
-            } else {
-                posterLayout.visibility = View.GONE
-            }
-            if (!movieBackdrops.isNullOrEmpty()) {
-                backdropLayout.visibility = View.VISIBLE
-                var mediaBackdropURL = movieBackdrops[0].filePath
-                val mediaBackdropUrl: String = IMAGE_BASE_URL + mediaBackdropURL
-                Glide.with(this).load(mediaBackdropUrl).into(backdropMedia)
-                backdrop_count.text = movieBackdrops.size.toString() + " Backdrops"
-                backdropMedia.setOnClickListener(View.OnClickListener {
-                    StfalconImageViewer.Builder(
-                        this,
-                        movieBackdrops
-                    ) { backdropMedia: ImageView, backdrop: Backdrop ->
-                        Glide.with(this).load(IMAGE_BASE_URL + backdrop.filePath)
-                            .into(backdropMedia)
-                    }
-                        .withHiddenStatusBar(false)
-                        .show()
-                })
-            } else{
-                backdropLayout.visibility = View.GONE
+        movieBackdrops = it.backdrops
+        moviePosters = it.posters
+        if (!moviePosters.isNullOrEmpty()) {
+            posterLayout.visibility = View.VISIBLE
+            var mediaPosterURL = moviePosters[0].filePath
+            val mediaPosterUrl: String = IMAGE_BASE_URL + mediaPosterURL
+            Glide.with(this).load(mediaPosterUrl).into(posterMedia)
+            poster_count.text = moviePosters.size.toString() + " Posters"
+            posterMedia.setOnClickListener(View.OnClickListener {
+                StfalconImageViewer.Builder(
+                    this,
+                    moviePosters
+                ) { posterMedia: ImageView, poster: Poster ->
+                    Glide.with(this).load(IMAGE_BASE_URL + poster.filePath).into(posterMedia)
+                }
+                    .withHiddenStatusBar(false)
+                    .show()
+            })
+        } else {
+            posterLayout.visibility = View.GONE
+        }
+        if (!movieBackdrops.isNullOrEmpty()) {
+            backdropLayout.visibility = View.VISIBLE
+            var mediaBackdropURL = movieBackdrops[0].filePath
+            val mediaBackdropUrl: String = IMAGE_BASE_URL + mediaBackdropURL
+            Glide.with(this).load(mediaBackdropUrl).into(backdropMedia)
+            backdrop_count.text = movieBackdrops.size.toString() + " Backdrops"
+            backdropMedia.setOnClickListener(View.OnClickListener {
+                StfalconImageViewer.Builder(
+                    this,
+                    movieBackdrops
+                ) { backdropMedia: ImageView, backdrop: Backdrop ->
+                    Glide.with(this).load(IMAGE_BASE_URL + backdrop.filePath)
+                        .into(backdropMedia)
+                }
+                    .withHiddenStatusBar(false)
+                    .show()
+            })
+        } else {
+            backdropLayout.visibility = View.GONE
         }
     }
 
@@ -213,16 +214,30 @@ class MovieDetailActivity : AppCompatActivity() {
             genresName.append("\u25CF ${i.name}  ")
         }
 
-        val moviePosterURL: String = IMAGE_BASE_URL + it.posterPath
-        val backDropURL: String = IMAGE_BASE_URL + it.backdropPath
+        if (!it.backdropPath.isNullOrEmpty()) {
+            var backDropURL: String = IMAGE_BASE_URL + it.backdropPath
+            Glide.with(this)
+                .load(backDropURL)
+                .into(backdropImage)
+        } else {
+            Glide.with(this)
+                .load(R.drawable.no_image_red)
+                .fitCenter()
+                .into(backdropImage)
+        }
 
-        Glide.with(this)
-            .load(backDropURL)
-            .into(backdropImage)
+        if (!it.posterPath.isNullOrEmpty()) {
+            val moviePosterURL: String = IMAGE_BASE_URL + it.posterPath
+            Glide.with(this)
+                .load(moviePosterURL)
+                .into(posterImage)
+        } else {
+            Glide.with(this)
+                .load(R.drawable.no_image_red)
+                .into(posterImage)
+        }
 
-        Glide.with(this)
-            .load(moviePosterURL)
-            .into(posterImage)
+
 
     }
 
@@ -235,5 +250,9 @@ class MovieDetailActivity : AppCompatActivity() {
         })[MovieDetailViewModel::class.java]
     }
 
-
+    override fun onBackPressed() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        super.onBackPressed()
+    }
 }

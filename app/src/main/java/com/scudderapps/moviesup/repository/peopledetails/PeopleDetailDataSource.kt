@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
+import com.scudderapps.moviesup.models.MovieCredits
 import com.scudderapps.moviesup.models.PeopleDetails
 import com.scudderapps.moviesup.repository.NetworkState
 import io.reactivex.disposables.CompositeDisposable
@@ -21,6 +22,11 @@ class PeopleDetailDataSource(
     val peopleDetailsResponse: LiveData<PeopleDetails>
         get() = _peopleDetailsResponse
 
+    private val _movieCreditsResponse = MutableLiveData<MovieCredits>()
+    val movieCreditsResponse: LiveData<MovieCredits>
+        get() = _movieCreditsResponse
+
+
     fun fetchPeopleDetails(peopleID: Int) {
         _networkState.postValue(NetworkState.LOADING)
 
@@ -30,6 +36,31 @@ class PeopleDetailDataSource(
                 ?.subscribe(
                     {
                         _peopleDetailsResponse.postValue(it)
+                        _networkState.postValue(NetworkState.LOADED)
+                    },
+                    {
+                        _networkState.postValue(NetworkState.ERROR)
+                        Log.e("PeopleDetailDataSource", it.message)
+                    }
+                )?.let {
+                    compositeDisposable.add(
+                        it
+                    )
+                }
+        } catch (e: Exception) {
+            Log.e("PeopleDetailDataSource", e.message)
+        }
+    }
+
+    fun fetchMovieCredits(peopleID: Int) {
+        _networkState.postValue(NetworkState.LOADING)
+
+        try {
+            apiService.getMovieCredits(peopleID)
+                ?.subscribeOn(Schedulers.io())
+                ?.subscribe(
+                    {
+                        _movieCreditsResponse.postValue(it)
                         _networkState.postValue(NetworkState.LOADED)
                     },
                     {

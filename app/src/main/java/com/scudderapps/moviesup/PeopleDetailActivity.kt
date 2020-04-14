@@ -17,13 +17,14 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.bumptech.glide.Glide
 import com.ms.square.android.expandabletextview.ExpandableTextView
+import com.scudderapps.moviesup.adapter.MovieAdapter
 import com.scudderapps.moviesup.adapter.TextViewAdapter
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.PeopleDetails
 import com.scudderapps.moviesup.repository.peopledetails.PeopleDetailRepository
-import com.scudderapps.moviesup.viewmodel.PeopleViewModel
+import com.scudderapps.moviesup.viewmodel.PeopleDetailViewModel
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -48,17 +49,21 @@ class PeopleDetailActivity : AppCompatActivity() {
     @BindView(R.id.also_known_as_view)
     lateinit var alsoKnowAsView: RecyclerView
 
+    @BindView(R.id.movie_credits_list)
+    lateinit var movieCreditList: RecyclerView
+
     @BindView(R.id.people_bio)
     lateinit var peopleBiography: ExpandableTextView
-
 
     @BindView(R.id.people_toolbar)
     lateinit var peopleToolbar: Toolbar
 
     lateinit var peopleDetailRepository: PeopleDetailRepository
-    private lateinit var peopleViewModel: PeopleViewModel
+    private lateinit var peopleDetailViewModel: PeopleDetailViewModel
     lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var textViewAdapter: TextViewAdapter
+    private lateinit var movieAdapter: MovieAdapter
+    private lateinit var linearLayoutManager2: LinearLayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,12 +76,24 @@ class PeopleDetailActivity : AppCompatActivity() {
         val peopleDetails = intent.extras
         val id: Int = peopleDetails!!.getInt("id")
 
+        linearLayoutManager2 = LinearLayoutManager(this)
+        linearLayoutManager2.reverseLayout = false
+        linearLayoutManager2.orientation = LinearLayoutManager.HORIZONTAL
+
         val apiService: TheTMDBApiInterface = TheTMDBClient.getClient()
         peopleDetailRepository = PeopleDetailRepository(apiService)
-        peopleViewModel = getViewMode(id)
+        peopleDetailViewModel = getViewMode(id)
 
-        peopleViewModel.peopleDetails.observe(this, Observer {
+        peopleDetailViewModel.peopleDetails.observe(this, Observer {
             bindUI(it)
+        })
+
+        peopleDetailViewModel.movieCredits.observe(this, Observer {
+            Log.d("cast", it.cast.toString())
+            movieAdapter = MovieAdapter(it.cast, this)
+            movieCreditList.layoutManager = linearLayoutManager2
+            movieCreditList.setHasFixedSize(true)
+            movieCreditList.adapter = movieAdapter
         })
 
     }
@@ -88,13 +105,13 @@ class PeopleDetailActivity : AppCompatActivity() {
             val targetFormat: DateFormat = SimpleDateFormat(getString(R.string.dateFormat))
             val date: Date = originalFormat.parse(it.birthday)
             val formattedDate: String = targetFormat.format(date)
-            peopleBirthdate.text = "Date of birth: $formattedDate"
+            peopleBirthdate.text = "Born on : $formattedDate"
         } else {
             peopleBirthdate.visibility = View.GONE
         }
 
         if (!it.placeOfBirth.isNullOrEmpty()) {
-            peopleBirthplace.text = "Born : " + it.placeOfBirth
+            peopleBirthplace.text = "From : " + it.placeOfBirth
         } else {
             peopleBirthplace.visibility = View.GONE
         }
@@ -105,7 +122,6 @@ class PeopleDetailActivity : AppCompatActivity() {
         peopleDepartment.text = "Department: " + it.knownForDepartment
         Glide.with(this).load(finalPath).into(peopleImage)
 
-        Log.v("list", it.alsoKnownAs.toString())
         textViewAdapter = TextViewAdapter(it.alsoKnownAs, this)
         linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
@@ -115,12 +131,12 @@ class PeopleDetailActivity : AppCompatActivity() {
 
     }
 
-    private fun getViewMode(peopleID: Int): PeopleViewModel {
+    private fun getViewMode(peopleID: Int): PeopleDetailViewModel {
         return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 @Suppress("UNCHECKED_CAST")
-                return PeopleViewModel(peopleDetailRepository, peopleID) as T
+                return PeopleDetailViewModel(peopleDetailRepository, peopleID) as T
             }
-        })[PeopleViewModel::class.java]
+        })[PeopleDetailViewModel::class.java]
     }
 }

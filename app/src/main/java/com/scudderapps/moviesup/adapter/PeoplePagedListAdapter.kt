@@ -78,11 +78,17 @@ class PeoplePagedListAdapter(private val context: Context) :
     class PeopleItemVieHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bindMovieData(people: People?, context: Context) {
             itemView.peopleName.text = people?.name
-            val posterUrl = IMAGE_BASE_URL + people?.profilePath
-            Glide.with(itemView.context)
-                .load(posterUrl)
-                .into(itemView.peopleImage)
 
+            if (!people?.profilePath.isNullOrEmpty()) {
+                val posterUrl = IMAGE_BASE_URL + people?.profilePath
+                Glide.with(itemView.context)
+                    .load(posterUrl)
+                    .into(itemView.peopleImage)
+            } else {
+                Glide.with(itemView.context)
+                    .load(R.drawable.default_avatar)
+                    .into(itemView.peopleImage)
+            }
             itemView.setOnClickListener {
 
                 val intent = Intent(context, PeopleDetailActivity::class.java)

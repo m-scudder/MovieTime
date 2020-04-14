@@ -2,6 +2,7 @@ package com.scudderapps.moviesup.repository.peopledetails
 
 import androidx.lifecycle.LiveData
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
+import com.scudderapps.moviesup.models.MovieCredits
 import com.scudderapps.moviesup.models.PeopleDetails
 import io.reactivex.disposables.CompositeDisposable
 
@@ -21,6 +22,20 @@ class PeopleDetailRepository(private val apiService: TheTMDBApiInterface) {
         peopleDetailDataSource.fetchPeopleDetails(peopleID)
 
         return peopleDetailDataSource.peopleDetailsResponse
+    }
+
+    fun fetchingMovieCredits(
+        compositeDisposable: CompositeDisposable,
+        peopleID: Int
+    ): LiveData<MovieCredits> {
+        peopleDetailDataSource =
+            PeopleDetailDataSource(
+                apiService,
+                compositeDisposable
+            )
+        peopleDetailDataSource.fetchMovieCredits(peopleID)
+
+        return peopleDetailDataSource.movieCreditsResponse
     }
 
 }

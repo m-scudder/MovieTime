@@ -42,11 +42,16 @@ class CastListAdapter(private val cast: ArrayList<CastDetail>, private val conte
             this.cast = cast
             this.context = context
             itemView.peopleName.text = cast.name
-            val profileUrl = IMAGE_BASE_URL + cast?.profilePath
-            Glide.with(view)
-                .load(profileUrl)
-                .placeholder(R.drawable.default_avatar)
-                .into(itemView.peopleImage)
+            if (!cast.profilePath.isNullOrEmpty()) {
+                val profileUrl = IMAGE_BASE_URL + cast?.profilePath
+                Glide.with(view)
+                    .load(profileUrl)
+                    .into(itemView.peopleImage)
+            } else {
+                Glide.with(view)
+                    .load(R.drawable.no_image_red)
+                    .into(itemView.peopleImage)
+            }
 
             itemView.setOnClickListener(View.OnClickListener {
 

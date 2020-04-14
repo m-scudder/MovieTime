@@ -12,8 +12,6 @@ import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.api.TRAILER_THUMBNAIL_BASE_URL
 import com.scudderapps.moviesup.api.TRAILER_THUMBNAIL_END_URL
 import com.scudderapps.moviesup.models.VideoDetail
-import com.scudderapps.moviesup.repository.NetworkState
-import kotlinx.android.synthetic.main.network_state_item.view.*
 import kotlinx.android.synthetic.main.trailers.view.*
 
 
@@ -54,13 +52,6 @@ class TrailerListAdapter(private val videos: ArrayList<VideoDetail>, private val
                 intent.setPackage("com.google.android.youtube")
                 context.startActivity(intent)
             })
-        }
-        fun bindNetworkState(networkState: NetworkState?) {
-            if (networkState != null && networkState == NetworkState.LOADING) {
-                itemView.networkStateBar.visibility = View.VISIBLE
-            } else if (networkState != null && networkState == NetworkState.LOADED) {
-                itemView.networkStateBar.visibility = View.GONE
-            }
         }
     }
 }

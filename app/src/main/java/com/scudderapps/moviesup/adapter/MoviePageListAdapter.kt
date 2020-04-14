@@ -80,10 +80,16 @@ class MoviePageListAdapter(private val context: Context) :
             itemView.title.text = movie?.title
             itemView.rating_view.text = "\uD83C\uDF1F " + movie?.voteAverage.toString()
 
-            val posterUrl = IMAGE_BASE_URL + movie?.posterPath
-            Glide.with(itemView.context)
-                .load(posterUrl)
-                .into(itemView.movie_image)
+            if (!movie?.posterPath.isNullOrEmpty()) {
+                val posterUrl = IMAGE_BASE_URL + movie?.posterPath
+                Glide.with(itemView.context)
+                    .load(posterUrl)
+                    .into(itemView.movie_image)
+            } else {
+                Glide.with(itemView.context)
+                    .load(R.drawable.default_avatar)
+                    .into(itemView.movie_image)
+            }
 
             itemView.setOnClickListener {
 

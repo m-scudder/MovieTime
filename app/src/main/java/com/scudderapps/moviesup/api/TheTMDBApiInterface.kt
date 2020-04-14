@@ -48,4 +48,9 @@ interface TheTMDBApiInterface {
     fun getPeopleDetails(
         @Path("id") id: Int
     ): Single<PeopleDetails>
+
+    @GET("person/{id}/movie_credits")
+    fun getMovieCredits(
+        @Path("id") id: Int
+    ): Single<MovieCredits>
 }
