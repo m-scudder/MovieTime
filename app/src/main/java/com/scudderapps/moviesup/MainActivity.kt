@@ -6,11 +6,15 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.*
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
@@ -19,7 +23,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.scudderapps.moviesup.adapter.GenreListAdapter
 import com.scudderapps.moviesup.adapter.MoviePageListAdapter
 import com.scudderapps.moviesup.adapter.PeoplePagedListAdapter
-import com.scudderapps.moviesup.adapter.TextViewAdapter
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.repository.NetworkState
@@ -68,11 +71,14 @@ class MainActivity : AppCompatActivity() {
     @BindView(R.id.tryAgainBtn)
     lateinit var try_again_btn: TextView
 
-    @BindView(R.id.movie_layout)
-    lateinit var movieLayout: LinearLayout
-
     @BindView(R.id.searchFab)
     lateinit var searchFabBtn: FloatingActionButton
+
+    @BindView(R.id.main_progress_bar)
+    lateinit var mainProgressBar: ProgressBar
+
+    @BindView(R.id.movie_layout)
+    lateinit var movieLayout: LinearLayout
 
     private lateinit var listViewModel: MovieListViewModel
     private lateinit var peopleViewModel: PeopleListViewModel
@@ -128,12 +134,12 @@ class MainActivity : AppCompatActivity() {
                     errorLayout.visibility = View.VISIBLE
                     movieLayout.visibility = View.GONE
                     errorTextView.text = getString(R.string.no_internet_connection)
-
                 }
             })
             errorLayout.visibility = View.VISIBLE
             errorTextView.text = getString(R.string.no_internet_connection)
             movieLayout.visibility = View.GONE
+            searchFabBtn.visibility = View.GONE
         }
 
         searchFabBtn.setOnClickListener(View.OnClickListener {
@@ -169,7 +175,6 @@ class MainActivity : AppCompatActivity() {
         })[GenresViewModel::class.java]
     }
 
-
     private fun isNetworkAvailable(): Boolean {
         val connectivityManager =
             getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -181,6 +186,7 @@ class MainActivity : AppCompatActivity() {
 
         errorLayout.visibility = View.GONE
         movieLayout.visibility = View.VISIBLE
+        searchFabBtn.visibility = View.VISIBLE
         listViewModel.popularMoviePagedList.observe(this, Observer {
             popularAdapter.submitList(it)
             popularMovieView.layoutManager = linearLayoutManager
@@ -203,7 +209,17 @@ class MainActivity : AppCompatActivity() {
         })
 
         listViewModel.networkState.observe(this, Observer {
-            if (listViewModel.listIsEmpty() && it == NetworkState.LOADING || it == NetworkState.LOADED) {
+
+            if (listViewModel.listIsEmpty() && it == NetworkState.LOADING) {
+                mainProgressBar.visibility = View.VISIBLE
+                movieLayout.visibility = View.GONE
+                searchFabBtn.visibility = View.GONE
+            } else {
+                mainProgressBar.visibility = View.GONE
+                movieLayout.visibility = View.VISIBLE
+                searchFabBtn.visibility = View.VISIBLE
+            }
+            if (!listViewModel.listIsEmpty() && it == NetworkState.LOADED) {
                 popularAdapter.setNetworkState(it)
                 trendingAdapter.setNetworkState(it)
                 upcomingAdapter.setNetworkState(it)
@@ -217,11 +233,11 @@ class MainActivity : AppCompatActivity() {
             peopleListView.adapter = peopleAdapter
         })
 
-        peopleViewModel.networkState.observe(this, Observer {
-            if (peopleViewModel.listIsEmpty() && it == NetworkState.LOADING || it == NetworkState.LOADED) {
-                peopleAdapter.setNetworkState(it)
-            }
-        })
+//        peopleViewModel.networkState.observe(this, Observer {
+//            if (peopleViewModel.listIsEmpty() && it == NetworkState.LOADING || it == NetworkState.LOADED) {
+//                peopleAdapter.setNetworkState(it)
+//            }
+//        })
 
         genresViewModel.genresList.observe(this, Observer {
             genreAdapter = GenreListAdapter(it.genres, this)

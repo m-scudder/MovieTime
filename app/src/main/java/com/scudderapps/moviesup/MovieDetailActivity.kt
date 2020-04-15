@@ -95,6 +95,9 @@ class MovieDetailActivity : AppCompatActivity() {
     @BindView(R.id.synopsis_layout)
     lateinit var synopsisLayout: LinearLayout
 
+    @BindView(R.id.genres_layout)
+    lateinit var genresLayout: LinearLayout
+
     private lateinit var viewModel: MovieDetailViewModel
     private lateinit var movieRepository: MovieDetailRepository
 
@@ -184,7 +187,7 @@ class MovieDetailActivity : AppCompatActivity() {
                     .show()
             })
         } else {
-            Glide.with(this).load(R.color.colorPrimary).into(posterMedia)
+            Glide.with(this).load(R.drawable.no_image_found).centerInside().into(posterMedia)
             poster_count.text = "No Posters"
         }
         if (!movieBackdrops.isNullOrEmpty()) {
@@ -209,20 +212,22 @@ class MovieDetailActivity : AppCompatActivity() {
                     .show()
             })
         } else {
-            Glide.with(this).load(R.color.colorPrimary).into(backdropMedia)
+            Glide.with(this).load(R.drawable.no_image_found).centerInside().into(backdropMedia)
             backdrop_count.text = "No Backdrops"
         }
     }
 
     private fun bindUi(it: MovieDetail) {
 
-        val originalFormat: DateFormat = SimpleDateFormat("yyyy-MM-d", Locale.ENGLISH)
-        val targetFormat: DateFormat = SimpleDateFormat(getString(R.string.dateFormat))
-        val date: Date = originalFormat.parse(it.releaseDate)
-        val formattedDate: String = targetFormat.format(date)
+        if (!it.releaseDate.isNullOrEmpty()) {
+            val originalFormat: DateFormat = SimpleDateFormat("yyyy-MM-d", Locale.ENGLISH)
+            val targetFormat: DateFormat = SimpleDateFormat(getString(R.string.dateFormat))
+            val date: Date = originalFormat.parse(it.releaseDate)
+            val formattedDate: String = targetFormat.format(date)
+            releaseDate.text = formattedDate + "  ●"
+        }
 
         title.text = it.title
-        releaseDate.text = formattedDate + "  ●"
         runTime.text = "${it.runtime} Min"
         status.text = it.status
 
@@ -232,8 +237,12 @@ class MovieDetailActivity : AppCompatActivity() {
             synopsisLayout.visibility = View.GONE
         }
         val genre: ArrayList<Genre> = it.genres
-        for (i in genre) {
-            genresName.append("\u25CF ${i.name}  ")
+        if(!genre.isNullOrEmpty()) {
+            for (i in genre) {
+                genresName.append("\u25CF ${i.name}  ")
+            }
+        } else{
+            genresLayout.visibility = View.GONE
         }
 
         if (!it.backdropPath.isNullOrEmpty()) {
@@ -243,8 +252,8 @@ class MovieDetailActivity : AppCompatActivity() {
                 .into(backdropImage)
         } else {
             Glide.with(this)
-                .load(R.drawable.no_image_red)
-                .fitCenter()
+                .load(R.drawable.no_image_found)
+                .centerInside()
                 .into(backdropImage)
         }
 
@@ -255,7 +264,8 @@ class MovieDetailActivity : AppCompatActivity() {
                 .into(posterImage)
         } else {
             Glide.with(this)
-                .load(R.drawable.no_image_red)
+                .load(R.drawable.no_image_found)
+                .centerInside()
                 .into(posterImage)
         }
 

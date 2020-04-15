@@ -38,10 +38,16 @@ class SearchListAdapter(private val movies: ArrayList<Movie>, private val contex
             itemView.search_title.text = movie?.title
             itemView.search_rating_view.text = "\uD83C\uDF1F " + movie?.voteAverage.toString()
 
-            val posterUrl = IMAGE_BASE_URL + movie?.posterPath
-            Glide.with(itemView.context)
-                .load(posterUrl)
-                .into(itemView.search_image)
+            if (!movie?.posterPath.isNullOrEmpty()) {
+                val posterUrl = IMAGE_BASE_URL + movie?.posterPath
+                Glide.with(itemView.context)
+                    .load(posterUrl)
+                    .into(itemView.search_image)
+            } else {
+                Glide.with(itemView.context)
+                    .load(R.drawable.no_image_found)
+                    .into(itemView.search_image)
+            }
 
             itemView.setOnClickListener {
 

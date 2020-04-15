@@ -127,7 +127,11 @@ class PeopleDetailActivity : AppCompatActivity() {
                 var mediaPosterURL = peopleProfiles[0].filePath
                 val mediaPosterUrl: String = IMAGE_BASE_URL + mediaPosterURL
                 Glide.with(this).load(mediaPosterUrl).into(peopleMedia)
-                peopleCount.text = peopleProfiles.size.toString() + " Image"
+                if (peopleProfiles.size == 1) {
+                    peopleCount.text = peopleProfiles.size.toString() + " Image"
+                } else {
+                    peopleCount.text = peopleProfiles.size.toString() + " Images"
+                }
                 peopleMedia.setOnClickListener(View.OnClickListener {
                     StfalconImageViewer.Builder(
                         this,
@@ -139,7 +143,8 @@ class PeopleDetailActivity : AppCompatActivity() {
                         .show()
                 })
             } else {
-                imagesLayout.visibility = View.GONE
+                Glide.with(this).load(R.drawable.no_image_found).centerInside().into(peopleMedia)
+                peopleCount.text = "No Images"
             }
         })
 
@@ -156,7 +161,6 @@ class PeopleDetailActivity : AppCompatActivity() {
         } else {
             peopleBirthdate.visibility = View.GONE
         }
-
 
         peopleBirthplace.text = it.placeOfBirth
         peopleName.text = it.name
@@ -176,10 +180,14 @@ class PeopleDetailActivity : AppCompatActivity() {
         } else {
             knownAsLayout.visibility = View.GONE
         }
-        var profilePath = it.profilePath
-        val finalPath = IMAGE_BASE_URL + profilePath
         peopleDepartment.text = it.knownForDepartment
-        Glide.with(this).load(finalPath).into(peopleImage)
+        var profilePath = it.profilePath
+        if (!profilePath.isNullOrEmpty()) {
+            val finalPath = IMAGE_BASE_URL + profilePath
+            Glide.with(this).load(finalPath).into(peopleImage)
+        } else {
+            Glide.with(this).load(R.drawable.no_image_found).into(peopleImage)
+        }
 
     }
 

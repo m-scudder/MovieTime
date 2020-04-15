@@ -87,7 +87,8 @@ class MoviePageListAdapter(private val context: Context) :
                     .into(itemView.movie_image)
             } else {
                 Glide.with(itemView.context)
-                    .load(R.drawable.default_avatar)
+                    .load(R.drawable.no_image_found)
+                    .centerInside()
                     .into(itemView.movie_image)
             }
 

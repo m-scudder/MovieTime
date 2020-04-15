@@ -54,7 +54,8 @@ class MovieAdapter(private val movies: List<Cast>, private val context: Context)
                     .into(view.movie_image)
             } else {
                 Glide.with(itemView.context)
-                    .load(R.drawable.default_avatar)
+                    .load(R.drawable.no_image_found)
+                    .centerInside()
                     .into(view.movie_image)
             }
 

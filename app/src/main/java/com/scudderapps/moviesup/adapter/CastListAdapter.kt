@@ -49,7 +49,7 @@ class CastListAdapter(private val cast: ArrayList<CastDetail>, private val conte
                     .into(itemView.peopleImage)
             } else {
                 Glide.with(view)
-                    .load(R.drawable.no_image_red)
+                    .load(R.drawable.default_avatar)
                     .into(itemView.peopleImage)
             }
 

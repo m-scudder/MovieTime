@@ -13,7 +13,6 @@
         android:layout_height="match_parent"
         android:background="@drawable/card_background"
         android:padding="8dp"
-        android:alpha="0.4"
         android:textAlignment="viewStart"
         android:textAppearance="@style/TitleTextTheme" />
 

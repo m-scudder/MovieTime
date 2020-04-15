@@ -98,7 +98,7 @@ class SearchActivity : AppCompatActivity() {
                 )
             }
         disposable.add(observer)
-        publishSubject.onNext(" ")
+        publishSubject.onNext("")
     }
 
     private fun getSearchObserver(): DisposableObserver<MovieResponse> {
@@ -109,7 +109,6 @@ class SearchActivity : AppCompatActivity() {
                 Log.d("List", movies.movieList.toString())
                 Log.d("Size", movies.totalResults.toString())
                 searchAdapter.notifyDataSetChanged()
-
             }
 
             override fun onError(e: Throwable) {

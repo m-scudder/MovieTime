@@ -33,7 +33,7 @@
     </style>
 
     <style name="TitleTheme">
-        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/dark_gray</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">12sp</item>
     </style>

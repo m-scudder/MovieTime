@@ -71,7 +71,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/colorPrimary"
-                        android:scaleType="centerCrop"
                         tools:ignore="ContentDescription" />
 
                 </androidx.cardview.widget.CardView>
@@ -143,6 +142,12 @@
                 android:padding="8dp"
                 android:visibility="gone" />
 
+            <LinearLayout
+                android:id="@+id/genres_layout"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/geners"
                 android:layout_width="wrap_content"
@@ -161,6 +166,8 @@
                 android:layout_marginTop="10dp"
                 android:textAlignment="viewStart"
                 android:textAppearance="@style/TitleTextTheme" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/synopsis_layout"
