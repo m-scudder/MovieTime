@@ -41,6 +41,7 @@ class GenreListAdapter(private val details: List<Genre>, private val context: Co
             itemView.setOnClickListener(View.OnClickListener {
                 val intent = Intent(context, DiscoverMovie::class.java)
                 intent.putExtra("id", genre?.id)
+                intent.putExtra("name", genre?.name)
                 context.startActivity(intent)
             })
         }

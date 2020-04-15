@@ -21,7 +21,6 @@
         android:layout_gravity="bottom|center"
         android:layout_margin="4dp"
         android:gravity="center"
-        android:textAppearance="@style/TitleTextTheme"
-        android:transitionName="peopleNameTransition" />
+        android:textAppearance="@style/TitleTextTheme" />
 
 </LinearLayout>

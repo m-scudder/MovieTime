@@ -17,7 +17,7 @@ class MovieListViewModel(private val movieRepository: MoviePagedListRepository) 
         movieRepository.fetchingMovieList(compositeDisposable, "popular")
     }
 
-    val topRatedMoviePagedList: LiveData<PagedList<Movie>> by lazy {
+    val nowPlayingMoviePagedList: LiveData<PagedList<Movie>> by lazy {
         movieRepository.fetchingMovieList(compositeDisposable, "now_playing")
     }
 
@@ -29,11 +29,16 @@ class MovieListViewModel(private val movieRepository: MoviePagedListRepository) 
         movieRepository.getNetworkState()
     }
 
-    fun listIsEmpty(): Boolean {
+    fun popularListIsEmpty(): Boolean {
+        return popularMoviePagedList.value?.isEmpty() ?: true
+    }
 
-        return popularMoviePagedList.value?.isEmpty() ?: true &&
-                topRatedMoviePagedList.value?.isEmpty() ?: true &&
-                upcomingMoviePagedList.value?.isEmpty() ?: true
+    fun upcomingListIsEmpty(): Boolean {
+        return upcomingMoviePagedList.value?.isEmpty() ?: true
+    }
+
+    fun nowPlayingListIsEmpty(): Boolean {
+        return nowPlayingMoviePagedList.value?.isEmpty() ?: true
     }
 
     override fun onCleared() {

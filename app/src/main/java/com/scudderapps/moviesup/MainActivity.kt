@@ -41,8 +41,8 @@ class MainActivity : AppCompatActivity() {
     @BindView(R.id.popularMovieList)
     lateinit var popularMovieView: RecyclerView
 
-    @BindView(R.id.trendingMovieList)
-    lateinit var trendingMovieView: RecyclerView
+    @BindView(R.id.nowPlayingMovieList)
+    lateinit var nowPlayingMovieView: RecyclerView
 
     @BindView(R.id.upcomingMovieList)
     lateinit var upcomingMovieView: RecyclerView
@@ -53,20 +53,14 @@ class MainActivity : AppCompatActivity() {
     @BindView(R.id.peopleListView)
     lateinit var peopleListView: RecyclerView
 
-    @BindView(R.id.errorTextPopular)
-    lateinit var errorTextView: TextView
-
-    @BindView(R.id.popular)
-    lateinit var popularTextView: TextView
-
-    @BindView(R.id.trending)
-    lateinit var trendingTextView: TextView
-
-    @BindView(R.id.upcoming)
-    lateinit var upcomingTextView: TextView
+    @BindView(R.id.movie_layout)
+    lateinit var movieLayout: LinearLayout
 
     @BindView(R.id.error_layout)
     lateinit var errorLayout: LinearLayout
+
+    @BindView(R.id.errorTextPopular)
+    lateinit var errorTextView: TextView
 
     @BindView(R.id.tryAgainBtn)
     lateinit var try_again_btn: TextView
@@ -77,8 +71,17 @@ class MainActivity : AppCompatActivity() {
     @BindView(R.id.main_progress_bar)
     lateinit var mainProgressBar: ProgressBar
 
-    @BindView(R.id.movie_layout)
-    lateinit var movieLayout: LinearLayout
+    @BindView(R.id.now_playing_bar)
+    lateinit var nowPlayingBar: ProgressBar
+
+    @BindView(R.id.popular_bar)
+    lateinit var popularBar: ProgressBar
+
+    @BindView(R.id.upcoming_bar)
+    lateinit var upcomingBar: ProgressBar
+
+    @BindView(R.id.people_bar)
+    lateinit var peopleBar: ProgressBar
 
     private lateinit var listViewModel: MovieListViewModel
     private lateinit var peopleViewModel: PeopleListViewModel
@@ -87,7 +90,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var peoplePagedListRepository: PeoplePagedListRepository
     lateinit var genreRepository: GenreRepository
     private val popularAdapter = MoviePageListAdapter(this)
-    private val trendingAdapter = MoviePageListAdapter(this)
+    private val nowPlayingAdapter = MoviePageListAdapter(this)
     private val upcomingAdapter = MoviePageListAdapter(this)
     private val peopleAdapter = PeoplePagedListAdapter(this)
     private lateinit var genreAdapter: GenreListAdapter
@@ -194,11 +197,11 @@ class MainActivity : AppCompatActivity() {
             popularMovieView.adapter = popularAdapter
 
         })
-        listViewModel.topRatedMoviePagedList.observe(this, Observer {
-            trendingAdapter.submitList(it)
-            trendingMovieView.layoutManager = linearLayoutManager2
-            trendingMovieView.setHasFixedSize(true)
-            trendingMovieView.adapter = trendingAdapter
+        listViewModel.nowPlayingMoviePagedList.observe(this, Observer {
+            nowPlayingAdapter.submitList(it)
+            nowPlayingMovieView.layoutManager = linearLayoutManager2
+            nowPlayingMovieView.setHasFixedSize(true)
+            nowPlayingMovieView.adapter = nowPlayingAdapter
         })
 
         listViewModel.upcomingMoviePagedList.observe(this, Observer {
@@ -210,18 +213,21 @@ class MainActivity : AppCompatActivity() {
 
         listViewModel.networkState.observe(this, Observer {
 
-            if (listViewModel.listIsEmpty() && it == NetworkState.LOADING) {
-                mainProgressBar.visibility = View.VISIBLE
-                movieLayout.visibility = View.GONE
-                searchFabBtn.visibility = View.GONE
-            } else {
-                mainProgressBar.visibility = View.GONE
-                movieLayout.visibility = View.VISIBLE
-                searchFabBtn.visibility = View.VISIBLE
+            nowPlayingBar.visibility =
+                if (listViewModel.nowPlayingListIsEmpty() && it == NetworkState.LOADING) View.VISIBLE else View.GONE
+            if (!listViewModel.nowPlayingListIsEmpty()) {
+                nowPlayingAdapter.setNetworkState(it)
             }
-            if (!listViewModel.listIsEmpty() && it == NetworkState.LOADED) {
+
+            popularBar.visibility =
+                if (listViewModel.popularListIsEmpty() &&it == NetworkState.LOADING) View.VISIBLE else View.GONE
+            if (!listViewModel.popularListIsEmpty()) {
                 popularAdapter.setNetworkState(it)
-                trendingAdapter.setNetworkState(it)
+            }
+
+            upcomingBar.visibility =
+                if (listViewModel.upcomingListIsEmpty() &&it == NetworkState.LOADING) View.VISIBLE else View.GONE
+            if (!listViewModel.upcomingListIsEmpty()) {
                 upcomingAdapter.setNetworkState(it)
             }
         })
@@ -233,11 +239,13 @@ class MainActivity : AppCompatActivity() {
             peopleListView.adapter = peopleAdapter
         })
 
-//        peopleViewModel.networkState.observe(this, Observer {
-//            if (peopleViewModel.listIsEmpty() && it == NetworkState.LOADING || it == NetworkState.LOADED) {
-//                peopleAdapter.setNetworkState(it)
-//            }
-//        })
+        peopleViewModel.networkState.observe(this, Observer {
+            peopleBar.visibility =
+                if (peopleViewModel.peopleListIsEmpty() && it == NetworkState.LOADING) View.VISIBLE else View.GONE
+            if (!peopleViewModel.peopleListIsEmpty()) {
+                peopleAdapter.setNetworkState(it)
+            }
+        })
 
         genresViewModel.genresList.observe(this, Observer {
             genreAdapter = GenreListAdapter(it.genres, this)

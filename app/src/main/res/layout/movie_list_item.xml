@@ -49,7 +49,6 @@
         android:layout_height="36dp"
         android:layout_gravity="bottom"
         android:gravity="center"
-        android:textAppearance="@style/TitleTextTheme"
-        android:transitionName="titleTransition" />
+        android:textAppearance="@style/TitleTextTheme" />
 
 </androidx.cardview.widget.CardView>

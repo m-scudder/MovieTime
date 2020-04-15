@@ -42,6 +42,8 @@ class MovieDataSource(
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Movie>) {
+        networkState.postValue(NetworkState.LOADING)
+
         compositeDisposable.add(
             apiService.getMovieList(type, params.key)
                 ?.subscribeOn(Schedulers.io())

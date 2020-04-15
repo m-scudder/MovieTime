@@ -95,8 +95,7 @@ class PeoplePagedListAdapter(private val context: Context) :
                 intent.putExtra("id", people?.id)
                 val options = ActivityOptions.makeSceneTransitionAnimation(
                     context as Activity?,
-                    UtilPair<View, String>(itemView.peopleImage, "peopleImageTransition"),
-                    UtilPair<View, String>(itemView.peopleName, "peopleNameTransition")
+                    UtilPair<View, String>(itemView.peopleImage, "peopleImageTransition")
                 )
                 context.startActivity(intent, options.toBundle())
 

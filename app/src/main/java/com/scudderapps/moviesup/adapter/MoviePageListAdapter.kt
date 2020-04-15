@@ -98,8 +98,7 @@ class MoviePageListAdapter(private val context: Context) :
                 intent.putExtra("id", movie?.id)
                 val options = ActivityOptions.makeSceneTransitionAnimation(
                     context as Activity?,
-                    UtilPair<View, String>(itemView.itemCard, "imageTransition"),
-                    UtilPair<View, String>(itemView.title, "titleTransition")
+                    UtilPair<View, String>(itemView.itemCard, "imageTransition")
                 )
                 context.startActivity(intent, options.toBundle())
 
@@ -112,8 +111,17 @@ class MoviePageListAdapter(private val context: Context) :
         fun bind(networkState: NetworkState?) {
             if (networkState != null && networkState == NetworkState.LOADING) {
                 itemView.networkStateBar.visibility = View.VISIBLE
-            } else if (networkState != null && networkState == NetworkState.LOADED) {
+            } else {
                 itemView.networkStateBar.visibility = View.GONE
+            }
+            if (networkState != null && networkState == NetworkState.ERROR) {
+                itemView.networkTextView.visibility = View.VISIBLE
+                itemView.networkTextView.text = networkState.msg
+            } else if (networkState != null && networkState == NetworkState.ENDOFLIST) {
+                itemView.networkTextView.visibility = View.VISIBLE
+                itemView.networkTextView.text = "No more items"
+            } else {
+                itemView.networkTextView.visibility = View.GONE
             }
         }
     }

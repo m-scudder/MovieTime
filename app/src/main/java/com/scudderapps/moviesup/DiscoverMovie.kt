@@ -41,12 +41,14 @@ class DiscoverMovie : AppCompatActivity() {
         setContentView(R.layout.discover_movies)
         ButterKnife.bind(this)
         setSupportActionBar(discoverToolbar)
-        supportActionBar!!.title = "Discover"
-        supportActionBar!!.setDisplayShowHomeEnabled(true)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         val data = intent.extras
         var id = data!!.getInt("id")
+        var name = data!!.getString("name")
+        supportActionBar!!.title = "$name Movies"
+        supportActionBar!!.setDisplayShowHomeEnabled(true)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
 
         val apiService: TheTMDBApiInterface = TheTMDBClient.getClient()
         moviePagedListRepository = DiscoverPagedListRepository(apiService)

@@ -1,8 +1,6 @@
 package com.scudderapps.moviesup.adapter
 
 
-import android.app.Activity
-import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.util.Log
@@ -16,7 +14,6 @@ import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.models.Cast
 import kotlinx.android.synthetic.main.movie_list_item.view.*
-import android.util.Pair as UtilPair
 
 class MovieAdapter(private val movies: List<Cast>, private val context: Context) :
     RecyclerView.Adapter<MovieAdapter.MovieHolder>() {
@@ -63,12 +60,7 @@ class MovieAdapter(private val movies: List<Cast>, private val context: Context)
 
                 val intent = Intent(context, MovieDetailActivity::class.java)
                 intent.putExtra("id", movie?.id)
-                val options = ActivityOptions.makeSceneTransitionAnimation(
-                    context as Activity?,
-                    UtilPair<View, String>(itemView.itemCard, "imageTransition"),
-                    UtilPair<View, String>(itemView.title, "titleTransition")
-                )
-                context.startActivity(intent, options.toBundle())
+                context.startActivity(intent)
 
             }
         }

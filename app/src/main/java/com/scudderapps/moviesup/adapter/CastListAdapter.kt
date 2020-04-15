@@ -59,8 +59,7 @@ class CastListAdapter(private val cast: ArrayList<CastDetail>, private val conte
                 intent.putExtra("id", cast?.id)
                 val options = ActivityOptions.makeSceneTransitionAnimation(
                     context as Activity?,
-                    UtilPair<View, String>(itemView.peopleImage, "peopleImageTransition"),
-                    UtilPair<View, String>(itemView.peopleName, "peopleNameTransition")
+                    UtilPair<View, String>(itemView.peopleImage, "peopleImageTransition")
                 )
                 context.startActivity(intent, options.toBundle())
             })

@@ -36,7 +36,7 @@
                     android:layout_width="100dp"
                     android:layout_height="150dp"
                     android:layout_margin="8dp"
-                    android:transitionName="imageTransition"
+                    android:transitionName="peopleImageTransition"
                     app:cardCornerRadius="8dp">
 
                     <ImageView
@@ -59,7 +59,6 @@
                     android:layout_toEndOf="@id/peopleCard"
                     android:fitsSystemWindows="true"
                     android:textAppearance="@style/MovieTitleTheme"
-                    android:transitionName="peopleNameTransition"
                     app:layout_collapseMode="pin" />
 
                 <TextView

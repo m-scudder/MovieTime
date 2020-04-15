@@ -27,11 +27,11 @@
 
             <LinearLayout
                 android:id="@+id/error_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_marginTop="60dp"
-                android:gravity="center"
+                android:gravity="center_horizontal"
                 android:orientation="vertical"
                 android:visibility="gone">
 
@@ -63,7 +63,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/trending"
+                    android:id="@+id/now_playing"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="13dp"
@@ -71,12 +71,26 @@
                     android:text="@string/now_playing"
                     android:textAppearance="@style/MainTitleTheme" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/trendingMovieList"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp" />
+                    android:orientation="vertical">
 
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/nowPlayingMovieList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp" />
+
+                    <ProgressBar
+                        android:id="@+id/now_playing_bar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="8dp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/popular"
@@ -87,12 +101,26 @@
                     android:text="@string/popular"
                     android:textAppearance="@style/MainTitleTheme" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/popularMovieList"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp" />
+                    android:orientation="vertical">
 
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/popularMovieList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp" />
+
+                    <ProgressBar
+                        android:id="@+id/popular_bar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="8dp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/upcoming"
@@ -103,11 +131,26 @@
                     android:text="@string/upcoming"
                     android:textAppearance="@style/MainTitleTheme" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/upcomingMovieList"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp" />
+                    android:orientation="vertical">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/upcomingMovieList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp" />
+
+                    <ProgressBar
+                        android:id="@+id/upcoming_bar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="8dp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/popularPeople"
@@ -119,11 +162,26 @@
                     android:textAlignment="viewStart"
                     android:textAppearance="@style/MainTitleTheme" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/peopleListView"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp" />
+                    android:orientation="vertical">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/peopleListView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp" />
+
+                    <ProgressBar
+                        android:id="@+id/people_bar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="8dp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
 
 
                 <TextView
@@ -163,10 +221,10 @@
 
     <ProgressBar
         android:id="@+id/main_progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:visibility="gone"
         app:layout_anchor="@+id/scrollView2"
         app:layout_anchorGravity="center" />
 

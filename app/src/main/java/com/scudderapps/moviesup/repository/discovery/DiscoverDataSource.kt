@@ -42,6 +42,9 @@ class DiscoverDataSource(
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Movie>) {
+
+        networkState.postValue(NetworkState.LOADING)
+
         compositeDisposable.add(
             apiService.getDiscoveredMovies(id, params.key)
                 ?.subscribeOn(Schedulers.io())

@@ -41,6 +41,8 @@ class PeopleDataSource(
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, People>) {
+
+        networkState.postValue(NetworkState.LOADING)
         compositeDisposable.add(
             apiService.getPeople(params.key)
                 ?.subscribeOn(Schedulers.io())

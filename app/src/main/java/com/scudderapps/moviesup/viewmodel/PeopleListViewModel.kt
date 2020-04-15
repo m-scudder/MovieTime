@@ -17,8 +17,7 @@ class PeopleListViewModel(private val peopleListRepository: PeoplePagedListRepos
         peopleListRepository.fetchingPeopleList(compositeDisposable)
     }
 
-    fun listIsEmpty(): Boolean {
-
+    fun peopleListIsEmpty(): Boolean {
         return popularPeoplePagedList.value?.isEmpty() ?: true
     }
 
