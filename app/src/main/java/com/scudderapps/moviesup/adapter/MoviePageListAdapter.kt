@@ -23,11 +23,11 @@ import android.util.Pair as UtilPair
 class MoviePageListAdapter(private val context: Context) :
     PagedListAdapter<Movie, RecyclerView.ViewHolder>(MovieDiffCallback()) {
 
-    private val POPULAR_MOVIE_VIEW_TYPE = 1
+    val POPULAR_MOVIE_VIEW_TYPE = 1
     private val NETWORK_VIEW_TYPE = 2
     private var networkState: NetworkState? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieItemVieHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         val layoutInflater = LayoutInflater.from(parent.context)
         lateinit var view: View
@@ -36,7 +36,7 @@ class MoviePageListAdapter(private val context: Context) :
             MovieItemVieHolder(view)
         } else {
             view = layoutInflater.inflate(R.layout.network_state_item, parent, false)
-            MovieItemVieHolder(view)
+            NetworkStateItemViewHolder(view)
         }
 
     }
@@ -45,7 +45,7 @@ class MoviePageListAdapter(private val context: Context) :
         if (getItemViewType(position) == POPULAR_MOVIE_VIEW_TYPE) {
             (holder as MovieItemVieHolder).bindMovieData(getItem(position), context)
         } else if (getItemViewType(position) == NETWORK_VIEW_TYPE) {
-            (holder as MovieItemVieHolder).bindNetworkState(networkState)
+            (holder as NetworkStateItemViewHolder).bind(networkState)
         }
     }
 
@@ -104,8 +104,11 @@ class MoviePageListAdapter(private val context: Context) :
 
             }
         }
+    }
 
-        fun bindNetworkState(networkState: NetworkState?) {
+    class NetworkStateItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+        fun bind(networkState: NetworkState?) {
             if (networkState != null && networkState == NetworkState.LOADING) {
                 itemView.networkStateBar.visibility = View.VISIBLE
             } else if (networkState != null && networkState == NetworkState.LOADED) {
@@ -127,7 +130,7 @@ class MoviePageListAdapter(private val context: Context) :
                 notifyItemInserted(super.getItemCount())
             }
         } else if (hasExtraRow && previousState != newNetworkState) {
-            notifyItemChanged(super.getItemCount())
+            notifyItemChanged(super.getItemCount() - 1)
         }
     }
 }

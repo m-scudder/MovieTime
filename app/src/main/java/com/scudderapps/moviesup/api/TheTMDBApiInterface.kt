@@ -5,7 +5,6 @@ import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-import retrofit2.http.QueryName
 
 interface TheTMDBApiInterface {
 
@@ -62,5 +61,11 @@ interface TheTMDBApiInterface {
 
     @GET("genre/movie/list")
     fun getGenresList(): Single<GenresResponse>
+
+    @GET("discover/movie?&region=in&sort_by=popularity.desc")
+    fun getDiscoveredMovies(
+        @Query("with_genres") id: Int,
+        @Query("page") page: Int
+    ): Single<MovieResponse>
 
 }

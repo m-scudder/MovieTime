@@ -28,6 +28,9 @@
         <activity android:name=".SearchActivity"
             android:parentActivityName=".MainActivity"/>
 
+        <activity android:name=".DiscoverMovie"
+            android:parentActivityName=".MainActivity"/>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

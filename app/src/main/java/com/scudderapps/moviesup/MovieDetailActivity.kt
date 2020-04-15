@@ -165,11 +165,14 @@ class MovieDetailActivity : AppCompatActivity() {
         movieBackdrops = it.backdrops
         moviePosters = it.posters
         if (!moviePosters.isNullOrEmpty()) {
-            posterLayout.visibility = View.VISIBLE
             var mediaPosterURL = moviePosters[0].filePath
             val mediaPosterUrl: String = IMAGE_BASE_URL + mediaPosterURL
             Glide.with(this).load(mediaPosterUrl).into(posterMedia)
-            poster_count.text = moviePosters.size.toString() + " Poster"
+            if (moviePosters.size == 1) {
+                poster_count.text = moviePosters.size.toString() + " Poster"
+            } else {
+                poster_count.text = moviePosters.size.toString() + " Posters"
+            }
             posterMedia.setOnClickListener(View.OnClickListener {
                 StfalconImageViewer.Builder(
                     this,
@@ -181,14 +184,19 @@ class MovieDetailActivity : AppCompatActivity() {
                     .show()
             })
         } else {
-            posterLayout.visibility = View.GONE
+            Glide.with(this).load(R.color.colorPrimary).into(posterMedia)
+            poster_count.text = "No Posters"
         }
         if (!movieBackdrops.isNullOrEmpty()) {
-            backdropLayout.visibility = View.VISIBLE
             var mediaBackdropURL = movieBackdrops[0].filePath
             val mediaBackdropUrl: String = IMAGE_BASE_URL + mediaBackdropURL
             Glide.with(this).load(mediaBackdropUrl).into(backdropMedia)
-            backdrop_count.text = movieBackdrops.size.toString() + " Backdrop"
+            if (movieBackdrops.size == 1) {
+                backdrop_count.text = movieBackdrops.size.toString() + " Backdrop"
+            } else {
+                backdrop_count.text = movieBackdrops.size.toString() + " Backdrops"
+            }
+
             backdropMedia.setOnClickListener(View.OnClickListener {
                 StfalconImageViewer.Builder(
                     this,
@@ -201,7 +209,8 @@ class MovieDetailActivity : AppCompatActivity() {
                     .show()
             })
         } else {
-            backdropLayout.visibility = View.GONE
+            Glide.with(this).load(R.color.colorPrimary).into(backdropMedia)
+            backdrop_count.text = "No Backdrops"
         }
     }
 
