@@ -5,10 +5,11 @@ import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import retrofit2.http.QueryName
 
 interface TheTMDBApiInterface {
 
-    @GET("movie/{type}")
+    @GET("movie/{type}?region=in")
     fun getMovieList(
         @Path("type") type: String,
         @Query("page") page: Int
@@ -34,7 +35,7 @@ interface TheTMDBApiInterface {
         @Path("id") movieId: Int
     ): Single<MediaResponse>
 
-    @GET("search/multi")
+    @GET("search/movie")
     fun getSearchResults(
         @Query("query") query: String
     ): Single<MovieResponse>
@@ -58,5 +59,8 @@ interface TheTMDBApiInterface {
     fun getPeopleImages(
         @Path("id") id: Int
     ): Single<PeopleImages>
+
+    @GET("genre/movie/list")
+    fun getGenresList(): Single<GenresResponse>
 
 }

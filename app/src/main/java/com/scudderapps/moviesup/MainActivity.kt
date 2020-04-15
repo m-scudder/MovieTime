@@ -10,22 +10,23 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.scudderapps.moviesup.adapter.GenreListAdapter
 import com.scudderapps.moviesup.adapter.MoviePageListAdapter
 import com.scudderapps.moviesup.adapter.PeoplePagedListAdapter
+import com.scudderapps.moviesup.adapter.TextViewAdapter
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.repository.NetworkState
+import com.scudderapps.moviesup.repository.genre.GenreRepository
 import com.scudderapps.moviesup.repository.movielist.MoviePagedListRepository
 import com.scudderapps.moviesup.repository.peoplelist.PeoplePagedListRepository
+import com.scudderapps.moviesup.viewmodel.GenresViewModel
 import com.scudderapps.moviesup.viewmodel.MovieListViewModel
 import com.scudderapps.moviesup.viewmodel.PeopleListViewModel
 
@@ -42,6 +43,9 @@ class MainActivity : AppCompatActivity() {
 
     @BindView(R.id.upcomingMovieList)
     lateinit var upcomingMovieView: RecyclerView
+
+    @BindView(R.id.genres_view)
+    lateinit var genresView: RecyclerView
 
     @BindView(R.id.peopleListView)
     lateinit var peopleListView: RecyclerView
@@ -72,16 +76,20 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var listViewModel: MovieListViewModel
     private lateinit var peopleViewModel: PeopleListViewModel
+    private lateinit var genresViewModel: GenresViewModel
     lateinit var moviePagedListRepository: MoviePagedListRepository
     lateinit var peoplePagedListRepository: PeoplePagedListRepository
+    lateinit var genreRepository: GenreRepository
     private val popularAdapter = MoviePageListAdapter(this)
     private val trendingAdapter = MoviePageListAdapter(this)
     private val upcomingAdapter = MoviePageListAdapter(this)
     private val peopleAdapter = PeoplePagedListAdapter(this)
+    private lateinit var genreAdapter: GenreListAdapter
     private val linearLayoutManager = LinearLayoutManager(this)
     private val linearLayoutManager2 = LinearLayoutManager(this)
     private val linearLayoutManager3 = LinearLayoutManager(this)
     private val linearLayoutManager4 = LinearLayoutManager(this)
+    private val linearLayoutManager5 = LinearLayoutManager(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,6 +100,7 @@ class MainActivity : AppCompatActivity() {
         val apiService: TheTMDBApiInterface = TheTMDBClient.getClient()
         moviePagedListRepository = MoviePagedListRepository(apiService)
         peoplePagedListRepository = PeoplePagedListRepository(apiService)
+        genreRepository = GenreRepository(apiService)
 
         linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
         linearLayoutManager.reverseLayout = false
@@ -101,9 +110,12 @@ class MainActivity : AppCompatActivity() {
         linearLayoutManager3.reverseLayout = false
         linearLayoutManager4.orientation = LinearLayoutManager.HORIZONTAL
         linearLayoutManager4.reverseLayout = false
+        linearLayoutManager5.orientation = LinearLayoutManager.HORIZONTAL
+        linearLayoutManager5.reverseLayout = false
 
-        listViewModel = getViewModel()
-        peopleViewModel = getViewMode2()
+        listViewModel = movieListViewModel()
+        peopleViewModel = peopleListViewModel()
+        genresViewModel = genresListViewModel()
 
         if (isNetworkAvailable()) {
             populatingViews()
@@ -130,7 +142,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun getViewModel(): MovieListViewModel {
+    private fun movieListViewModel(): MovieListViewModel {
         return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 @Suppress("UNCHECKED_CAST")
@@ -139,13 +151,22 @@ class MainActivity : AppCompatActivity() {
         })[MovieListViewModel::class.java]
     }
 
-    private fun getViewMode2(): PeopleListViewModel {
+    private fun peopleListViewModel(): PeopleListViewModel {
         return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 @Suppress("UNCHECKED_CAST")
                 return PeopleListViewModel(peoplePagedListRepository) as T
             }
         })[PeopleListViewModel::class.java]
+    }
+
+    private fun genresListViewModel(): GenresViewModel {
+        return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                @Suppress("UNCHECKED_CAST")
+                return GenresViewModel(genreRepository) as T
+            }
+        })[GenresViewModel::class.java]
     }
 
 
@@ -200,6 +221,13 @@ class MainActivity : AppCompatActivity() {
             if (peopleViewModel.listIsEmpty() && it == NetworkState.LOADING || it == NetworkState.LOADED) {
                 peopleAdapter.setNetworkState(it)
             }
+        })
+
+        genresViewModel.genresList.observe(this, Observer {
+            genreAdapter = GenreListAdapter(it.genres, this)
+            genresView.layoutManager = linearLayoutManager5
+            genresView.setHasFixedSize(true)
+            genresView.adapter = genreAdapter
         })
     }
 
