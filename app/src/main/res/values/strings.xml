@@ -27,4 +27,5 @@
     <string name="biography">Biography</string>
     <string name="movie_credits">Movie Credits</string>
     <string name="images">Images</string>
+    <string name="trending_today">Trending Today</string>
 </resources>

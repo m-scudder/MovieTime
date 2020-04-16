@@ -62,6 +62,38 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+
+                <TextView
+                    android:id="@+id/trending"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/trending_today"
+                    android:textAppearance="@style/MainTitleTheme" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/trending_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp" />
+
+                    <ProgressBar
+                        android:id="@+id/trending_bar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="8dp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
                 <TextView
                     android:id="@+id/now_playing"
                     android:layout_width="wrap_content"
@@ -153,6 +185,22 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/top_genres"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/genres"
+                    android:textAlignment="viewStart"
+                    android:textAppearance="@style/MainTitleTheme" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/genres_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp" />
+
+                <TextView
                     android:id="@+id/popularPeople"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -182,24 +230,6 @@
                         android:visibility="gone" />
 
                 </LinearLayout>
-
-
-                <TextView
-                    android:id="@+id/top_genres"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/genres"
-                    android:textAlignment="viewStart"
-                    android:textAppearance="@style/MainTitleTheme" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/genres_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp" />
-
 
             </LinearLayout>
         </LinearLayout>

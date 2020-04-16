@@ -98,7 +98,7 @@ class SearchActivity : AppCompatActivity() {
                 )
             }
         disposable.add(observer)
-        publishSubject.onNext("")
+//        publishSubject.onNext(" ")
     }
 
     private fun getSearchObserver(): DisposableObserver<MovieResponse> {
@@ -112,6 +112,9 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onError(e: Throwable) {
+                searchMovieList.clear()
+                searchAdapter.notifyDataSetChanged()
+                publishSubject.onNext(" ")
                 Log.e("FragmentActivity", "onError: " + e.message)
             }
 

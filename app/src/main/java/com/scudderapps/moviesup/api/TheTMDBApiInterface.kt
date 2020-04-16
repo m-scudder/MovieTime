@@ -68,4 +68,10 @@ interface TheTMDBApiInterface {
         @Query("page") page: Int
     ): Single<MovieResponse>
 
+    @GET("trending/movie/{type}")
+    fun getTrendingList(
+        @Path("type") type: String,
+        @Query("page") page: Int
+    ): Single<MovieResponse>
+
 }

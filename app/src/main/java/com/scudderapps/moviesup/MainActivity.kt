@@ -29,9 +29,11 @@ import com.scudderapps.moviesup.repository.NetworkState
 import com.scudderapps.moviesup.repository.genre.GenreRepository
 import com.scudderapps.moviesup.repository.movielist.MoviePagedListRepository
 import com.scudderapps.moviesup.repository.peoplelist.PeoplePagedListRepository
+import com.scudderapps.moviesup.repository.trending.TrendingPagedListRepository
 import com.scudderapps.moviesup.viewmodel.GenresViewModel
 import com.scudderapps.moviesup.viewmodel.MovieListViewModel
 import com.scudderapps.moviesup.viewmodel.PeopleListViewModel
+import com.scudderapps.moviesup.viewmodel.TrendingViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -83,22 +85,33 @@ class MainActivity : AppCompatActivity() {
     @BindView(R.id.people_bar)
     lateinit var peopleBar: ProgressBar
 
+    @BindView(R.id.trending_list)
+    lateinit var trendingList: RecyclerView
+
+    @BindView(R.id.trending_bar)
+    lateinit var trendingBar: ProgressBar
+
     private lateinit var listViewModel: MovieListViewModel
     private lateinit var peopleViewModel: PeopleListViewModel
     private lateinit var genresViewModel: GenresViewModel
+    private lateinit var trendingViewModel: TrendingViewModel
     lateinit var moviePagedListRepository: MoviePagedListRepository
     lateinit var peoplePagedListRepository: PeoplePagedListRepository
+    lateinit var trendingPagedListRepository: TrendingPagedListRepository
     lateinit var genreRepository: GenreRepository
     private val popularAdapter = MoviePageListAdapter(this)
     private val nowPlayingAdapter = MoviePageListAdapter(this)
     private val upcomingAdapter = MoviePageListAdapter(this)
     private val peopleAdapter = PeoplePagedListAdapter(this)
+    private val trendingAdapter = MoviePageListAdapter(this)
     private lateinit var genreAdapter: GenreListAdapter
     private val linearLayoutManager = LinearLayoutManager(this)
     private val linearLayoutManager2 = LinearLayoutManager(this)
     private val linearLayoutManager3 = LinearLayoutManager(this)
     private val linearLayoutManager4 = LinearLayoutManager(this)
     private val linearLayoutManager5 = LinearLayoutManager(this)
+    private val linearLayoutManager6 = LinearLayoutManager(this)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,6 +122,7 @@ class MainActivity : AppCompatActivity() {
         val apiService: TheTMDBApiInterface = TheTMDBClient.getClient()
         moviePagedListRepository = MoviePagedListRepository(apiService)
         peoplePagedListRepository = PeoplePagedListRepository(apiService)
+        trendingPagedListRepository = TrendingPagedListRepository(apiService)
         genreRepository = GenreRepository(apiService)
 
         linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
@@ -121,10 +135,14 @@ class MainActivity : AppCompatActivity() {
         linearLayoutManager4.reverseLayout = false
         linearLayoutManager5.orientation = LinearLayoutManager.HORIZONTAL
         linearLayoutManager5.reverseLayout = false
+        linearLayoutManager6.orientation = LinearLayoutManager.HORIZONTAL
+        linearLayoutManager6.reverseLayout = false
 
         listViewModel = movieListViewModel()
         peopleViewModel = peopleListViewModel()
         genresViewModel = genresListViewModel()
+
+        trendingViewModel = trendingListViewModel("day")
 
         if (isNetworkAvailable()) {
             populatingViews()
@@ -178,6 +196,15 @@ class MainActivity : AppCompatActivity() {
         })[GenresViewModel::class.java]
     }
 
+    private fun trendingListViewModel(type: String): TrendingViewModel {
+        return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                @Suppress("UNCHECKED_CAST")
+                return TrendingViewModel(trendingPagedListRepository, type) as T
+            }
+        })[TrendingViewModel::class.java]
+    }
+
     private fun isNetworkAvailable(): Boolean {
         val connectivityManager =
             getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -190,6 +217,23 @@ class MainActivity : AppCompatActivity() {
         errorLayout.visibility = View.GONE
         movieLayout.visibility = View.VISIBLE
         searchFabBtn.visibility = View.VISIBLE
+
+        trendingViewModel.trendingList.observe(this, Observer {
+            trendingAdapter.submitList(it)
+            trendingList.layoutManager = linearLayoutManager6
+            trendingList.setHasFixedSize(true)
+            trendingList.adapter = trendingAdapter
+        })
+
+
+        trendingViewModel.networkState.observe(this, Observer {
+            trendingBar.visibility =
+                if (trendingViewModel.listIsEmpty() && it == NetworkState.LOADING) View.VISIBLE else View.GONE
+            if (!trendingViewModel.listIsEmpty()) {
+                upcomingAdapter.setNetworkState(it)
+            }
+        })
+
         listViewModel.popularMoviePagedList.observe(this, Observer {
             popularAdapter.submitList(it)
             popularMovieView.layoutManager = linearLayoutManager
@@ -220,13 +264,13 @@ class MainActivity : AppCompatActivity() {
             }
 
             popularBar.visibility =
-                if (listViewModel.popularListIsEmpty() &&it == NetworkState.LOADING) View.VISIBLE else View.GONE
+                if (listViewModel.popularListIsEmpty() && it == NetworkState.LOADING) View.VISIBLE else View.GONE
             if (!listViewModel.popularListIsEmpty()) {
                 popularAdapter.setNetworkState(it)
             }
 
             upcomingBar.visibility =
-                if (listViewModel.upcomingListIsEmpty() &&it == NetworkState.LOADING) View.VISIBLE else View.GONE
+                if (listViewModel.upcomingListIsEmpty() && it == NetworkState.LOADING) View.VISIBLE else View.GONE
             if (!listViewModel.upcomingListIsEmpty()) {
                 upcomingAdapter.setNetworkState(it)
             }

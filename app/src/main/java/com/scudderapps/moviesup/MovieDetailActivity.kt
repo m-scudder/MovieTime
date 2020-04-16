@@ -237,11 +237,11 @@ class MovieDetailActivity : AppCompatActivity() {
             synopsisLayout.visibility = View.GONE
         }
         val genre: ArrayList<Genre> = it.genres
-        if(!genre.isNullOrEmpty()) {
+        if (!genre.isNullOrEmpty()) {
             for (i in genre) {
                 genresName.append("\u25CF ${i.name}  ")
             }
-        } else{
+        } else {
             genresLayout.visibility = View.GONE
         }
 
