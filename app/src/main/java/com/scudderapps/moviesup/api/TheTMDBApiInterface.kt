@@ -74,4 +74,9 @@ interface TheTMDBApiInterface {
         @Query("page") page: Int
     ): Single<MovieResponse>
 
+    @GET("collection/{id}")
+    fun getCollections(
+        @Path("id") id: Int
+    ): Single<CollectionResponse>
+
 }

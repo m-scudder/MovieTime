@@ -4,10 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
-import com.scudderapps.moviesup.models.CastResponse
-import com.scudderapps.moviesup.models.MediaResponse
-import com.scudderapps.moviesup.models.MovieDetail
-import com.scudderapps.moviesup.models.VideoResponse
+import com.scudderapps.moviesup.models.*
 import com.scudderapps.moviesup.repository.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -35,6 +32,35 @@ class MovieDetailDataSource(
     private val _movieMediaResponse = MutableLiveData<MediaResponse>()
     val movieMediaResponse: LiveData<MediaResponse>
         get() = _movieMediaResponse
+
+    private val _collectionResponse = MutableLiveData<CollectionResponse>()
+    val collectionResponse: LiveData<CollectionResponse>
+        get() = _collectionResponse
+
+    fun fetchCollections(movieId: Int) {
+        _networkState.postValue(NetworkState.LOADING)
+
+        try {
+            apiService.getCollections(movieId)
+                ?.subscribeOn(Schedulers.io())
+                ?.subscribe(
+                    {
+                        _collectionResponse.postValue(it)
+                        _networkState.postValue(NetworkState.LOADED)
+                    },
+                    {
+                        _networkState.postValue(NetworkState.ERROR)
+                        Log.e("MovieDetailDataSource", it.message)
+                    }
+                )?.let {
+                    compositeDisposable.add(
+                        it
+                    )
+                }
+        } catch (e: Exception) {
+            Log.e("MovieDetailDataSource", e.message)
+        }
+    }
 
     fun fetchMovieDetails(movieId: Int) {
         _networkState.postValue(NetworkState.LOADING)

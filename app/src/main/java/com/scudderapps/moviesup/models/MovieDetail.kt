@@ -7,7 +7,7 @@ data class MovieDetail(
     @SerializedName("backdrop_path")
     val backdropPath: String,
     @SerializedName("belongs_to_collection")
-    val belongsToCollection: Any,
+    val belongsToCollection: CollectionResponse,
     val genres: ArrayList<Genre>,
     val homepage: String,
     val id: Int,

@@ -1,5 +1,6 @@
 package com.scudderapps.moviesup
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -98,6 +99,15 @@ class MovieDetailActivity : AppCompatActivity() {
     @BindView(R.id.genres_layout)
     lateinit var genresLayout: LinearLayout
 
+    @BindView(R.id.collection_media)
+    lateinit var collectionImage: ImageView
+
+    @BindView(R.id.collection_name)
+    lateinit var collectionName: TextView
+
+    @BindView(R.id.collection_layout)
+    lateinit var collectionLayout: LinearLayout
+
     private lateinit var viewModel: MovieDetailViewModel
     private lateinit var movieRepository: MovieDetailRepository
 
@@ -107,6 +117,7 @@ class MovieDetailActivity : AppCompatActivity() {
     private lateinit var castAdapter: CastListAdapter
     private lateinit var castDetail: ArrayList<CastDetail>
     private lateinit var movieBackdrops: List<Backdrop>
+    private lateinit var collectionList: List<Movie>
     private lateinit var moviePosters: List<Poster>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -245,6 +256,22 @@ class MovieDetailActivity : AppCompatActivity() {
             genresLayout.visibility = View.GONE
         }
 
+        val collectionList: CollectionResponse = it.belongsToCollection
+        if (collectionList != null) {
+
+            val collectionBackdrop: String = IMAGE_BASE_URL + collectionList.backdropPath
+            Glide.with(this).load(collectionBackdrop).into(collectionImage)
+            collectionName.text = "Belongs to " + collectionList.name
+            collectionImage.setOnClickListener(View.OnClickListener {
+                intent = Intent(this, CollectionActivity::class.java)
+                intent.putExtra("id", collectionList.id)
+                startActivity(intent)
+            })
+
+        } else {
+            collectionLayout.visibility = View.GONE
+        }
+
         if (!it.backdropPath.isNullOrEmpty()) {
             var backDropURL: String = IMAGE_BASE_URL + it.backdropPath
             Glide.with(this)
@@ -268,8 +295,6 @@ class MovieDetailActivity : AppCompatActivity() {
                 .centerInside()
                 .into(posterImage)
         }
-
-
     }
 
     private fun getViewModel(movieId: Int): MovieDetailViewModel {

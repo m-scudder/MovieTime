@@ -12,10 +12,10 @@ import com.bumptech.glide.Glide
 import com.scudderapps.moviesup.MovieDetailActivity
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
-import com.scudderapps.moviesup.models.Cast
+import com.scudderapps.moviesup.models.Movie
 import kotlinx.android.synthetic.main.movie_list_item.view.*
 
-class MovieAdapter(private val movies: List<Cast>, private val context: Context) :
+class MovieAdapter(private val movies: List<Movie>, private val context: Context) :
     RecyclerView.Adapter<MovieAdapter.MovieHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
@@ -34,10 +34,10 @@ class MovieAdapter(private val movies: List<Cast>, private val context: Context)
     class MovieHolder(v: View) : RecyclerView.ViewHolder(v) {
 
         private var view: View = v
-        private var movie: Cast? = null
+        private var movie: Movie? = null
         private lateinit var context: Context
 
-        fun bindVideos(movies: Cast, context: Context) {
+        fun bindVideos(movies: Movie, context: Context) {
             this.movie = movies
             this.context = context
             Log.d("movie", movie.toString())

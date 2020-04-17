@@ -1,17 +1,31 @@
 package com.scudderapps.moviesup.repository.moviedetails
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
-import com.scudderapps.moviesup.models.CastResponse
-import com.scudderapps.moviesup.models.MediaResponse
-import com.scudderapps.moviesup.models.MovieDetail
-import com.scudderapps.moviesup.models.VideoResponse
+import com.scudderapps.moviesup.models.*
 import com.scudderapps.moviesup.repository.NetworkState
+import com.scudderapps.moviesup.repository.movielist.MovieDataSource
 import io.reactivex.disposables.CompositeDisposable
 
 class MovieDetailRepository(private val apiService: TheTMDBApiInterface) {
 
     lateinit var movieDetailDataSource: MovieDetailDataSource
+
+    fun fetchingCollection(
+        compositeDisposable: CompositeDisposable,
+        movieID: Int
+    ): LiveData<CollectionResponse> {
+        movieDetailDataSource =
+            MovieDetailDataSource(
+                apiService,
+                compositeDisposable
+            )
+        movieDetailDataSource.fetchCollections(movieID)
+
+        return movieDetailDataSource.collectionResponse
+    }
+
 
     fun fetchingMoviesDetails(
         compositeDisposable: CompositeDisposable,

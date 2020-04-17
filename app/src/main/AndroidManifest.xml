@@ -31,6 +31,9 @@
         <activity android:name=".DiscoverMovie"
             android:parentActivityName=".MainActivity"/>
 
+        <activity android:name=".CollectionActivity"
+            android:parentActivityName=".MovieDetailActivity"/>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
