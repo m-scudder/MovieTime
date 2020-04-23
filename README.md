@@ -2,12 +2,22 @@
 
 A simple project for [The Movie DB](https://www.themoviedb.org) based on Kotlin MVVM clean architecture and material design & animations.<br>
 
+## Screenshots
+
+<p align="left">
+<img src="https://user-images.githubusercontent.com/20970704/80111604-b8805800-859d-11ea-9037-3d59ce777d93.png" width = "200" height = "370"  />
+<img src="https://user-images.githubusercontent.com/20970704/80112953-4f99df80-859f-11ea-8e44-80d56bf040b7.png" width = "200" height = "370"  />
+<img src="https://user-images.githubusercontent.com/20970704/80112961-5294d000-859f-11ea-8ec5-4151006b8f98.png" width = "200" height = "370"  />
+<img src="https://user-images.githubusercontent.com/20970704/80112851-33963e00-859f-11ea-8e20-605aca7e9ab5.png" width = "200" height = "370"  />
+<img src="https://user-images.githubusercontent.com/20970704/80112940-4c065880-859f-11ea-94c4-1fc3577a8612.png" width = "200" height = "370"  />
+<img src="https://user-images.githubusercontent.com/20970704/80113212-a30c2d80-859f-11ea-823d-bdfc40533314.png" width = "200" height = "370"
+<p/>
+
 ## Specs & Open-source libraries
 - Minimum SDK 16
 - 100% Kotlin based
 - MVVM Architecture
 - Architecture Components (Lifecycle, LiveData, ViewModel, Paging)
-- DataBinding
 - Material Design & Animations
 - The Movie DB API
 - [Retrofit2 & Gson](https://github.com/square/retrofit) for constructing the REST API
