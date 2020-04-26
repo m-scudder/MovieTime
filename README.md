@@ -1,7 +1,7 @@
 # MovieTime
 
 A simple project for [The Movie DB](https://www.themoviedb.org) based on Kotlin MVVM clean architecture and material design & animations.
-<a href="https://play.google.com/store/apps/details?id=https://play.google.com/store/apps/details?id=com.scudderapps.moviesup"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" height=80px /></a>
+<a href="https://play.google.com/store/apps/details?id=com.scudderapps.moviesup"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" height=80px /></a>
 
 ## Screenshots
 
