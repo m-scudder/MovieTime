@@ -3,8 +3,8 @@
     android:layout_width="80dp"
     android:layout_height="130dp"
     android:layout_margin="8dp"
-    android:gravity="center"
     android:background="@color/colorPrimaryDark"
+    android:gravity="center"
     android:orientation="vertical">
 
     <ProgressBar

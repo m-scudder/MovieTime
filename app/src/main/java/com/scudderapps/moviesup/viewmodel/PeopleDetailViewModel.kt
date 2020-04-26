@@ -8,7 +8,10 @@ import com.scudderapps.moviesup.models.PeopleImages
 import com.scudderapps.moviesup.repository.peopledetails.PeopleDetailRepository
 import io.reactivex.disposables.CompositeDisposable
 
-class PeopleDetailViewModel(private val peopleDetailRepository: PeopleDetailRepository, peopleId: Int) :
+class PeopleDetailViewModel(
+    private val peopleDetailRepository: PeopleDetailRepository,
+    peopleId: Int
+) :
     ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()

@@ -1,11 +1,9 @@
 package com.scudderapps.moviesup.repository.moviedetails
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
 import com.scudderapps.moviesup.models.*
 import com.scudderapps.moviesup.repository.NetworkState
-import com.scudderapps.moviesup.repository.movielist.MovieDataSource
 import io.reactivex.disposables.CompositeDisposable
 
 class MovieDetailRepository(private val apiService: TheTMDBApiInterface) {
