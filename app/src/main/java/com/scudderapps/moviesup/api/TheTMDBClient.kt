@@ -1,5 +1,6 @@
 package com.scudderapps.moviesup.api
 
+import com.scudderapps.moviesup.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -7,7 +8,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-const val API_KEY: String = "2009b64ae439592e11f52ab2f8c7a4f8"
+const val API_KEY: String = BuildConfig.API_KEY
 const val BASE_URL: String = "https://api.themoviedb.org/3/"
 const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w780"
 const val FIRST_PAGE = 1
