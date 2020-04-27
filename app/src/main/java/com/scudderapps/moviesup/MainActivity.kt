@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.ProgressBar
@@ -24,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.scudderapps.moviesup.adapter.GenreListAdapter
 import com.scudderapps.moviesup.adapter.MoviePageListAdapter
 import com.scudderapps.moviesup.adapter.PeoplePagedListAdapter
@@ -40,6 +42,7 @@ import com.scudderapps.moviesup.viewmodel.PeopleListViewModel
 import com.scudderapps.moviesup.viewmodel.TrendingViewModel
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     @BindView(R.id.main_toolbar)
     lateinit var toolbar: Toolbar
@@ -123,11 +126,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         ButterKnife.bind(this)
         setSupportActionBar(toolbar)
+        // Obtain the FirebaseAnalytics instance.
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this)
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "AppOpened")
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, bundle)
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET)
             == PackageManager.PERMISSION_DENIED
         ) {
-
+            val bundle = Bundle()
+            bundle.putString(FirebaseAnalytics.Param.ITEM_ID, REQUEST_CODE.toString())
+            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "permission Denied")
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, bundle)
             // Requesting the permission
             ActivityCompat.requestPermissions(
                 this, arrayOf(Manifest.permission.INTERNET),
@@ -181,6 +192,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         searchFabBtn.setOnClickListener(View.OnClickListener {
+            val bundle = Bundle()
+            bundle.putString(FirebaseAnalytics.Param.ITEM_ID, REQUEST_CODE.toString())
+            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Click")
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SEARCH, bundle)
             intent = Intent(this, SearchActivity::class.java)
             startActivity(intent)
         })

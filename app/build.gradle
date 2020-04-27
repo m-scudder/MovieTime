@@ -86,5 +86,5 @@ dependencies {
     implementation "androidx.paging:paging-runtime:2.1.0"
 
     //firebase
-    implementation 'com.google.firebase:firebase-analytics:17.3.0'
+    implementation 'com.google.firebase:firebase-analytics:17.4.0'
 }
