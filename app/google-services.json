@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "689536745826",
+    "firebase_url": "https://moviesup-997.firebaseio.com",
+    "project_id": "moviesup-997",
+    "storage_bucket": "moviesup-997.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:689536745826:android:132befe7aaf8e12183ac3b",
+        "android_client_info": {
+          "package_name": "com.scudderapps.moviesup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "689536745826-keftgg9oua83pd4m4fu6hkog8r4h8frs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwEvxlbHa_x4Vtwz-xD5zS5xll3uKRBN0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "689536745826-keftgg9oua83pd4m4fu6hkog8r4h8frs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

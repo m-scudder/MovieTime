@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 29
@@ -81,4 +82,6 @@ dependencies {
     //Paging
     implementation "androidx.paging:paging-runtime:2.1.0"
 
+    //firebase
+    implementation 'com.google.firebase:firebase-analytics:17.3.0'
 }
