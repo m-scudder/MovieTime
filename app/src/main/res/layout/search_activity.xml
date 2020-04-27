@@ -21,9 +21,11 @@
         android:background="@drawable/search_edittext_bg"
         android:cursorVisible="true"
         android:hint="@string/search"
+        android:inputType="textPersonName"
         android:maxLength="50"
         android:maxLines="1"
         android:padding="4dp"
+        android:imeOptions="actionSearch"
         android:textAppearance="@style/TitleTheme"
         android:textCursorDrawable="@null" />
 

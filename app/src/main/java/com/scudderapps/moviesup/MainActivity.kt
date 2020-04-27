@@ -1,7 +1,9 @@
 package com.scudderapps.moviesup
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
@@ -11,6 +13,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -112,12 +116,25 @@ class MainActivity : AppCompatActivity() {
     private val linearLayoutManager5 = LinearLayoutManager(this)
     private val linearLayoutManager6 = LinearLayoutManager(this)
 
+    val REQUEST_CODE = 100;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         ButterKnife.bind(this)
         setSupportActionBar(toolbar)
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET)
+            == PackageManager.PERMISSION_DENIED
+        ) {
+
+            // Requesting the permission
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.INTERNET),
+                REQUEST_CODE
+            );
+        } else {
+        }
 
         val apiService: TheTMDBApiInterface = TheTMDBClient.getClient()
         moviePagedListRepository = MoviePagedListRepository(apiService)
@@ -254,7 +271,6 @@ class MainActivity : AppCompatActivity() {
             upcomingMovieView.setHasFixedSize(true)
             upcomingMovieView.adapter = upcomingAdapter
         })
-
         listViewModel.networkState.observe(this, Observer {
 
             nowPlayingBar.visibility =

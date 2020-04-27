@@ -87,18 +87,25 @@ class SearchActivity : AppCompatActivity() {
                 .subscribeWith(observer)
         )
 
-        RxTextView.textChangeEvents(searchEditTextView)
-            .skipInitialValue()
-            .debounce(300, TimeUnit.MILLISECONDS)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(searchContactsTextWatcher())?.let {
-                disposable.add(
-                    it
-                )
-            }
         disposable.add(observer)
-//        publishSubject.onNext(" ")
+
+        if (searchEditTextView.text.isNullOrEmpty()) {
+            searchMovieList.clear()
+            searchAdapter.notifyDataSetChanged()
+            RxTextView.textChangeEvents(searchEditTextView)
+                .skipInitialValue()
+                .debounce(300, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(searchContactsTextWatcher())?.let {
+                    disposable.add(
+                        it
+                    )
+                }
+        } else {
+            publishSubject.onNext(" ")
+        }
+
     }
 
     private fun getSearchObserver(): DisposableObserver<MovieResponse> {
@@ -106,19 +113,16 @@ class SearchActivity : AppCompatActivity() {
             override fun onNext(movies: MovieResponse) {
                 searchMovieList.clear()
                 searchMovieList.addAll(movies.movieList)
-                Log.d("List", movies.movieList.toString())
-                Log.d("Size", movies.totalResults.toString())
                 searchAdapter.notifyDataSetChanged()
             }
 
             override fun onError(e: Throwable) {
-                searchMovieList.clear()
-                searchAdapter.notifyDataSetChanged()
-                publishSubject.onNext(" ")
                 Log.e("FragmentActivity", "onError: " + e.message)
             }
 
-            override fun onComplete() {}
+            override fun onComplete() {
+                publishSubject.onNext(" ")
+            }
         }
     }
 
