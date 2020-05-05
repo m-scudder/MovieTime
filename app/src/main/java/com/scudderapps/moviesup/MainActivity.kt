@@ -254,7 +254,6 @@ class MainActivity : AppCompatActivity() {
             upcomingMovieView.setHasFixedSize(true)
             upcomingMovieView.adapter = upcomingAdapter
         })
-
         listViewModel.networkState.observe(this, Observer {
 
             nowPlayingBar.visibility =
