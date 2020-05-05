@@ -94,7 +94,7 @@ class SearchActivity : AppCompatActivity() {
             searchAdapter.notifyDataSetChanged()
             RxTextView.textChangeEvents(searchEditTextView)
                 .skipInitialValue()
-                .debounce(300, TimeUnit.MILLISECONDS)
+                .debounce(500, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(searchContactsTextWatcher())?.let {
@@ -103,7 +103,7 @@ class SearchActivity : AppCompatActivity() {
                     )
                 }
         } else {
-            publishSubject.onNext(" ")
+            publishSubject.onNext("")
         }
 
     }
@@ -121,7 +121,7 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onComplete() {
-                publishSubject.onNext(" ")
+                publishSubject.onNext("")
             }
         }
     }
@@ -130,14 +130,22 @@ class SearchActivity : AppCompatActivity() {
         return object : DisposableObserver<TextViewTextChangeEvent?>() {
             override fun onNext(textViewTextChangeEvent: TextViewTextChangeEvent) {
                 Log.d("SearchActivity", "Search query: " + textViewTextChangeEvent.text())
-                publishSubject.onNext(textViewTextChangeEvent.text().toString())
+                if (textViewTextChangeEvent.text().isNullOrBlank() || textViewTextChangeEvent.text().isNullOrEmpty()){
+                    searchMovieList.clear()
+                    searchAdapter.notifyDataSetChanged()
+                } else {
+                    publishSubject.onNext(textViewTextChangeEvent.text().toString())
+                }
             }
 
             override fun onError(e: Throwable) {
                 Log.e("SearchActivity", "onError: " + e.message)
             }
 
-            override fun onComplete() {}
+            override fun onComplete() {
+                publishSubject.onNext("")
+                Log.e("SearchActivity", "onComplete: ")
+            }
         }
     }
 
