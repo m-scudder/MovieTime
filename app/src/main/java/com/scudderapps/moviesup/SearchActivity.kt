@@ -142,10 +142,7 @@ class SearchActivity : AppCompatActivity() {
                 Log.e("SearchActivity", "onError: " + e.message)
             }
 
-            override fun onComplete() {
-                publishSubject.onNext("")
-                Log.e("SearchActivity", "onComplete: ")
-            }
+            override fun onComplete() {}
         }
     }
 
