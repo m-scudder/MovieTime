@@ -13,8 +13,8 @@ android {
         applicationId "com.scudderapps.moviesup"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 4
-        versionName "3.2"
+        versionCode 5
+        versionName "3.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "API_KEY", API_KEY)
@@ -22,9 +22,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
-            zipAlignEnabled true
-            shrinkResources true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
