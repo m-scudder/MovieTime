@@ -1,17 +1,17 @@
-package com.scudderapps.moviesup
+package com.scudderapps.moviesup.fragments
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.Unbinder
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.jakewharton.rxbinding2.widget.TextViewTextChangeEvent
+import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.adapter.SearchListAdapter
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
@@ -28,43 +28,44 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
 
+class SearchFragment : Fragment() {
 
-class SearchActivity : AppCompatActivity() {
+    private lateinit var searchView: RecyclerView
+    private lateinit var searchEditTextView: EditText
 
-    @BindView(R.id.search_toolbar)
-    lateinit var searchToolbar: Toolbar
+    private lateinit var rootView: View
 
-    @BindView(R.id.search_edit_box)
-    lateinit var searchEditTextView: EditText
-
-    @BindView(R.id.search_recycler_view)
-    lateinit var searchView: RecyclerView
-
-    private val linearLayoutManager = LinearLayoutManager(this)
     private lateinit var searchAdapter: SearchListAdapter
     private val disposable = CompositeDisposable()
     private val publishSubject = PublishSubject.create<String>()
-    lateinit var unbinder: Unbinder
-    var searchMovieList: ArrayList<Movie> = ArrayList<Movie>()
+    var searchMovieList = ArrayList<Movie>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.search_activity)
-        unbinder = ButterKnife.bind(this)
-        setSupportActionBar(searchToolbar)
-        supportActionBar!!.title = "Search"
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setDisplayShowHomeEnabled(true)
+        searchAdapter = SearchListAdapter(searchMovieList, context!!)
+    }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        rootView = inflater.inflate(R.layout.fragment_search, container, false)
+
+        searchView = rootView.findViewById(R.id.search_recycler_view)
+        searchEditTextView = rootView.findViewById(R.id.search_edit_box)
+        val linearLayoutManager = LinearLayoutManager(activity)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         linearLayoutManager.reverseLayout = false
-
-        val apiService: TheTMDBApiInterface = TheTMDBClient.getClient()
-
-        searchAdapter = SearchListAdapter(searchMovieList, this@SearchActivity)
         searchView.layoutManager = linearLayoutManager
         searchView.setHasFixedSize(true)
         searchView.adapter = searchAdapter
+        settingUpSearchData()
+        return rootView
+    }
+
+    private fun settingUpSearchData() {
+        val apiService: TheTMDBApiInterface = TheTMDBClient.getClient()
 
         val observer: DisposableObserver<MovieResponse> = getSearchObserver()
 
@@ -105,7 +106,6 @@ class SearchActivity : AppCompatActivity() {
         } else {
             publishSubject.onNext("")
         }
-
     }
 
     private fun getSearchObserver(): DisposableObserver<MovieResponse> {
@@ -130,7 +130,9 @@ class SearchActivity : AppCompatActivity() {
         return object : DisposableObserver<TextViewTextChangeEvent?>() {
             override fun onNext(textViewTextChangeEvent: TextViewTextChangeEvent) {
                 Log.d("SearchActivity", "Search query: " + textViewTextChangeEvent.text())
-                if (textViewTextChangeEvent.text().isNullOrBlank() || textViewTextChangeEvent.text().isNullOrEmpty()){
+                if (textViewTextChangeEvent.text().isNullOrBlank() || textViewTextChangeEvent.text()
+                        .isNullOrEmpty()
+                ) {
                     searchMovieList.clear()
                     searchAdapter.notifyDataSetChanged()
                 } else {
@@ -146,13 +148,10 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
+    override fun onPause() {
         disposable.clear()
-        unbinder.unbind()
-        super.onDestroy()
-    }
-
-    override fun onStart() {
-        super.onStart()
+        searchMovieList.clear()
+        searchEditTextView.setText("")
+        super.onPause()
     }
 }

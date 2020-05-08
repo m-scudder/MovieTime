@@ -12,6 +12,7 @@ import com.irfaan008.irbottomnavigation.SpaceItem
 import com.irfaan008.irbottomnavigation.SpaceNavigationView
 import com.irfaan008.irbottomnavigation.SpaceOnClickListener
 import com.scudderapps.moviesup.fragments.MovieFragment
+import com.scudderapps.moviesup.fragments.SearchFragment
 import com.scudderapps.moviesup.fragments.TvFragment
 
 class MainActivity : AppCompatActivity() {
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var transaction: FragmentTransaction
     lateinit var movieFragment: MovieFragment
     lateinit var tvFragment: TvFragment
+    lateinit var searchFragment : SearchFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         bottomBarSetting(savedInstanceState)
         movieFragment = MovieFragment()
         tvFragment = TvFragment()
+        searchFragment = SearchFragment()
 
         setFragment(movieFragment)
 
@@ -52,8 +55,7 @@ class MainActivity : AppCompatActivity() {
 
         bottomBar.setSpaceOnClickListener(object : SpaceOnClickListener {
             override fun onCentreButtonClick() {
-                val intent = Intent(this@MainActivity, SearchActivity::class.java)
-                startActivity(intent)
+                setFragment(searchFragment)
             }
 
             override fun onItemClick(itemIndex: Int, itemName: String) {
