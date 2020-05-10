@@ -7,19 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
-import butterknife.BindView
 import com.google.android.material.tabs.TabLayout
 import com.scudderapps.moviesup.R
+import com.scudderapps.moviesup.adapter.TabAdapter
 
 class MovieFragment() : Fragment() {
 
-    @BindView(R.id.movie_tab_layout)
     lateinit var movieTabLayout: TabLayout
-
-    @BindView(R.id.movie_viewpager)
-    lateinit var movieViewPage: ViewPager
-
-
+    lateinit var movieViewPager: ViewPager
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,13 +22,26 @@ class MovieFragment() : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.movie_fragment, container, false)
 
-        movieTabLayout = TabLayout(view.context)
-        movieViewPage = ViewPager(view.context)
+        movieTabLayout = view.findViewById(R.id.movie_tab_layout)
+        movieViewPager = view.findViewById(R.id.movie_list_pager)
+        movieTabLayout.addTab(movieTabLayout.newTab().setText("Top Rated"))
+        movieTabLayout.addTab(movieTabLayout.newTab().setText("Popular"))
+        movieTabLayout.addTab(movieTabLayout.newTab().setText("Now Playing"))
+        movieTabLayout.addTab(movieTabLayout.newTab().setText("Upcoming"))
+
+        val adapter =
+            TabAdapter(view.context, fragmentManager!!, movieTabLayout.tabCount)
+        movieViewPager.adapter = adapter
+
+        movieViewPager.addOnPageChangeListener(
+            TabLayout.TabLayoutOnPageChangeListener(
+                movieTabLayout
+            )
+        )
 
         movieTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                movieViewPage.currentItem = tab.position
-                Log.v("Clicked", tab.position.toString())
+                Log.v("Name", tab.text.toString())
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {
@@ -44,5 +52,9 @@ class MovieFragment() : Fragment() {
         })
 
         return view
+    }
+
+    override fun onPause() {
+        super.onPause()
     }
 }
