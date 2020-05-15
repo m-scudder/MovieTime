@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -96,11 +97,13 @@ class MoviePageListAdapter(private val context: Context) :
 
                 val intent = Intent(context, MovieDetailActivity::class.java)
                 intent.putExtra("id", movie?.id)
-                val options = ActivityOptions.makeSceneTransitionAnimation(
-                    context as Activity?,
-                    UtilPair<View, String>(itemView.itemCard, "imageTransition")
-                )
-                context.startActivity(intent, options.toBundle())
+//                val options = ActivityOptions.makeSceneTransitionAnimation(
+//                    context as Activity?,
+//                    UtilPair<View, String>(itemView.itemCard, "imageTransition")
+//                )
+//                context.startActivity(intent, options.toBundle())
+                intent.flags = FLAG_ACTIVITY_NEW_TASK
+                context.startActivity(intent)
 
             }
         }

@@ -53,12 +53,13 @@ class SearchListAdapter(private val movies: ArrayList<Movie>, private val contex
 
                 val intent = Intent(context, MovieDetailActivity::class.java)
                 intent.putExtra("id", movie?.id)
-                val options = ActivityOptions.makeSceneTransitionAnimation(
-                    context as Activity?,
-                    Pair<View, String>(itemView.searchCard, "imageTransition"),
-                    Pair<View, String>(itemView.search_title, "titleTransition")
-                )
-                context.startActivity(intent, options.toBundle())
+//                val options = ActivityOptions.makeSceneTransitionAnimation(
+//                    context as Activity?,
+//                    Pair<View, String>(itemView.searchCard, "imageTransition"),
+//                    Pair<View, String>(itemView.search_title, "titleTransition")
+//                )
+//                context.startActivity(intent, options.toBundle())
+                context.startActivity(intent)
 
             }
         }

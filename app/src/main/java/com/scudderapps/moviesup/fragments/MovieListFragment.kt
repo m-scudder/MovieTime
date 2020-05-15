@@ -23,7 +23,7 @@ import com.scudderapps.moviesup.viewmodel.MovieListViewModel
 class MovieListFragment(private val type: String) : Fragment() {
 
     private lateinit var movieView: RecyclerView
-    lateinit var mainProgressBar: ProgressBar
+    private lateinit var mainProgressBar: ProgressBar
     private lateinit var rootView: View
     private lateinit var movieAdapter: MoviePageListAdapter
     private lateinit var listViewModel: MovieListViewModel
