@@ -1,5 +1,7 @@
 package com.scudderapps.moviesup
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -10,6 +12,7 @@ import butterknife.ButterKnife
 import com.irfaan008.irbottomnavigation.SpaceItem
 import com.irfaan008.irbottomnavigation.SpaceNavigationView
 import com.irfaan008.irbottomnavigation.SpaceOnClickListener
+import com.scudderapps.moviesup.fragments.ErrorFragment
 import com.scudderapps.moviesup.fragments.MovieFragment
 import com.scudderapps.moviesup.fragments.SearchFragment
 import com.scudderapps.moviesup.fragments.TvFragment
@@ -26,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var movieFragment: MovieFragment
     lateinit var tvFragment: TvFragment
     lateinit var searchFragment: SearchFragment
+    lateinit var errorFragment: ErrorFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +40,13 @@ class MainActivity : AppCompatActivity() {
         movieFragment = MovieFragment()
         tvFragment = TvFragment()
         searchFragment = SearchFragment()
+        errorFragment = ErrorFragment()
 
-        setFragment(movieFragment)
+        if (isNetworkAvailable()) {
+            setFragment(movieFragment)
+        } else {
+            setFragment(errorFragment)
+        }
 
     }
 
@@ -60,10 +69,18 @@ class MainActivity : AppCompatActivity() {
             override fun onItemClick(itemIndex: Int, itemName: String) {
                 when (itemIndex) {
                     0 -> {
-                        setFragment(movieFragment)
+                        if (isNetworkAvailable()) {
+                            setFragment(movieFragment)
+                        } else {
+                            setFragment(errorFragment)
+                        }
                     }
                     1 -> {
-                        setFragment(tvFragment)
+                        if (isNetworkAvailable()) {
+                            setFragment(tvFragment)
+                        } else {
+                            setFragment(errorFragment)
+                        }
                     }
                     2 -> {
 
@@ -87,4 +104,12 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
 
     }
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetworkInfo = connectivityManager.activeNetworkInfo
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected
+    }
+
 }

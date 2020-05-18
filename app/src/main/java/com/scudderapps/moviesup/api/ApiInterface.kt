@@ -5,12 +5,13 @@ import com.scudderapps.moviesup.models.main.PeopleDetails
 import com.scudderapps.moviesup.models.main.PeopleImages
 import com.scudderapps.moviesup.models.main.PeopleResponse
 import com.scudderapps.moviesup.models.movie.*
+import com.scudderapps.moviesup.models.tv.TvResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface MovieApiInterface {
+interface ApiInterface {
 
     @GET("movie/{type}?region=in")
     fun getMovieList(
@@ -83,4 +84,9 @@ interface MovieApiInterface {
         @Path("id") id: Int
     ): Single<CollectionResponse>
 
+    @GET("tv/{type}?region=in")
+    fun getTVList(
+        @Path("type") type: String,
+        @Query("page") page: Int
+    ): Single<TvResponse>
 }

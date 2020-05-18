@@ -5,12 +5,12 @@ import androidx.lifecycle.Transformations
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.scudderapps.moviesup.api.POST_PER_PAGE
-import com.scudderapps.moviesup.api.MovieApiInterface
+import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.models.movie.Movie
 import com.scudderapps.moviesup.repository.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 
-class DiscoverPagedListRepository(private val apiService: MovieApiInterface) {
+class DiscoverPagedListRepository(private val apiService: ApiInterface) {
 
     lateinit var moviePageList: LiveData<PagedList<Movie>>
     lateinit var discoverDataSourceFactory: DiscoverDataSourceFactory

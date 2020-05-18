@@ -1,12 +1,12 @@
 package com.scudderapps.moviesup.repository.movie.moviedetails
 
 import androidx.lifecycle.LiveData
-import com.scudderapps.moviesup.api.MovieApiInterface
+import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.models.movie.*
 import com.scudderapps.moviesup.repository.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 
-class MovieDetailRepository(private val apiService: MovieApiInterface) {
+class MovieDetailRepository(private val apiService: ApiInterface) {
 
     lateinit var movieDetailDataSource: MovieDetailDataSource
 

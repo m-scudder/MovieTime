@@ -53,6 +53,7 @@ class MovieFragment() : Fragment() {
         return view
     }
 
+
     override fun onPause() {
         super.onPause()
     }

@@ -20,7 +20,7 @@ import com.ms.square.android.expandabletextview.ExpandableTextView
 import com.scudderapps.moviesup.adapter.movieadapter.MovieAdapter
 import com.scudderapps.moviesup.adapter.movieadapter.AlsoKnownAsAdapter
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
-import com.scudderapps.moviesup.api.MovieApiInterface
+import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.main.PeopleDetails
 import com.scudderapps.moviesup.models.main.PeopleProfileImages
@@ -102,7 +102,7 @@ class PeopleDetailActivity : AppCompatActivity() {
         linearLayoutManager2.reverseLayout = false
         linearLayoutManager2.orientation = LinearLayoutManager.HORIZONTAL
 
-        val apiService: MovieApiInterface = TheTMDBClient.getClient()
+        val apiService: ApiInterface = TheTMDBClient.getClient()
         peopleDetailRepository = PeopleDetailRepository(apiService)
         peopleDetailViewModel = getViewMode(id)
 

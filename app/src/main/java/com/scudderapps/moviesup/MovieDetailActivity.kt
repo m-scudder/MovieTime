@@ -22,7 +22,7 @@ import com.ms.square.android.expandabletextview.ExpandableTextView
 import com.scudderapps.moviesup.adapter.movieadapter.CastListAdapter
 import com.scudderapps.moviesup.adapter.movieadapter.TrailerListAdapter
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
-import com.scudderapps.moviesup.api.MovieApiInterface
+import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.main.Genre
 import com.scudderapps.moviesup.models.movie.*
@@ -137,7 +137,7 @@ class MovieDetailActivity : AppCompatActivity() {
         val linearLayoutManager2 = LinearLayoutManager(this)
         linearLayoutManager2.orientation = LinearLayoutManager.HORIZONTAL
 
-        val apiService: MovieApiInterface = TheTMDBClient.getClient()
+        val apiService: ApiInterface = TheTMDBClient.getClient()
         movieRepository = MovieDetailRepository(apiService)
         viewModel = getViewModel(movieId)
 
