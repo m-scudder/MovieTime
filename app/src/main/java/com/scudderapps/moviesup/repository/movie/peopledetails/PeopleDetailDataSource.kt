@@ -1,9 +1,9 @@
-package com.scudderapps.moviesup.repository.peopledetails
+package com.scudderapps.moviesup.repository.movie.peopledetails
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.scudderapps.moviesup.api.TheTMDBApiInterface
+import com.scudderapps.moviesup.api.MovieApiInterface
 import com.scudderapps.moviesup.models.movie.MovieCredits
 import com.scudderapps.moviesup.models.main.PeopleDetails
 import com.scudderapps.moviesup.models.main.PeopleImages
@@ -12,7 +12,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class PeopleDetailDataSource(
-    private val apiService: TheTMDBApiInterface,
+    private val apiService: MovieApiInterface,
     private val compositeDisposable: CompositeDisposable
 ) {
     private val _networkState = MutableLiveData<NetworkState>()

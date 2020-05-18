@@ -14,10 +14,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.adapter.movieadapter.MoviePageListAdapter
-import com.scudderapps.moviesup.api.TheTMDBApiInterface
+import com.scudderapps.moviesup.api.MovieApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.repository.NetworkState
-import com.scudderapps.moviesup.repository.movielist.MoviePagedListRepository
+import com.scudderapps.moviesup.repository.movie.movielist.MoviePagedListRepository
 import com.scudderapps.moviesup.viewmodel.MovieListViewModel
 
 class MovieListFragment(private val type: String) : Fragment() {
@@ -46,7 +46,7 @@ class MovieListFragment(private val type: String) : Fragment() {
         rootView = inflater.inflate(R.layout.movie_list_fragment, container, false)
         movieView = rootView.findViewById(R.id.movie_list_view)
         mainProgressBar = rootView.findViewById(R.id.main_progress_bar)
-        val apiService: TheTMDBApiInterface = TheTMDBClient.getClient()
+        val apiService: MovieApiInterface = TheTMDBClient.getClient()
         moviePagedListRepository = MoviePagedListRepository(apiService)
         listViewModel = movieListViewModel(type)
         populatingViews()

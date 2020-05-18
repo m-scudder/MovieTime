@@ -1,17 +1,17 @@
-package com.scudderapps.moviesup.repository.movielist
+package com.scudderapps.moviesup.repository.movie.trending
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import com.scudderapps.moviesup.api.FIRST_PAGE
-import com.scudderapps.moviesup.api.TheTMDBApiInterface
+import com.scudderapps.moviesup.api.MovieApiInterface
 import com.scudderapps.moviesup.models.movie.Movie
 import com.scudderapps.moviesup.repository.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class MovieDataSource(
-    private val apiService: TheTMDBApiInterface,
+class TrendingDataSource(
+    private val apiService: MovieApiInterface,
     private val compositeDisposable: CompositeDisposable,
     private val type: String
 ) : PageKeyedDataSource<Int, Movie>() {
@@ -26,7 +26,7 @@ class MovieDataSource(
         networkState.postValue(NetworkState.LOADING)
 
         compositeDisposable.add(
-            apiService.getMovieList(type, page)
+            apiService.getTrendingList(type, page)
                 ?.subscribeOn(Schedulers.io())
                 ?.subscribe(
                     {
@@ -35,17 +35,18 @@ class MovieDataSource(
                     },
                     {
                         networkState.postValue(NetworkState.ERROR)
-                        Log.e("MovieDataSource", it.message)
+                        Log.e("TrendingDataSource", it.message)
                     }
                 )
         )
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Movie>) {
+
         networkState.postValue(NetworkState.LOADING)
 
         compositeDisposable.add(
-            apiService.getMovieList(type, params.key)
+            apiService.getTrendingList(type, params.key)
                 ?.subscribeOn(Schedulers.io())
                 ?.subscribe(
                     {
@@ -58,7 +59,7 @@ class MovieDataSource(
                     },
                     {
                         networkState.postValue(NetworkState.ERROR)
-                        Log.e("MovieDataSource", it.message)
+                        Log.e("TrendingDataSource", it.message)
                     }
                 )
         )

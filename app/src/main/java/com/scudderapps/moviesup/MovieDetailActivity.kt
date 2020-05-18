@@ -22,12 +22,12 @@ import com.ms.square.android.expandabletextview.ExpandableTextView
 import com.scudderapps.moviesup.adapter.movieadapter.CastListAdapter
 import com.scudderapps.moviesup.adapter.movieadapter.TrailerListAdapter
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
-import com.scudderapps.moviesup.api.TheTMDBApiInterface
+import com.scudderapps.moviesup.api.MovieApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.main.Genre
 import com.scudderapps.moviesup.models.movie.*
 import com.scudderapps.moviesup.repository.NetworkState
-import com.scudderapps.moviesup.repository.moviedetails.MovieDetailRepository
+import com.scudderapps.moviesup.repository.movie.moviedetails.MovieDetailRepository
 import com.scudderapps.moviesup.viewmodel.MovieDetailViewModel
 import com.stfalcon.imageviewer.StfalconImageViewer
 import java.text.DateFormat
@@ -137,7 +137,7 @@ class MovieDetailActivity : AppCompatActivity() {
         val linearLayoutManager2 = LinearLayoutManager(this)
         linearLayoutManager2.orientation = LinearLayoutManager.HORIZONTAL
 
-        val apiService: TheTMDBApiInterface = TheTMDBClient.getClient()
+        val apiService: MovieApiInterface = TheTMDBClient.getClient()
         movieRepository = MovieDetailRepository(apiService)
         viewModel = getViewModel(movieId)
 

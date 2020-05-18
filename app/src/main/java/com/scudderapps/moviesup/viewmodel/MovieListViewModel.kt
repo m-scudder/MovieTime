@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
 import com.scudderapps.moviesup.models.movie.Movie
 import com.scudderapps.moviesup.repository.NetworkState
-import com.scudderapps.moviesup.repository.movielist.MoviePagedListRepository
+import com.scudderapps.moviesup.repository.movie.movielist.MoviePagedListRepository
 import io.reactivex.disposables.CompositeDisposable
 
 class MovieListViewModel(private val movieRepository: MoviePagedListRepository, private val type: String) : ViewModel() {

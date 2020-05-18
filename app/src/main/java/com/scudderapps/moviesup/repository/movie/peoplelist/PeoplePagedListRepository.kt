@@ -1,16 +1,16 @@
-package com.scudderapps.moviesup.repository.peoplelist
+package com.scudderapps.moviesup.repository.movie.peoplelist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.scudderapps.moviesup.api.POST_PER_PAGE
-import com.scudderapps.moviesup.api.TheTMDBApiInterface
+import com.scudderapps.moviesup.api.MovieApiInterface
 import com.scudderapps.moviesup.models.main.People
 import com.scudderapps.moviesup.repository.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 
-class PeoplePagedListRepository(private val apiService: TheTMDBApiInterface) {
+class PeoplePagedListRepository(private val apiService: MovieApiInterface) {
 
     lateinit var peoplePageList: LiveData<PagedList<People>>
     lateinit var peopleDataSourceFactory: PeopleDataSourceFactory

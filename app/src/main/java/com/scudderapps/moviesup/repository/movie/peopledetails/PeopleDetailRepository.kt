@@ -1,13 +1,13 @@
-package com.scudderapps.moviesup.repository.peopledetails
+package com.scudderapps.moviesup.repository.movie.peopledetails
 
 import androidx.lifecycle.LiveData
-import com.scudderapps.moviesup.api.TheTMDBApiInterface
+import com.scudderapps.moviesup.api.MovieApiInterface
 import com.scudderapps.moviesup.models.movie.MovieCredits
 import com.scudderapps.moviesup.models.main.PeopleDetails
 import com.scudderapps.moviesup.models.main.PeopleImages
 import io.reactivex.disposables.CompositeDisposable
 
-class PeopleDetailRepository(private val apiService: TheTMDBApiInterface) {
+class PeopleDetailRepository(private val apiService: MovieApiInterface) {
 
     lateinit var peopleDetailDataSource: PeopleDetailDataSource
 

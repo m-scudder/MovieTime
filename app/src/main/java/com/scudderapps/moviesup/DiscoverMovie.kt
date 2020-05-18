@@ -14,10 +14,10 @@ import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.scudderapps.moviesup.adapter.movieadapter.MoviePageListAdapter
-import com.scudderapps.moviesup.api.TheTMDBApiInterface
+import com.scudderapps.moviesup.api.MovieApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.repository.NetworkState
-import com.scudderapps.moviesup.repository.discovery.DiscoverPagedListRepository
+import com.scudderapps.moviesup.repository.movie.discovery.DiscoverPagedListRepository
 import com.scudderapps.moviesup.viewmodel.DiscoverViewModel
 
 class DiscoverMovie : AppCompatActivity() {
@@ -51,7 +51,7 @@ class DiscoverMovie : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
 
-        val apiService: TheTMDBApiInterface = TheTMDBClient.getClient()
+        val apiService: MovieApiInterface = TheTMDBClient.getClient()
         moviePagedListRepository = DiscoverPagedListRepository(apiService)
 
         discoverViewModel = discoverViewModel(id)

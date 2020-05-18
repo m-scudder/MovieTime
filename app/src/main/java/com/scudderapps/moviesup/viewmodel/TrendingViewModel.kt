@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
 import com.scudderapps.moviesup.models.movie.Movie
 import com.scudderapps.moviesup.repository.NetworkState
-import com.scudderapps.moviesup.repository.trending.TrendingPagedListRepository
+import com.scudderapps.moviesup.repository.movie.trending.TrendingPagedListRepository
 import io.reactivex.disposables.CompositeDisposable
 
 class TrendingViewModel(

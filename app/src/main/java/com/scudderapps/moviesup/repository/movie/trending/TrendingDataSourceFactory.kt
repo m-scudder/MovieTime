@@ -1,26 +1,25 @@
-package com.scudderapps.moviesup.repository.discovery
+package com.scudderapps.moviesup.repository.movie.trending
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
-import com.scudderapps.moviesup.api.TheTMDBApiInterface
+import com.scudderapps.moviesup.api.MovieApiInterface
 import com.scudderapps.moviesup.models.movie.Movie
 import io.reactivex.disposables.CompositeDisposable
 
-
-class DiscoverDataSourceFactory(
-    private val apiService: TheTMDBApiInterface,
+class TrendingDataSourceFactory(
+    private val apiService: MovieApiInterface,
     private val compositeDisposable: CompositeDisposable,
-    private val id: Int
+    private val type: String
 ) : DataSource.Factory<Int, Movie>() {
 
-    val discoverLiveDataSource = MutableLiveData<DiscoverDataSource>()
+    val discoverLiveDataSource = MutableLiveData<TrendingDataSource>()
 
     override fun create(): DataSource<Int, Movie> {
         val discoverDataSource =
-            DiscoverDataSource(
+            TrendingDataSource(
                 apiService,
                 compositeDisposable,
-                id
+                type
             )
 
         discoverLiveDataSource.postValue(discoverDataSource)

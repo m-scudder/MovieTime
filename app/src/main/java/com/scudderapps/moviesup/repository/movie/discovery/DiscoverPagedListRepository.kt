@@ -1,40 +1,39 @@
-package com.scudderapps.moviesup.repository.trending
+package com.scudderapps.moviesup.repository.movie.discovery
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.scudderapps.moviesup.api.POST_PER_PAGE
-import com.scudderapps.moviesup.api.TheTMDBApiInterface
+import com.scudderapps.moviesup.api.MovieApiInterface
 import com.scudderapps.moviesup.models.movie.Movie
 import com.scudderapps.moviesup.repository.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 
-class TrendingPagedListRepository(private val apiService: TheTMDBApiInterface) {
+class DiscoverPagedListRepository(private val apiService: MovieApiInterface) {
 
     lateinit var moviePageList: LiveData<PagedList<Movie>>
-    lateinit var trendingDataSourceFactory: TrendingDataSourceFactory
+    lateinit var discoverDataSourceFactory: DiscoverDataSourceFactory
 
-    fun fetchingTrendingMovieList(
+    fun fetchingMovieList(
         compositeDisposable: CompositeDisposable,
-        type: String
+        id: Int
     ): LiveData<PagedList<Movie>> {
 
-        trendingDataSourceFactory = TrendingDataSourceFactory(apiService, compositeDisposable, type)
+        discoverDataSourceFactory = DiscoverDataSourceFactory(apiService, compositeDisposable, id)
         val config = PagedList.Config
             .Builder()
             .setEnablePlaceholders(false)
             .setPageSize(POST_PER_PAGE)
             .build()
 
-        moviePageList = LivePagedListBuilder(trendingDataSourceFactory, config).build()
+        moviePageList = LivePagedListBuilder(discoverDataSourceFactory, config).build()
         return moviePageList
     }
 
     fun getNetworkState(): LiveData<NetworkState> {
-        return Transformations.switchMap<TrendingDataSource, NetworkState>(
-            trendingDataSourceFactory.discoverLiveDataSource, TrendingDataSource::networkState
+        return Transformations.switchMap<DiscoverDataSource, NetworkState>(
+            discoverDataSourceFactory.discoverLiveDataSource, DiscoverDataSource::networkState
         )
     }
 }
-

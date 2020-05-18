@@ -1,19 +1,19 @@
-package com.scudderapps.moviesup.repository.trending
+package com.scudderapps.moviesup.repository.movie.discovery
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import com.scudderapps.moviesup.api.FIRST_PAGE
-import com.scudderapps.moviesup.api.TheTMDBApiInterface
+import com.scudderapps.moviesup.api.MovieApiInterface
 import com.scudderapps.moviesup.models.movie.Movie
 import com.scudderapps.moviesup.repository.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class TrendingDataSource(
-    private val apiService: TheTMDBApiInterface,
+class DiscoverDataSource(
+    private val apiService: MovieApiInterface,
     private val compositeDisposable: CompositeDisposable,
-    private val type: String
+    private val id: Int
 ) : PageKeyedDataSource<Int, Movie>() {
 
     var page = FIRST_PAGE
@@ -26,7 +26,7 @@ class TrendingDataSource(
         networkState.postValue(NetworkState.LOADING)
 
         compositeDisposable.add(
-            apiService.getTrendingList(type, page)
+            apiService.getDiscoveredMovies(id, page)
                 ?.subscribeOn(Schedulers.io())
                 ?.subscribe(
                     {
@@ -35,7 +35,7 @@ class TrendingDataSource(
                     },
                     {
                         networkState.postValue(NetworkState.ERROR)
-                        Log.e("TrendingDataSource", it.message)
+                        Log.e("DiscoverDataSource", it.message)
                     }
                 )
         )
@@ -46,7 +46,7 @@ class TrendingDataSource(
         networkState.postValue(NetworkState.LOADING)
 
         compositeDisposable.add(
-            apiService.getTrendingList(type, params.key)
+            apiService.getDiscoveredMovies(id, params.key)
                 ?.subscribeOn(Schedulers.io())
                 ?.subscribe(
                     {
@@ -59,7 +59,7 @@ class TrendingDataSource(
                     },
                     {
                         networkState.postValue(NetworkState.ERROR)
-                        Log.e("TrendingDataSource", it.message)
+                        Log.e("DiscoverDataSource", it.message)
                     }
                 )
         )
