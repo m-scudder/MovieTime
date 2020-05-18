@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.scudderapps.moviesup.fragments.MovieListFragment
 
-class TabAdapter(private val myContext: Context, fm: FragmentManager, private var totalTabs: Int) :
+class MovieTabAdapter(private val myContext: Context, fm: FragmentManager, private var totalTabs: Int) :
     FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {

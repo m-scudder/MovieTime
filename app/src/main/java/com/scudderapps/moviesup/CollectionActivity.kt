@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
-import com.scudderapps.moviesup.adapter.MovieAdapter
+import com.scudderapps.moviesup.adapter.movieadapter.MovieAdapter
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.repository.NetworkState
@@ -55,7 +55,11 @@ class CollectionActivity : AppCompatActivity() {
 
         viewModel.collection.observe(this, Observer {
             val movieList = it.parts
-            movieAdapter = MovieAdapter(movieList, this)
+            movieAdapter =
+                MovieAdapter(
+                    movieList,
+                    this
+                )
             collectionView.layoutManager = linearLayoutManager
             collectionView.setHasFixedSize(true)
             collectionView.adapter = movieAdapter

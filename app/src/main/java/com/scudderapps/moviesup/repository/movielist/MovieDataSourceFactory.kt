@@ -3,7 +3,7 @@ package com.scudderapps.moviesup.repository.movielist
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
-import com.scudderapps.moviesup.models.Movie
+import com.scudderapps.moviesup.models.movie.Movie
 import io.reactivex.disposables.CompositeDisposable
 
 

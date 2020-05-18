@@ -1,7 +1,5 @@
-package com.scudderapps.moviesup.adapter
+package com.scudderapps.moviesup.adapter.movieadapter
 
-import android.app.Activity
-import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
@@ -15,11 +13,10 @@ import com.bumptech.glide.Glide
 import com.scudderapps.moviesup.MovieDetailActivity
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
-import com.scudderapps.moviesup.models.Movie
+import com.scudderapps.moviesup.models.movie.Movie
 import com.scudderapps.moviesup.repository.NetworkState
 import kotlinx.android.synthetic.main.movie_list_item.view.*
 import kotlinx.android.synthetic.main.network_state_item.view.*
-import android.util.Pair as UtilPair
 
 class MoviePageListAdapter(private val context: Context) :
     PagedListAdapter<Movie, RecyclerView.ViewHolder>(MovieDiffCallback()) {
@@ -34,10 +31,14 @@ class MoviePageListAdapter(private val context: Context) :
         lateinit var view: View
         return if (viewType == POPULAR_MOVIE_VIEW_TYPE) {
             view = layoutInflater.inflate(R.layout.movie_list_item, parent, false)
-            MovieItemVieHolder(view)
+            MovieItemVieHolder(
+                view
+            )
         } else {
             view = layoutInflater.inflate(R.layout.network_state_item, parent, false)
-            NetworkStateItemViewHolder(view)
+            NetworkStateItemViewHolder(
+                view
+            )
         }
 
     }

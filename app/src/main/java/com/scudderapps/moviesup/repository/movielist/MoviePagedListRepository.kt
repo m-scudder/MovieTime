@@ -6,7 +6,7 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.scudderapps.moviesup.api.POST_PER_PAGE
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
-import com.scudderapps.moviesup.models.Movie
+import com.scudderapps.moviesup.models.movie.Movie
 import com.scudderapps.moviesup.repository.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 

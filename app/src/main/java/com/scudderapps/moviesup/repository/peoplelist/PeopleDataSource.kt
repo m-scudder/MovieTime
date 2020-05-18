@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import com.scudderapps.moviesup.api.FIRST_PAGE
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
-import com.scudderapps.moviesup.models.People
+import com.scudderapps.moviesup.models.main.People
 import com.scudderapps.moviesup.repository.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

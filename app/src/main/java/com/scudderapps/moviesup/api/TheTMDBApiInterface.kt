@@ -1,6 +1,10 @@
 package com.scudderapps.moviesup.api
 
-import com.scudderapps.moviesup.models.*
+import com.scudderapps.moviesup.models.main.GenresResponse
+import com.scudderapps.moviesup.models.main.PeopleDetails
+import com.scudderapps.moviesup.models.main.PeopleImages
+import com.scudderapps.moviesup.models.main.PeopleResponse
+import com.scudderapps.moviesup.models.movie.*
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path

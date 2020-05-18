@@ -1,4 +1,4 @@
-package com.scudderapps.moviesup.models
+package com.scudderapps.moviesup.models.main
 
 
 data class Genre(

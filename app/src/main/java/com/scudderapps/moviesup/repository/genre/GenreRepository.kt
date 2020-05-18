@@ -2,7 +2,7 @@ package com.scudderapps.moviesup.repository.genre
 
 import androidx.lifecycle.LiveData
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
-import com.scudderapps.moviesup.models.GenresResponse
+import com.scudderapps.moviesup.models.main.GenresResponse
 import io.reactivex.disposables.CompositeDisposable
 
 class GenreRepository(private val apiService: TheTMDBApiInterface) {

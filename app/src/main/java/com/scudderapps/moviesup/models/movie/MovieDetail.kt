@@ -1,6 +1,7 @@
-package com.scudderapps.moviesup.models
+package com.scudderapps.moviesup.models.movie
 
 import com.google.gson.annotations.SerializedName
+import com.scudderapps.moviesup.models.main.Genre
 
 data class MovieDetail(
     val adult: Boolean,

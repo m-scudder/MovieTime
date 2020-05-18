@@ -1,4 +1,4 @@
-package com.scudderapps.moviesup.adapter
+package com.scudderapps.moviesup.adapter.movieadapter
 
 import android.content.Context
 import android.content.Intent
@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.api.TRAILER_THUMBNAIL_BASE_URL
 import com.scudderapps.moviesup.api.TRAILER_THUMBNAIL_END_URL
-import com.scudderapps.moviesup.models.VideoDetail
+import com.scudderapps.moviesup.models.movie.VideoDetail
 import kotlinx.android.synthetic.main.trailers.view.*
 
 
@@ -21,10 +21,12 @@ class TrailerListAdapter(private val videos: ArrayList<VideoDetail>, private val
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrailerHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view: View = layoutInflater.inflate(R.layout.trailers, parent, false)
-        return TrailerHolder(view)
+        return TrailerHolder(
+            view
+        )
     }
 
-    override fun onBindViewHolder(holder: TrailerListAdapter.TrailerHolder, position: Int) {
+    override fun onBindViewHolder(holder: TrailerHolder, position: Int) {
         val itemVideo = videos[position]
         holder.bindVideos(itemVideo, context)
     }

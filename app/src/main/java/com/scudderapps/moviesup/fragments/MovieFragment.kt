@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.scudderapps.moviesup.R
-import com.scudderapps.moviesup.adapter.TabAdapter
+import com.scudderapps.moviesup.adapter.MovieTabAdapter
 
 class MovieFragment() : Fragment() {
 
@@ -30,7 +30,7 @@ class MovieFragment() : Fragment() {
         movieTabLayout.addTab(movieTabLayout.newTab().setText("Upcoming"))
 
         val adapter =
-            TabAdapter(view.context, fragmentManager!!, movieTabLayout.tabCount)
+            MovieTabAdapter(view.context, fragmentManager!!, movieTabLayout.tabCount)
         movieViewPager.adapter = adapter
 
         movieViewPager.addOnPageChangeListener(

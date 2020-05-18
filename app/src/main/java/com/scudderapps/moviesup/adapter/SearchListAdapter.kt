@@ -1,10 +1,7 @@
 package com.scudderapps.moviesup.adapter
 
-import android.app.Activity
-import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
-import android.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.scudderapps.moviesup.MovieDetailActivity
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
-import com.scudderapps.moviesup.models.Movie
+import com.scudderapps.moviesup.models.movie.Movie
 import kotlinx.android.synthetic.main.search_list_item.view.*
 
 class SearchListAdapter(private val movies: ArrayList<Movie>, private val context: Context) :

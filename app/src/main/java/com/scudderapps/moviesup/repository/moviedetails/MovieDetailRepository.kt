@@ -2,7 +2,7 @@ package com.scudderapps.moviesup.repository.moviedetails
 
 import androidx.lifecycle.LiveData
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
-import com.scudderapps.moviesup.models.*
+import com.scudderapps.moviesup.models.movie.*
 import com.scudderapps.moviesup.repository.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 

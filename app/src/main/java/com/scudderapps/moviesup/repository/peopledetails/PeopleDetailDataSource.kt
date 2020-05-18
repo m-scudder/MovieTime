@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
-import com.scudderapps.moviesup.models.MovieCredits
-import com.scudderapps.moviesup.models.PeopleDetails
-import com.scudderapps.moviesup.models.PeopleImages
+import com.scudderapps.moviesup.models.movie.MovieCredits
+import com.scudderapps.moviesup.models.main.PeopleDetails
+import com.scudderapps.moviesup.models.main.PeopleImages
 import com.scudderapps.moviesup.repository.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

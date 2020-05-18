@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.scudderapps.moviesup.DiscoverMovie
 import com.scudderapps.moviesup.R
-import com.scudderapps.moviesup.models.Genre
+import com.scudderapps.moviesup.models.main.Genre
 import kotlinx.android.synthetic.main.known_as_item.view.*
 
 class GenreListAdapter(private val details: List<Genre>, private val context: Context) :

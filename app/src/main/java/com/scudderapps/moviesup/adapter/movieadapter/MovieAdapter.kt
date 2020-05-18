@@ -1,4 +1,4 @@
-package com.scudderapps.moviesup.adapter
+package com.scudderapps.moviesup.adapter.movieadapter
 
 
 import android.content.Context
@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.scudderapps.moviesup.MovieDetailActivity
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
-import com.scudderapps.moviesup.models.Movie
+import com.scudderapps.moviesup.models.movie.Movie
 import kotlinx.android.synthetic.main.movie_list_item.view.*
 
 class MovieAdapter(private val movies: List<Movie>, private val context: Context) :
@@ -21,7 +21,9 @@ class MovieAdapter(private val movies: List<Movie>, private val context: Context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view: View = layoutInflater.inflate(R.layout.movie_list_item, parent, false)
-        return MovieHolder(view)
+        return MovieHolder(
+            view
+        )
     }
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {

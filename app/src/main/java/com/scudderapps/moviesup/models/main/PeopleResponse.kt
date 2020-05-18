@@ -1,7 +1,8 @@
-package com.scudderapps.moviesup.models
+package com.scudderapps.moviesup.models.main
 
 
 import com.google.gson.annotations.SerializedName
+import com.scudderapps.moviesup.models.main.People
 
 data class PeopleResponse(
     val page: Int,

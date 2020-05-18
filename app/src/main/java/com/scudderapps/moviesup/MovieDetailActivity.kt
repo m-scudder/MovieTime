@@ -19,12 +19,13 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.bumptech.glide.Glide
 import com.ms.square.android.expandabletextview.ExpandableTextView
-import com.scudderapps.moviesup.adapter.CastListAdapter
-import com.scudderapps.moviesup.adapter.TrailerListAdapter
+import com.scudderapps.moviesup.adapter.movieadapter.CastListAdapter
+import com.scudderapps.moviesup.adapter.movieadapter.TrailerListAdapter
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
-import com.scudderapps.moviesup.models.*
+import com.scudderapps.moviesup.models.main.Genre
+import com.scudderapps.moviesup.models.movie.*
 import com.scudderapps.moviesup.repository.NetworkState
 import com.scudderapps.moviesup.repository.moviedetails.MovieDetailRepository
 import com.scudderapps.moviesup.viewmodel.MovieDetailViewModel
@@ -143,7 +144,11 @@ class MovieDetailActivity : AppCompatActivity() {
         viewModel.videoDetails.observe(this, Observer {
 
             if (!it.videosList.isNullOrEmpty()) {
-                trailerAdapter = TrailerListAdapter(it.videosList, this)
+                trailerAdapter =
+                    TrailerListAdapter(
+                        it.videosList,
+                        this
+                    )
                 trailerList.layoutManager = linearLayoutManager
                 trailerList.setHasFixedSize(true)
                 trailerList.adapter = trailerAdapter
@@ -155,7 +160,11 @@ class MovieDetailActivity : AppCompatActivity() {
 
         viewModel.castDetails.observe(this, Observer {
             castDetail = it.castDetail
-            castAdapter = CastListAdapter(castDetail, this)
+            castAdapter =
+                CastListAdapter(
+                    castDetail,
+                    this
+                )
             castList.layoutManager = linearLayoutManager2
             castList.setHasFixedSize(true)
             castList.adapter = castAdapter

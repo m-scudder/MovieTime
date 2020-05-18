@@ -1,4 +1,4 @@
-package com.scudderapps.moviesup.adapter
+package com.scudderapps.moviesup.adapter.movieadapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,13 +8,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.scudderapps.moviesup.R
 import kotlinx.android.synthetic.main.known_as_item.view.*
 
-class TextViewAdapter(private val details: List<String>, private val context: Context) :
-    RecyclerView.Adapter<TextViewAdapter.TextHolder>() {
+class AlsoKnownAsAdapter(private val details: List<String>, private val context: Context) :
+    RecyclerView.Adapter<AlsoKnownAsAdapter.TextHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TextHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view: View = layoutInflater.inflate(R.layout.known_as_item, parent, false)
-        return TextHolder(view)
+        return TextHolder(
+            view
+        )
     }
 
     override fun onBindViewHolder(holder: TextHolder, position: Int) {

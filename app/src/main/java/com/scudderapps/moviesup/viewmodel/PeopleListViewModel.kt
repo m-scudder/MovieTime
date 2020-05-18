@@ -3,7 +3,7 @@ package com.scudderapps.moviesup.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
-import com.scudderapps.moviesup.models.People
+import com.scudderapps.moviesup.models.main.People
 import com.scudderapps.moviesup.repository.NetworkState
 import com.scudderapps.moviesup.repository.peoplelist.PeoplePagedListRepository
 import io.reactivex.disposables.CompositeDisposable

@@ -17,13 +17,13 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.bumptech.glide.Glide
 import com.ms.square.android.expandabletextview.ExpandableTextView
-import com.scudderapps.moviesup.adapter.MovieAdapter
-import com.scudderapps.moviesup.adapter.TextViewAdapter
+import com.scudderapps.moviesup.adapter.movieadapter.MovieAdapter
+import com.scudderapps.moviesup.adapter.movieadapter.AlsoKnownAsAdapter
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
-import com.scudderapps.moviesup.models.PeopleDetails
-import com.scudderapps.moviesup.models.PeopleProfileImages
+import com.scudderapps.moviesup.models.main.PeopleDetails
+import com.scudderapps.moviesup.models.main.PeopleProfileImages
 import com.scudderapps.moviesup.repository.peopledetails.PeopleDetailRepository
 import com.scudderapps.moviesup.viewmodel.PeopleDetailViewModel
 import com.stfalcon.imageviewer.StfalconImageViewer
@@ -82,7 +82,7 @@ class PeopleDetailActivity : AppCompatActivity() {
     lateinit var peopleDetailRepository: PeopleDetailRepository
     private lateinit var peopleDetailViewModel: PeopleDetailViewModel
     lateinit var linearLayoutManager: LinearLayoutManager
-    private lateinit var textViewAdapter: TextViewAdapter
+    private lateinit var alsoKnownAsAdapter: AlsoKnownAsAdapter
     private lateinit var movieAdapter: MovieAdapter
     private lateinit var linearLayoutManager2: LinearLayoutManager
     private lateinit var peopleProfiles: List<PeopleProfileImages>
@@ -112,7 +112,11 @@ class PeopleDetailActivity : AppCompatActivity() {
         peopleDetailViewModel.movieCredits.observe(this, Observer {
 
             if (!it.cast.isNullOrEmpty()) {
-                movieAdapter = MovieAdapter(it.cast, this)
+                movieAdapter =
+                    MovieAdapter(
+                        it.cast,
+                        this
+                    )
                 movieCreditList.layoutManager = linearLayoutManager2
                 movieCreditList.setHasFixedSize(true)
                 movieCreditList.adapter = movieAdapter
@@ -171,12 +175,16 @@ class PeopleDetailActivity : AppCompatActivity() {
             bioLayout.visibility = View.GONE
         }
         if (!it.alsoKnownAs.isNullOrEmpty()) {
-            textViewAdapter = TextViewAdapter(it.alsoKnownAs, this)
+            alsoKnownAsAdapter =
+                AlsoKnownAsAdapter(
+                    it.alsoKnownAs,
+                    this
+                )
             linearLayoutManager = LinearLayoutManager(this)
             linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
             alsoKnowAsView.layoutManager = linearLayoutManager
             alsoKnowAsView.setHasFixedSize(true)
-            alsoKnowAsView.adapter = textViewAdapter
+            alsoKnowAsView.adapter = alsoKnownAsAdapter
         } else {
             knownAsLayout.visibility = View.GONE
         }

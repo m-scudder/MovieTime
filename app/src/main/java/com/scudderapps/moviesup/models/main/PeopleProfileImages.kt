@@ -1,9 +1,9 @@
-package com.scudderapps.moviesup.models
+package com.scudderapps.moviesup.models.main
 
 
 import com.google.gson.annotations.SerializedName
 
-data class Backdrop(
+data class PeopleProfileImages(
     @SerializedName("aspect_ratio")
     val aspectRatio: Double,
     @SerializedName("file_path")

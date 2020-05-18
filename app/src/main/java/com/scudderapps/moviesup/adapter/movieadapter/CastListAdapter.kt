@@ -1,4 +1,4 @@
-package com.scudderapps.moviesup.adapter
+package com.scudderapps.moviesup.adapter.movieadapter
 
 import android.app.Activity
 import android.app.ActivityOptions
@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.scudderapps.moviesup.PeopleDetailActivity
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
-import com.scudderapps.moviesup.models.CastDetail
+import com.scudderapps.moviesup.models.movie.CastDetail
 import kotlinx.android.synthetic.main.cast_list_item.view.*
 import android.util.Pair as UtilPair
 
@@ -22,7 +22,9 @@ class CastListAdapter(private val cast: ArrayList<CastDetail>, private val conte
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CastHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view: View = layoutInflater.inflate(R.layout.cast_list_item, parent, false)
-        return CastHolder(view)
+        return CastHolder(
+            view
+        )
     }
 
     override fun onBindViewHolder(holder: CastHolder, position: Int) {

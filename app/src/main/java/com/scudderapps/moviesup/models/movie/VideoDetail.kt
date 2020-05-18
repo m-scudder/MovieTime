@@ -1,4 +1,4 @@
-package com.scudderapps.moviesup.models
+package com.scudderapps.moviesup.models.movie
 
 data class VideoDetail(
     val id: String,

@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.scudderapps.moviesup.R
-import com.scudderapps.moviesup.adapter.MoviePageListAdapter
+import com.scudderapps.moviesup.adapter.movieadapter.MoviePageListAdapter
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.repository.NetworkState
@@ -32,7 +32,10 @@ class MovieListFragment(private val type: String) : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        movieAdapter = MoviePageListAdapter(activity!!.applicationContext)
+        movieAdapter =
+            MoviePageListAdapter(
+                activity!!.applicationContext
+            )
     }
 
     override fun onCreateView(

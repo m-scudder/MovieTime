@@ -4,7 +4,7 @@ package com.scudderapps.moviesup.repository.peoplelist
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
-import com.scudderapps.moviesup.models.People
+import com.scudderapps.moviesup.models.main.People
 import io.reactivex.disposables.CompositeDisposable
 
 
