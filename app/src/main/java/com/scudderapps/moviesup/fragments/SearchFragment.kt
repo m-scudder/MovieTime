@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.jakewharton.rxbinding2.widget.TextViewTextChangeEvent
 import com.scudderapps.moviesup.R
-import com.scudderapps.moviesup.adapter.movieadapter.MoviePageListAdapter
+import com.scudderapps.moviesup.adapter.SearchListAdapter
 import com.scudderapps.moviesup.api.TheTMDBApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.movie.Movie
@@ -35,7 +35,7 @@ class SearchFragment : Fragment() {
 
     private lateinit var rootView: View
 
-    private lateinit var searchAdapter: MoviePageListAdapter
+    private lateinit var searchAdapter: SearchListAdapter
     private val disposable = CompositeDisposable()
     private val publishSubject = PublishSubject.create<String>()
     var searchMovieList = ArrayList<Movie>()
@@ -43,7 +43,8 @@ class SearchFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         searchAdapter =
-            MoviePageListAdapter(
+            SearchListAdapter(
+                searchMovieList,
                 context!!
             )
     }
