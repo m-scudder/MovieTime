@@ -1,6 +1,8 @@
 package com.scudderapps.moviesup.adapter.tvadapter
 
 import android.content.Context
+import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.scudderapps.moviesup.R
+import com.scudderapps.moviesup.TvDetailActivity
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.models.tv.TV
 import com.scudderapps.moviesup.repository.NetworkState
@@ -91,19 +94,19 @@ class TvPagedListAdapter(private val context: Context) :
                     .into(itemView.movie_image)
             }
 //
-//            itemView.setOnClickListener {
-//
-//                val intent = Intent(context, MovieDetailActivity::class.java)
-//                intent.putExtra("id", movie?.id)
-////                val options = ActivityOptions.makeSceneTransitionAnimation(
-////                    context as Activity?,
-////                    UtilPair<View, String>(itemView.itemCard, "imageTransition")
-////                )
-////                context.startActivity(intent, options.toBundle())
-//                intent.flags = FLAG_ACTIVITY_NEW_TASK
-//                context.startActivity(intent)
-//
-//            }
+            itemView.setOnClickListener {
+
+                val intent = Intent(context, TvDetailActivity::class.java)
+                intent.putExtra("id", tv?.id)
+//                val options = ActivityOptions.makeSceneTransitionAnimation(
+//                    context as Activity?,
+//                    UtilPair<View, String>(itemView.itemCard, "imageTransition")
+//                )
+//                context.startActivity(intent, options.toBundle())
+                intent.flags = FLAG_ACTIVITY_NEW_TASK
+                context.startActivity(intent)
+
+            }
         }
     }
 

@@ -5,6 +5,7 @@ import com.scudderapps.moviesup.models.main.PeopleDetails
 import com.scudderapps.moviesup.models.main.PeopleImages
 import com.scudderapps.moviesup.models.main.PeopleResponse
 import com.scudderapps.moviesup.models.movie.*
+import com.scudderapps.moviesup.models.tv.TvDetail
 import com.scudderapps.moviesup.models.tv.TvResponse
 import io.reactivex.Single
 import retrofit2.http.GET
@@ -89,4 +90,9 @@ interface ApiInterface {
         @Path("type") type: String,
         @Query("page") page: Int
     ): Single<TvResponse>
+
+    @GET("tv/{tv_id}")
+    fun getTVDetails(
+        @Path("tv_id") tvId: Int
+    ): Single<TvDetail>
 }
