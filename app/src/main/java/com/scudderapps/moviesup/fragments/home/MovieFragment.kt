@@ -1,4 +1,4 @@
-package com.scudderapps.moviesup.fragments
+package com.scudderapps.moviesup.fragments.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.scudderapps.moviesup.R
-import com.scudderapps.moviesup.adapter.MovieTabAdapter
+import com.scudderapps.moviesup.adapter.home.MovieTabAdapter
 
 class MovieFragment() : Fragment() {
 
@@ -23,13 +23,17 @@ class MovieFragment() : Fragment() {
 
         movieTabLayout = view.findViewById(R.id.movie_tab_layout)
         movieViewPager = view.findViewById(R.id.movie_list_pager)
-        movieTabLayout.addTab(movieTabLayout.newTab().setText("Top Rated"))
-        movieTabLayout.addTab(movieTabLayout.newTab().setText("Popular"))
         movieTabLayout.addTab(movieTabLayout.newTab().setText("Now Playing"))
+        movieTabLayout.addTab(movieTabLayout.newTab().setText("Popular"))
+        movieTabLayout.addTab(movieTabLayout.newTab().setText("Top Rated"))
         movieTabLayout.addTab(movieTabLayout.newTab().setText("Upcoming"))
 
         val adapter =
-            MovieTabAdapter(view.context, fragmentManager!!, movieTabLayout.tabCount)
+            MovieTabAdapter(
+                view.context,
+                fragmentManager!!,
+                movieTabLayout.tabCount
+            )
         movieViewPager.adapter = adapter
 
         movieViewPager.addOnPageChangeListener(
@@ -37,19 +41,7 @@ class MovieFragment() : Fragment() {
                 movieTabLayout
             )
         )
-
-//        movieTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-//            override fun onTabSelected(tab: TabLayout.Tab) {
-//
-//            }
-//
-//            override fun onTabUnselected(tab: TabLayout.Tab) {
-//
-//            }
-//
-//            override fun onTabReselected(tab: TabLayout.Tab) {}
-//        })
-//
+        movieTabLayout.setupWithViewPager(movieViewPager)
         return view
     }
 

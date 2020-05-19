@@ -1,4 +1,4 @@
-package com.scudderapps.moviesup.adapter.movieadapter
+package com.scudderapps.moviesup.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

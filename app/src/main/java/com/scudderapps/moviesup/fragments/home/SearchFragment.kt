@@ -1,4 +1,4 @@
-package com.scudderapps.moviesup.fragments
+package com.scudderapps.moviesup.fragments.home
 
 import android.os.Bundle
 import android.util.Log
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.jakewharton.rxbinding2.widget.TextViewTextChangeEvent
 import com.scudderapps.moviesup.R
-import com.scudderapps.moviesup.adapter.SearchListAdapter
+import com.scudderapps.moviesup.adapter.home.SearchListAdapter
 import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.movie.Movie

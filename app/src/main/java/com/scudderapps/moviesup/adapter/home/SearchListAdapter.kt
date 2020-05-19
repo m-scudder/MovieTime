@@ -1,4 +1,4 @@
-package com.scudderapps.moviesup.adapter
+package com.scudderapps.moviesup.adapter.home
 
 import android.content.Context
 import android.content.Intent
@@ -19,7 +19,9 @@ class SearchListAdapter(private val movies: ArrayList<Movie>, private val contex
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchListHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view: View = layoutInflater.inflate(R.layout.search_list_item, parent, false)
-        return SearchListHolder(view)
+        return SearchListHolder(
+            view
+        )
     }
 
     override fun onBindViewHolder(holder: SearchListHolder, position: Int) {

@@ -1,4 +1,4 @@
-package com.scudderapps.moviesup.fragments
+package com.scudderapps.moviesup.fragments.home
 
 import android.os.Bundle
 import android.view.LayoutInflater

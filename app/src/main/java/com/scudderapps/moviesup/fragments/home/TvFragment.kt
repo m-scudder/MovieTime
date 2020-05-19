@@ -1,4 +1,4 @@
-package com.scudderapps.moviesup.fragments
+package com.scudderapps.moviesup.fragments.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.scudderapps.moviesup.R
-import com.scudderapps.moviesup.adapter.TvTabAdapter
+import com.scudderapps.moviesup.adapter.home.TvTabAdapter
 
 class TvFragment: Fragment() {
 
@@ -24,11 +24,15 @@ class TvFragment: Fragment() {
         tvTabLayout = view.findViewById(R.id.tv_tab_layout)
         tvViewPager = view.findViewById(R.id.tv_viewpager)
         tvTabLayout.addTab(tvTabLayout.newTab().setText("Now Playing"))
-        tvTabLayout.addTab(tvTabLayout.newTab().setText("On Air"))
+        tvTabLayout.addTab(tvTabLayout.newTab().setText("On Air Today"))
         tvTabLayout.addTab(tvTabLayout.newTab().setText("Popular"))
 
         val adapter =
-            TvTabAdapter(view.context, fragmentManager!!, tvTabLayout.tabCount)
+            TvTabAdapter(
+                view.context,
+                fragmentManager!!,
+                tvTabLayout.tabCount
+            )
         tvViewPager.adapter = adapter
 
         tvViewPager.addOnPageChangeListener(
@@ -36,19 +40,8 @@ class TvFragment: Fragment() {
                 tvTabLayout
             )
         )
+        tvTabLayout.setupWithViewPager(tvViewPager)
 
-//        movieTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-//            override fun onTabSelected(tab: TabLayout.Tab) {
-//
-//            }
-//
-//            override fun onTabUnselected(tab: TabLayout.Tab) {
-//
-//            }
-//
-//            override fun onTabReselected(tab: TabLayout.Tab) {}
-//        })
-//
         return view
     }
 

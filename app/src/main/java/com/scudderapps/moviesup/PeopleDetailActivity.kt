@@ -17,8 +17,8 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.bumptech.glide.Glide
 import com.ms.square.android.expandabletextview.ExpandableTextView
-import com.scudderapps.moviesup.adapter.movieadapter.MovieAdapter
-import com.scudderapps.moviesup.adapter.movieadapter.AlsoKnownAsAdapter
+import com.scudderapps.moviesup.adapter.movie.MovieAdapter
+import com.scudderapps.moviesup.adapter.AlsoKnownAsAdapter
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient

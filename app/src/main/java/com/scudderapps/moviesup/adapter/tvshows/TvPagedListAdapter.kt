@@ -1,4 +1,4 @@
-package com.scudderapps.moviesup.adapter.tvadapter
+package com.scudderapps.moviesup.adapter.tvshows
 
 import android.content.Context
 import android.content.Intent

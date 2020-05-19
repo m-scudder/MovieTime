@@ -12,10 +12,10 @@ import butterknife.ButterKnife
 import com.irfaan008.irbottomnavigation.SpaceItem
 import com.irfaan008.irbottomnavigation.SpaceNavigationView
 import com.irfaan008.irbottomnavigation.SpaceOnClickListener
-import com.scudderapps.moviesup.fragments.ErrorFragment
-import com.scudderapps.moviesup.fragments.MovieFragment
-import com.scudderapps.moviesup.fragments.SearchFragment
-import com.scudderapps.moviesup.fragments.TvFragment
+import com.scudderapps.moviesup.fragments.home.ErrorFragment
+import com.scudderapps.moviesup.fragments.home.MovieFragment
+import com.scudderapps.moviesup.fragments.home.SearchFragment
+import com.scudderapps.moviesup.fragments.home.TvFragment
 
 class MainActivity : AppCompatActivity() {
 

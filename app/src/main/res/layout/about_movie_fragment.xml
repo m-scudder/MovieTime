@@ -1,146 +1,23 @@
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_design_support_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:contentScrim="@android:color/transparent"
-            app:expandedTitleGravity="top"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:statusBarScrim="?attr/colorPrimaryDark"
-            app:titleEnabled="false">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:fitsSystemWindows="true"
-                app:layout_collapseMode="pin">
-
-                <ImageView
-                    android:id="@+id/backdrop_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:background="@color/colorPrimary"
-                    android:scaleType="center"
-                    tools:ignore="ContentDescription" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:background="@drawable/backdrop_gradient" />
-
-                <TextView
-                    android:id="@+id/movie_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="38dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="160dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_toEndOf="@id/poster_card"
-                    android:fitsSystemWindows="true"
-                    android:padding="2dp"
-                    android:textAppearance="@style/MovieTitleTheme"
-                    app:layout_collapseMode="pin" />
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/poster_card"
-                    android:layout_width="100dp"
-                    android:layout_height="150dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="120dp"
-                    android:layout_marginBottom="8dp"
-                    android:transitionName="imageTransition"
-                    app:cardCornerRadius="8dp">
-
-                    <ImageView
-                        android:id="@+id/poster_image"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/colorPrimary"
-                        tools:ignore="ContentDescription" />
-
-                </androidx.cardview.widget.CardView>
-
-                <TextView
-                    android:id="@+id/releaseDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/movie_title"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_toEndOf="@id/poster_card"
-                    android:textAppearance="@style/TitleTheme" />
-
-                <TextView
-                    android:id="@+id/runTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/movie_title"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_toEndOf="@id/releaseDate"
-                    android:textAlignment="viewStart"
-                    android:textAppearance="@style/TitleTheme" />
-
-                <TextView
-                    android:id="@+id/status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/runTime"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_toEndOf="@id/poster_card"
-                    android:textAlignment="viewStart"
-                    android:textAppearance="@style/TitleTheme" />
-
-            </RelativeLayout>
-
-            <include
-                android:id="@+id/detail_toolbar"
-                layout="@layout/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                app:layout_collapseMode="pin" />
-
-
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-    </com.google.android.material.appbar.AppBarLayout>
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.moviedetails.AboutMovieFragment">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/movieDetailScrollView"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
-        android:fillViewport="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <ProgressBar
-                android:id="@+id/movieDetailBar"
-                style="@style/HeaderTheme"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="8dp"
-                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/genres_layout"
@@ -187,10 +64,10 @@
 
                 <com.ms.square.android.expandabletextview.ExpandableTextView
                     android:id="@+id/movie_overview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     app:animDuration="200"
-                    app:maxCollapsedLines="3">
+                    app:maxCollapsedLines="3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/expandable_text"
@@ -237,26 +114,6 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/the_cast"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/cast"
-                android:textAlignment="viewStart"
-                android:textAppearance="@style/TitleTheme" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/castListView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="10dp" />
-
-
-            <TextView
                 android:id="@+id/the_media"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -283,9 +140,9 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/posters_card"
+                        app:cardCornerRadius="8dp"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:cardCornerRadius="8dp">
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/posterMedia"
@@ -324,9 +181,9 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/backdrops_card"
+                        app:cardCornerRadius="8dp"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:cardCornerRadius="8dp">
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/backdropMedia"
@@ -370,9 +227,9 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/collection_card"
+                    app:cardCornerRadius="8dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:cardCornerRadius="8dp">
+                    android:layout_height="match_parent">
 
                     <ImageView
                         android:id="@+id/collection_media"
@@ -405,4 +262,4 @@
 
     </androidx.core.widget.NestedScrollView>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>
