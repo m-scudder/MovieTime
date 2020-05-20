@@ -43,16 +43,17 @@ class CastListAdapter(private val cast: ArrayList<CastDetail>, private val conte
         fun bindVideos(cast: CastDetail, context: Context) {
             this.cast = cast
             this.context = context
-            itemView.peopleName.text = cast.name
+            itemView.castName.text = cast.name
+            itemView.characterName.text = cast.character
             if (!cast.profilePath.isNullOrEmpty()) {
                 val profileUrl = IMAGE_BASE_URL + cast?.profilePath
                 Glide.with(view)
                     .load(profileUrl)
-                    .into(itemView.peopleImage)
+                    .into(itemView.castImage)
             } else {
                 Glide.with(view)
                     .load(R.drawable.default_avatar)
-                    .into(itemView.peopleImage)
+                    .into(itemView.castImage)
             }
 
             itemView.setOnClickListener(View.OnClickListener {
@@ -61,7 +62,7 @@ class CastListAdapter(private val cast: ArrayList<CastDetail>, private val conte
                 intent.putExtra("id", cast?.id)
                 val options = ActivityOptions.makeSceneTransitionAnimation(
                     context as Activity?,
-                    UtilPair<View, String>(itemView.peopleImage, "peopleImageTransition")
+                    UtilPair<View, String>(itemView.castImage, "peopleImageTransition")
                 )
                 context.startActivity(intent, options.toBundle())
             })

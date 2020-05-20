@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.scudderapps.moviesup.fragments.moviedetails.AboutMovieFragment
+import com.scudderapps.moviesup.fragments.moviedetails.MovieCastFragment
 
 class MovieDetailTabAdapter(
     private val movieId: Int,
@@ -20,7 +21,7 @@ class MovieDetailTabAdapter(
                 return AboutMovieFragment(movieId)
             }
             1 -> {
-
+                return MovieCastFragment(movieId)
             }
             2 -> {
 
