@@ -9,6 +9,8 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import butterknife.BindView
+import butterknife.ButterKnife
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.jakewharton.rxbinding2.widget.TextViewTextChangeEvent
 import com.scudderapps.moviesup.R
@@ -30,10 +32,13 @@ import java.util.concurrent.TimeUnit
 
 class SearchFragment : Fragment() {
 
-    private lateinit var searchView: RecyclerView
-    private lateinit var searchEditTextView: EditText
+    @BindView(R.id.search_recycler_view)
+    lateinit var searchView: RecyclerView
 
-    private lateinit var rootView: View
+    @BindView(R.id.search_edit_box)
+    lateinit var searchEditTextView: EditText
+
+    lateinit var rootView: View
 
     private lateinit var searchAdapter: SearchListAdapter
     private val disposable = CompositeDisposable()
@@ -55,9 +60,7 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         rootView = inflater.inflate(R.layout.fragment_search, container, false)
-
-        searchView = rootView.findViewById(R.id.search_recycler_view)
-        searchEditTextView = rootView.findViewById(R.id.search_edit_box)
+        ButterKnife.bind(this, rootView)
         val linearLayoutManager = LinearLayoutManager(activity)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         linearLayoutManager.reverseLayout = false

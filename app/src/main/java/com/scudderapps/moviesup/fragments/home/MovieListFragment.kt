@@ -12,6 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import butterknife.BindView
+import butterknife.ButterKnife
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.adapter.movie.MoviePageListAdapter
 import com.scudderapps.moviesup.api.ApiInterface
@@ -22,8 +24,12 @@ import com.scudderapps.moviesup.viewmodel.MovieListViewModel
 
 class MovieListFragment(private val type: String) : Fragment() {
 
-    private lateinit var movieView: RecyclerView
-    private lateinit var mainProgressBar: ProgressBar
+    @BindView(R.id.movie_list_view)
+    lateinit var movieView: RecyclerView
+
+    @BindView(R.id.main_progress_bar)
+    lateinit var mainProgressBar: ProgressBar
+
     private lateinit var rootView: View
     private lateinit var movieAdapter: MoviePageListAdapter
     private lateinit var listViewModel: MovieListViewModel
@@ -44,8 +50,7 @@ class MovieListFragment(private val type: String) : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         rootView = inflater.inflate(R.layout.movie_list_fragment, container, false)
-        movieView = rootView.findViewById(R.id.movie_list_view)
-        mainProgressBar = rootView.findViewById(R.id.main_progress_bar)
+        ButterKnife.bind(this, rootView)
         val apiService: ApiInterface = TheTMDBClient.getClient()
         moviePagedListRepository = MoviePagedListRepository(apiService)
         listViewModel = movieListViewModel(type)
