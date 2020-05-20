@@ -23,7 +23,7 @@ import com.scudderapps.moviesup.viewmodel.TvListViewModel
 class TvListFragment(private val type: String) : Fragment() {
 
     private lateinit var tvView: RecyclerView
-    private lateinit var mainProgressBar: ProgressBar
+    private lateinit var tvProgressBar: ProgressBar
     private lateinit var rootView: View
     private lateinit var tvAdapter: TvPagedListAdapter
     private lateinit var listViewModel: TvListViewModel
@@ -45,7 +45,7 @@ class TvListFragment(private val type: String) : Fragment() {
     ): View? {
         rootView = inflater.inflate(R.layout.tv_list_fragment, container, false)
         tvView = rootView.findViewById(R.id.tv_list_view)
-        mainProgressBar = rootView.findViewById(R.id.tv_progress_bar)
+        tvProgressBar = rootView.findViewById(R.id.tv_progress_bar)
         val apiService: ApiInterface = TheTMDBClient.getClient()
         tvPagedListRepository = TvPagedListRepository(apiService)
         listViewModel = tvListViewModel(type)
@@ -75,7 +75,7 @@ class TvListFragment(private val type: String) : Fragment() {
 
         listViewModel.networkState.observe(this, Observer {
 
-            mainProgressBar.visibility =
+            tvProgressBar.visibility =
                 if (listViewModel.movieListIsEmpty() && it == NetworkState.LOADING) View.VISIBLE else View.GONE
             if (!listViewModel.movieListIsEmpty()) {
                 tvAdapter.setNetworkState(it)

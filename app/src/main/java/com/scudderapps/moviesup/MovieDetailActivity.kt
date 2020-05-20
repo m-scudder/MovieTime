@@ -20,6 +20,9 @@ import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.repository.movie.moviedetails.MovieDetailRepository
 import com.scudderapps.moviesup.viewmodel.MovieDetailViewModel
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MovieDetailActivity : AppCompatActivity() {
 
@@ -31,6 +34,15 @@ class MovieDetailActivity : AppCompatActivity() {
 
     @BindView(R.id.movie_title)
     lateinit var title: TextView
+
+    @BindView(R.id.releaseDate)
+    lateinit var releaseDate: TextView
+
+    @BindView(R.id.runTime)
+    lateinit var runTime: TextView
+
+    @BindView(R.id.status)
+    lateinit var status: TextView
 
     @BindView(R.id.detail_toolbar)
     lateinit var toolbar: Toolbar
@@ -49,8 +61,7 @@ class MovieDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie_detail)
         ButterKnife.bind(this)
         setSupportActionBar(toolbar)
-        supportActionBar!!.setTitle("")
-
+            supportActionBar!!.title = ""
         val data = intent.extras
         var movieId = data!!.getInt("id")
 
@@ -82,6 +93,16 @@ class MovieDetailActivity : AppCompatActivity() {
 
         viewModel.movieDetails.observe(this, Observer {
             title.text = it.title
+//            supportActionBar!!.title = it.title
+            if (!it.releaseDate.isNullOrEmpty()) {
+                val originalFormat: DateFormat = SimpleDateFormat("yyyy-MM-d", Locale.ENGLISH)
+                val targetFormat: DateFormat = SimpleDateFormat(getString(R.string.dateFormat))
+                val date: Date = originalFormat.parse(it.releaseDate)
+                val formattedDate: String = targetFormat.format(date)
+                releaseDate.text = formattedDate + "  ●"
+            }
+            runTime.text = "${it.runtime} Min"
+            status.text = it.status
             if (!it.backdropPath.isNullOrEmpty()) {
                 var backDropURL: String = IMAGE_BASE_URL + it.backdropPath
                 Glide.with(this)
