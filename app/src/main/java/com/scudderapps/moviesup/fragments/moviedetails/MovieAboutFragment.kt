@@ -1,32 +1,34 @@
 package com.scudderapps.moviesup.fragments.moviedetails
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.GridLayoutManager
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.bumptech.glide.Glide
 import com.ms.square.android.expandabletextview.ExpandableTextView
+import com.scudderapps.moviesup.CollectionActivity
 import com.scudderapps.moviesup.R
-import com.scudderapps.moviesup.adapter.movie.MoviePageListAdapter
-import com.scudderapps.moviesup.adapter.movie.moviedetails.TrailerListAdapter
 import com.scudderapps.moviesup.api.ApiInterface
+import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.main.Genre
-import com.scudderapps.moviesup.models.movie.VideoDetail
-import com.scudderapps.moviesup.repository.NetworkState
+import com.scudderapps.moviesup.models.movie.Backdrop
+import com.scudderapps.moviesup.models.movie.CollectionResponse
 import com.scudderapps.moviesup.repository.movie.moviedetails.MovieDetailRepository
-import com.scudderapps.moviesup.repository.movie.movielist.MoviePagedListRepository
 import com.scudderapps.moviesup.viewmodel.MovieDetailViewModel
 
-class AboutMovieFragment(private var movieId: Int) : Fragment() {
+class MovieAboutFragment(private var movieId: Int) : Fragment() {
 
     private lateinit var rootView: View
 
@@ -36,22 +38,26 @@ class AboutMovieFragment(private var movieId: Int) : Fragment() {
     @BindView(R.id.genresName)
     lateinit var genresName: TextView
 
+    @BindView(R.id.genres_layout)
+    lateinit var genresLayout: LinearLayout
+
+    @BindView(R.id.collection_media)
+    lateinit var collectionImage: ImageView
+
+    @BindView(R.id.collection_name)
+    lateinit var collectionName: TextView
+
+    @BindView(R.id.collection_layout)
+    lateinit var collectionLayout: LinearLayout
+
     private lateinit var viewModel: MovieDetailViewModel
     private lateinit var movieRepository: MovieDetailRepository
-
-    private lateinit var trailerAdapter: TrailerListAdapter
-    private lateinit var trailerDetail: ArrayList<VideoDetail>
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        rootView = inflater.inflate(R.layout.about_movie_fragment, container, false)
+        rootView = inflater.inflate(R.layout.movie_about_fragment, container, false)
         ButterKnife.bind(this, rootView)
         val apiService: ApiInterface = TheTMDBClient.getClient()
         movieRepository = MovieDetailRepository(apiService)
@@ -69,10 +75,27 @@ class AboutMovieFragment(private var movieId: Int) : Fragment() {
                     genresName.append("\u25CF ${i.name}  ")
                 }
             } else {
-//                genresLayout.visibility = View.GONE
+                genresLayout.visibility = View.GONE
+            }
+
+            val collectionList: CollectionResponse = it.belongsToCollection
+            if (collectionList != null) {
+
+                val collectionBackdrop: String = IMAGE_BASE_URL + collectionList.backdropPath
+                Glide.with(this).load(collectionBackdrop).into(collectionImage)
+                collectionName.text = "Belongs to " + collectionList.name
+                collectionImage.setOnClickListener(View.OnClickListener {
+                    val intent = Intent(activity, CollectionActivity::class.java)
+                    intent.putExtra("id", collectionList.id)
+                    startActivity(intent)
+                })
+
+            } else {
+                collectionLayout.visibility = View.GONE
             }
         })
     }
+
     private fun getViewModel(movieId: Int): MovieDetailViewModel {
         return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {

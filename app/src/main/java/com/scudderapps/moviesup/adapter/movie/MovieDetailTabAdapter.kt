@@ -4,8 +4,9 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.scudderapps.moviesup.fragments.moviedetails.AboutMovieFragment
+import com.scudderapps.moviesup.fragments.moviedetails.MovieAboutFragment
 import com.scudderapps.moviesup.fragments.moviedetails.MovieCastFragment
+import com.scudderapps.moviesup.fragments.moviedetails.MovieMediaFragment
 
 class MovieDetailTabAdapter(
     private val movieId: Int,
@@ -18,16 +19,16 @@ class MovieDetailTabAdapter(
     override fun getItem(position: Int): Fragment {
         when (position) {
             0 -> {
-                return AboutMovieFragment(movieId)
+                return MovieAboutFragment(movieId)
             }
             1 -> {
-                return MovieCastFragment(movieId)
+                return MovieMediaFragment(movieId)
             }
             2 -> {
-
+                return MovieCastFragment(movieId)
             }
         }
-        return AboutMovieFragment(movieId)
+        return MovieAboutFragment(movieId)
     }
 
     override fun getCount(): Int {
@@ -37,10 +38,11 @@ class MovieDetailTabAdapter(
     override fun getPageTitle(position: Int): CharSequence? {
         return when (position) {
             0 -> "About"
-            1 -> "Cast"
-            2 -> "Reviews"
-            3 -> "Similar"
-            4 -> "Recommended"
+            1 -> "Trailers & Media"
+            2 -> "Cast"
+            3 -> "Reviews"
+            4 -> "Similar"
+            5 -> "Recommended"
             else -> null
         }
     }

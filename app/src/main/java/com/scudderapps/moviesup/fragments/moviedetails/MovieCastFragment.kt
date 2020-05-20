@@ -48,7 +48,7 @@ class MovieCastFragment(private var movieId: Int) : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        rootView = inflater.inflate(R.layout.cast_movie_fragment, container, false)
+        rootView = inflater.inflate(R.layout.movie_cast_fragment, container, false)
         ButterKnife.bind(this, rootView)
         val apiService: ApiInterface = TheTMDBClient.getClient()
         movieRepository = MovieDetailRepository(apiService)

@@ -37,7 +37,7 @@ class CollectionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.collection_activity)
+        setContentView(R.layout.activity_collection)
         ButterKnife.bind(this)
         setSupportActionBar(collectionToolbar)
         supportActionBar!!.title = "Collection"
