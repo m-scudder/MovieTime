@@ -1,9 +1,10 @@
-package com.scudderapps.moviesup.repository.tv
+package com.scudderapps.moviesup.repository.tv.tvlist
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.models.tv.TV
+import com.scudderapps.moviesup.repository.tv.tvlist.TvDataSource
 import io.reactivex.disposables.CompositeDisposable
 
 class TvDataSourceFactory(

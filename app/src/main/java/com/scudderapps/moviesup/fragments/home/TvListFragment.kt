@@ -19,7 +19,7 @@ import com.scudderapps.moviesup.adapter.tvshows.TvPagedListAdapter
 import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.repository.NetworkState
-import com.scudderapps.moviesup.repository.tv.TvPagedListRepository
+import com.scudderapps.moviesup.repository.tv.tvlist.TvPagedListRepository
 import com.scudderapps.moviesup.viewmodel.TvListViewModel
 
 class TvListFragment(private val type: String) : Fragment() {
@@ -52,7 +52,10 @@ class TvListFragment(private val type: String) : Fragment() {
         rootView = inflater.inflate(R.layout.tv_list_fragment, container, false)
         ButterKnife.bind(this, rootView)
         val apiService: ApiInterface = TheTMDBClient.getClient()
-        tvPagedListRepository = TvPagedListRepository(apiService)
+        tvPagedListRepository =
+            TvPagedListRepository(
+                apiService
+            )
         listViewModel = tvListViewModel(type)
         populatingViews()
 

@@ -95,4 +95,14 @@ interface ApiInterface {
     fun getTVDetails(
         @Path("tv_id") tvId: Int
     ): Single<TvDetail>
+
+    @GET("tv/{tv_id}/videos")
+    fun getTvVideos(
+        @Path("tv_id") tvId: Int
+    ): Single<VideoResponse>
+
+    @GET("tv/{tv_id}/images")
+    fun getTvMedia(
+        @Path("tv_id") tvId: Int
+    ): Single<MediaResponse>
 }

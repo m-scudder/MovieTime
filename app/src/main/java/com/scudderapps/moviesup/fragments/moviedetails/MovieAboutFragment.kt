@@ -130,7 +130,7 @@ class MovieAboutFragment(private var movieId: Int) : Fragment() {
     }
 
     private fun populatingViews() {
-        viewModel.movieDetails.observe(this, Observer {
+        viewModel.movieDetails.observe(viewLifecycleOwner, Observer {
             movieOverview.text = it.overview
             originalTitle.text = it.originalTitle
             movieRuntime.text = it.runtime.toString() + " Min"
@@ -184,7 +184,7 @@ class MovieAboutFragment(private var movieId: Int) : Fragment() {
                 productionCompany.text = "-"
         })
 
-        viewModel.videoDetails.observe(this, Observer {
+        viewModel.videoDetails.observe(viewLifecycleOwner, Observer {
 
             if (!it.videosList.isNullOrEmpty()) {
                 trailerAdapter = TrailerListAdapter(it.videosList, rootView.context)
@@ -199,7 +199,7 @@ class MovieAboutFragment(private var movieId: Int) : Fragment() {
 
         })
 
-        viewModel.movieMedia.observe(this, Observer {
+        viewModel.movieMedia.observe(viewLifecycleOwner, Observer {
             movieBackdrops = it.backdrops
             moviePosters = it.posters
             if (!moviePosters.isNullOrEmpty()) {

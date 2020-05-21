@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
 import com.scudderapps.moviesup.models.tv.TV
 import com.scudderapps.moviesup.repository.NetworkState
-import com.scudderapps.moviesup.repository.tv.TvPagedListRepository
+import com.scudderapps.moviesup.repository.tv.tvlist.TvPagedListRepository
 import io.reactivex.disposables.CompositeDisposable
 
 class TvListViewModel(

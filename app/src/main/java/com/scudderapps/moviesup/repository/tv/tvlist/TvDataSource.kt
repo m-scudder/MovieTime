@@ -1,4 +1,4 @@
-package com.scudderapps.moviesup.repository.tv
+package com.scudderapps.moviesup.repository.tv.tvlist
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData

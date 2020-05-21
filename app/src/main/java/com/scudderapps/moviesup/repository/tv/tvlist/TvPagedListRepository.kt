@@ -1,4 +1,4 @@
-package com.scudderapps.moviesup.repository.tv
+package com.scudderapps.moviesup.repository.tv.tvlist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
@@ -8,6 +8,8 @@ import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.POST_PER_PAGE
 import com.scudderapps.moviesup.models.tv.TV
 import com.scudderapps.moviesup.repository.NetworkState
+import com.scudderapps.moviesup.repository.tv.tvlist.TvDataSource
+import com.scudderapps.moviesup.repository.tv.tvlist.TvDataSourceFactory
 import io.reactivex.disposables.CompositeDisposable
 
 class TvPagedListRepository(private val apiService: ApiInterface) {
@@ -20,7 +22,12 @@ class TvPagedListRepository(private val apiService: ApiInterface) {
         type: String
     ): LiveData<PagedList<TV>> {
 
-        tvDataSourceFactory = TvDataSourceFactory(apiService, compositeDisposable, type)
+        tvDataSourceFactory =
+            TvDataSourceFactory(
+                apiService,
+                compositeDisposable,
+                type
+            )
         val config = PagedList.Config
             .Builder()
             .setEnablePlaceholders(false)
