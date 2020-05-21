@@ -70,8 +70,8 @@ class MovieDetailActivity : AppCompatActivity() {
         viewModel = getViewModel(movieId)
 
         movieDetailTabLayout.addTab(movieDetailTabLayout.newTab().setText("About"))
-        movieDetailTabLayout.addTab(movieDetailTabLayout.newTab().setText("Trailers & Media"))
         movieDetailTabLayout.addTab(movieDetailTabLayout.newTab().setText("Cast"))
+        movieDetailTabLayout.addTab(movieDetailTabLayout.newTab().setText("Crew"))
         movieDetailTabLayout.addTab(movieDetailTabLayout.newTab().setText("Reviews"))
         movieDetailTabLayout.addTab(movieDetailTabLayout.newTab().setText("Similar"))
         movieDetailTabLayout.addTab(movieDetailTabLayout.newTab().setText("Recommended"))

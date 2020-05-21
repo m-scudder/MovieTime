@@ -14,44 +14,44 @@ import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.scudderapps.moviesup.R
-import com.scudderapps.moviesup.adapter.movie.moviedetails.CastListAdapter
+import com.scudderapps.moviesup.adapter.movie.moviedetails.CrewListAdapter
 import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
-import com.scudderapps.moviesup.models.movie.CastDetail
+import com.scudderapps.moviesup.models.movie.CrewDetail
 import com.scudderapps.moviesup.repository.movie.moviedetails.MovieDetailRepository
 import com.scudderapps.moviesup.viewmodel.MovieDetailViewModel
 
-class MovieCastFragment(private var movieId: Int) : Fragment() {
+class MovieCrewFragment(private var movieId: Int) : Fragment() {
 
     private lateinit var rootView: View
 
-    @BindView(R.id.movie_cast_list)
-    lateinit var castListView: RecyclerView
+    @BindView(R.id.movie_crew_list)
+    lateinit var movieCrewView: RecyclerView
 
-    private lateinit var castAdapter: CastListAdapter
-    private lateinit var castDetail: ArrayList<CastDetail>
+    private lateinit var crewAdapter: CrewListAdapter
+    private lateinit var crewDetailList: ArrayList<CrewDetail>
 
-    lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var viewModel: MovieDetailViewModel
     private lateinit var movieRepository: MovieDetailRepository
+    lateinit var linearLayoutManager: LinearLayoutManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        rootView = inflater.inflate(R.layout.movie_cast_fragment, container, false)
+        rootView = inflater.inflate(R.layout.movie_crew_fragment, container, false)
         ButterKnife.bind(this, rootView)
         val apiService: ApiInterface = TheTMDBClient.getClient()
         movieRepository = MovieDetailRepository(apiService)
         viewModel = getViewModel(movieId)
         viewModel.castDetails.observe(this, Observer {
-            castDetail = it.castDetail
-            castAdapter = CastListAdapter(castDetail, rootView.context)
+            crewDetailList = it.crewDetail
+            crewAdapter = CrewListAdapter(crewDetailList, rootView.context)
             linearLayoutManager = LinearLayoutManager(activity)
             linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-            castListView.layoutManager = linearLayoutManager
-            castListView.setHasFixedSize(true)
-            castListView.adapter = castAdapter
+            movieCrewView.layoutManager = linearLayoutManager
+            movieCrewView.setHasFixedSize(true)
+            movieCrewView.adapter = crewAdapter
 
         })
         return rootView
