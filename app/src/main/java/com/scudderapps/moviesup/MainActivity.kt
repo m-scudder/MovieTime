@@ -5,6 +5,7 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import butterknife.BindView
@@ -60,6 +61,8 @@ class MainActivity : AppCompatActivity() {
         bottomBar.setCentreButtonIconColorFilterEnabled(false)
         bottomBar.setCentreButtonColor(resources.getColor(R.color.orange))
         bottomBar.showIconOnly()
+        bottomBar.setInActiveSpaceItemColor(ContextCompat.getColor(this, R.color.colorAccent));
+        bottomBar.setActiveSpaceItemColor(ContextCompat.getColor(this, R.color.orange));
 
         bottomBar.setSpaceOnClickListener(object : SpaceOnClickListener {
             override fun onCentreButtonClick() {
