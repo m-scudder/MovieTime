@@ -23,10 +23,15 @@ import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.main.Genre
-import com.scudderapps.moviesup.models.movie.Backdrop
 import com.scudderapps.moviesup.models.movie.CollectionResponse
+import com.scudderapps.moviesup.models.movie.ProductionCompany
+import com.scudderapps.moviesup.models.movie.ProductionCountry
+import com.scudderapps.moviesup.models.movie.SpokenLanguage
 import com.scudderapps.moviesup.repository.movie.moviedetails.MovieDetailRepository
 import com.scudderapps.moviesup.viewmodel.MovieDetailViewModel
+import java.text.NumberFormat
+import java.util.*
+
 
 class MovieAboutFragment(private var movieId: Int) : Fragment() {
 
@@ -37,6 +42,30 @@ class MovieAboutFragment(private var movieId: Int) : Fragment() {
 
     @BindView(R.id.genresName)
     lateinit var genresName: TextView
+
+    @BindView(R.id.original_title)
+    lateinit var originalTitle: TextView
+
+    @BindView(R.id.budget)
+    lateinit var budget: TextView
+
+    @BindView(R.id.revenue)
+    lateinit var revenue: TextView
+
+    @BindView(R.id.original_language)
+    lateinit var originalLanguage: TextView
+
+    @BindView(R.id.movie_runtime)
+    lateinit var movieRuntime: TextView
+
+    @BindView(R.id.spoken_language)
+    lateinit var spokenLanguage: TextView
+
+    @BindView(R.id.production_companies)
+    lateinit var productionCompany: TextView
+
+    @BindView(R.id.production_countries)
+    lateinit var productionCountry: TextView
 
     @BindView(R.id.genres_layout)
     lateinit var genresLayout: LinearLayout
@@ -69,6 +98,13 @@ class MovieAboutFragment(private var movieId: Int) : Fragment() {
     private fun populatingViews() {
         viewModel.movieDetails.observe(this, Observer {
             movieOverview.text = it.overview
+            originalTitle.text = it.originalTitle
+            movieRuntime.text = it.runtime.toString() + " Min"
+            budget.text = NumberFormat.getCurrencyInstance(Locale("en", "US"))
+                .format(it.budget.toDouble())
+            revenue.text = NumberFormat.getCurrencyInstance(Locale("en", "US"))
+                .format(it.revenue.toDouble())
+            originalLanguage.text = it.originalLanguage
             val genre: ArrayList<Genre> = it.genres
             if (!genre.isNullOrEmpty()) {
                 for (i in genre) {
@@ -77,6 +113,15 @@ class MovieAboutFragment(private var movieId: Int) : Fragment() {
             } else {
                 genresLayout.visibility = View.GONE
             }
+
+            val spokenLangaugeList : List<SpokenLanguage> = it.spokenLanguages
+            if (!spokenLangaugeList.isNullOrEmpty())
+                for (i in spokenLangaugeList) {
+//                    spokenLanguage.append("\u25CF ${i.name}  ")
+                    spokenLanguage.text = spokenLangaugeList[0].name
+                }
+            else
+                spokenLanguage.text = "-"
 
             val collectionList: CollectionResponse = it.belongsToCollection
             if (collectionList != null) {
@@ -93,6 +138,16 @@ class MovieAboutFragment(private var movieId: Int) : Fragment() {
             } else {
                 collectionLayout.visibility = View.GONE
             }
+
+            val productionCountryList: List<ProductionCountry> = it.productionCountries
+            if (!productionCountryList.isNullOrEmpty()) productionCountry.text =
+                productionCountryList[0].name else
+                productionCountry.text = "-"
+
+            val productionCompanyList: List<ProductionCompany> = it.productionCompanies
+            if (!productionCompanyList.isNullOrEmpty()) productionCompany.text =
+                productionCompanyList[0].name else
+                productionCompany.text = "-"
         })
     }
 

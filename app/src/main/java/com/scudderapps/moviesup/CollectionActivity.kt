@@ -41,8 +41,6 @@ class CollectionActivity : AppCompatActivity() {
         ButterKnife.bind(this)
         setSupportActionBar(collectionToolbar)
         supportActionBar!!.title = "Collection"
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setDisplayShowHomeEnabled(true)
 
         val data = intent.extras
         var id = data!!.getInt("id")

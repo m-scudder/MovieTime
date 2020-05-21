@@ -1,23 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.moviedetails.MovieAboutFragment">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/movieDetailScrollView"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/synopsis_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/synopsis"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/the_synopsis"
+                    android:textAlignment="viewStart"
+                    android:textAppearance="@style/TitleTheme" />
+
+                <com.ms.square.android.expandabletextview.ExpandableTextView
+                    android:id="@+id/movie_overview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:animDuration="200"
+                    app:maxCollapsedLines="3">
+
+                    <TextView
+                        android:id="@+id/expandable_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/TitleTextTheme" />
+
+                    <ImageButton
+                        android:id="@id/expand_collapse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|bottom"
+                        android:background="@android:color/transparent"
+                        android:padding="16dp" />
+
+                </com.ms.square.android.expandabletextview.ExpandableTextView>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/genres_layout"
@@ -46,48 +90,212 @@
 
             </LinearLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="Movie Information"
+                android:textAlignment="viewStart"
+                android:textAppearance="@style/TitleTheme" />
+
             <LinearLayout
-                android:id="@+id/synopsis_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/synopsis"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/the_synopsis"
-                    android:textAlignment="viewStart"
-                    android:textAppearance="@style/TitleTheme" />
-
-                <com.ms.square.android.expandabletextview.ExpandableTextView
-                    android:id="@+id/movie_overview"
-                    app:animDuration="200"
-                    app:maxCollapsedLines="3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/expandable_text"
-                        android:layout_width="match_parent"
+                        android:id="@+id/o_title"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
+                        android:text="Original Title"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/TitleTheme" />
+
+                    <TextView
+                        android:id="@+id/o_runtime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/o_title"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Runtime"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/TitleTheme" />
+
+                    <TextView
+                        android:id="@+id/o_budget"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/o_runtime"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Budget"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/TitleTheme" />
+
+                    <TextView
+                        android:id="@+id/o_revenue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/o_budget"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Revenue"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/TitleTheme" />
+
+                    <TextView
+                        android:id="@+id/o_o_language"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/o_revenue"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Original Language"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/TitleTheme" />
+
+                    <TextView
+                        android:id="@+id/o_s_languages"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/o_o_language"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Spoken Language"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/TitleTheme" />
+
+
+                    <TextView
+                        android:id="@+id/o_p_company"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/o_s_languages"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Production Company"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/TitleTheme" />
+
+                    <TextView
+                        android:id="@+id/o_p_country"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/o_p_company"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Production Country"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/TitleTheme" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/original_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/o_title"
                         android:textAlignment="viewStart"
                         android:textAppearance="@style/TitleTextTheme" />
 
-                    <ImageButton
-                        android:id="@id/expand_collapse"
+                    <TextView
+                        android:id="@+id/movie_runtime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="right|bottom"
-                        android:background="@android:color/transparent"
-                        android:padding="16dp" />
+                        android:layout_below="@id/original_title"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/o_runtime"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/TitleTextTheme" />
 
-                </com.ms.square.android.expandabletextview.ExpandableTextView>
+
+                    <TextView
+                        android:id="@+id/budget"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/movie_runtime"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/o_budget"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/TitleTextTheme" />
+
+                    <TextView
+                        android:id="@+id/revenue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/budget"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/o_revenue"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/TitleTextTheme" />
+
+                    <TextView
+                        android:id="@+id/original_language"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/revenue"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/o_o_language"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/TitleTextTheme" />
+
+                    <TextView
+                        android:id="@+id/spoken_language"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/original_language"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/o_s_languages"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/TitleTextTheme" />
+
+                    <TextView
+                        android:id="@+id/production_companies"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/production_companies"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/o_p_company"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/TitleTextTheme" />
+
+                    <TextView
+                        android:id="@+id/production_countries"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/production_countries"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/o_p_country"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/TitleTextTheme" />
+
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -102,9 +310,9 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/collection_card"
-                    app:cardCornerRadius="8dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    app:cardCornerRadius="8dp">
 
                     <ImageView
                         android:id="@+id/collection_media"
