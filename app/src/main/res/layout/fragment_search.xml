@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    tools:context=".fragments.home.SearchFragment">
+
+        <EditText
+            android:id="@+id/search_edit_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/search_edittext_bg"
+            android:cursorVisible="true"
+            android:hint="@string/search"
+            android:imeOptions="actionSearch"
+            android:inputType="textPersonName"
+            android:maxLength="50"
+            android:maxLines="1"
+            android:padding="4dp"
+            android:textAppearance="@style/TitleTheme"
+            android:textCursorDrawable="@null" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/search_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/search_edit_box"
+            android:layout_margin="8dp" />
+
+
+</RelativeLayout>

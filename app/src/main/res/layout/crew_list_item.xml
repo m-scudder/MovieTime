@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/peopleCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:orientation="horizontal">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/crewImage"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_margin="8dp"
+        android:layout_gravity="center"
+        android:src="@drawable/default_avatar"
+        android:transitionName="peopleImageTransition" />
+
+    <LinearLayout
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/crewName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_margin="4dp"
+            android:textAppearance="@style/TitleTheme" />
+
+        <TextView
+            android:id="@+id/crewJob"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_margin="4dp"
+            android:textAppearance="@style/TitleTextTheme" />
+
+    </LinearLayout>
+
+</LinearLayout>

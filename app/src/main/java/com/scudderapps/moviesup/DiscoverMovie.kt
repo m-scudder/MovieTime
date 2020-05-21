@@ -13,11 +13,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
-import com.scudderapps.moviesup.adapter.MoviePageListAdapter
-import com.scudderapps.moviesup.api.TheTMDBApiInterface
+import com.scudderapps.moviesup.adapter.movie.MoviePageListAdapter
+import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.repository.NetworkState
-import com.scudderapps.moviesup.repository.discovery.DiscoverPagedListRepository
+import com.scudderapps.moviesup.repository.movie.discovery.DiscoverPagedListRepository
 import com.scudderapps.moviesup.viewmodel.DiscoverViewModel
 
 class DiscoverMovie : AppCompatActivity() {
@@ -33,7 +33,8 @@ class DiscoverMovie : AppCompatActivity() {
 
     private lateinit var discoverViewModel: DiscoverViewModel
     lateinit var moviePagedListRepository: DiscoverPagedListRepository
-    private val discoverAdapter = MoviePageListAdapter(this)
+    private val discoverAdapter =
+        MoviePageListAdapter(this)
     private val layoutManager = GridLayoutManager(this, 4)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +51,7 @@ class DiscoverMovie : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
 
-        val apiService: TheTMDBApiInterface = TheTMDBClient.getClient()
+        val apiService: ApiInterface = TheTMDBClient.getClient()
         moviePagedListRepository = DiscoverPagedListRepository(apiService)
 
         discoverViewModel = discoverViewModel(id)

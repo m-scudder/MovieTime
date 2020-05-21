@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide
 import com.scudderapps.moviesup.PeopleDetailActivity
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
-import com.scudderapps.moviesup.models.People
+import com.scudderapps.moviesup.models.main.People
 import com.scudderapps.moviesup.repository.NetworkState
 import kotlinx.android.synthetic.main.cast_list_item.view.*
 import kotlinx.android.synthetic.main.network_state_item.view.*
@@ -77,17 +77,17 @@ class PeoplePagedListAdapter(private val context: Context) :
 
     class PeopleItemVieHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bindMovieData(people: People?, context: Context) {
-            itemView.peopleName.text = people?.name
+            itemView.castName.text = people?.name
 
             if (!people?.profilePath.isNullOrEmpty()) {
                 val posterUrl = IMAGE_BASE_URL + people?.profilePath
                 Glide.with(itemView.context)
                     .load(posterUrl)
-                    .into(itemView.peopleImage)
+                    .into(itemView.castImage)
             } else {
                 Glide.with(itemView.context)
                     .load(R.drawable.default_avatar)
-                    .into(itemView.peopleImage)
+                    .into(itemView.castImage)
             }
             itemView.setOnClickListener {
 
@@ -95,7 +95,7 @@ class PeoplePagedListAdapter(private val context: Context) :
                 intent.putExtra("id", people?.id)
                 val options = ActivityOptions.makeSceneTransitionAnimation(
                     context as Activity?,
-                    UtilPair<View, String>(itemView.peopleImage, "peopleImageTransition")
+                    UtilPair<View, String>(itemView.castImage, "peopleImageTransition")
                 )
                 context.startActivity(intent, options.toBundle())
 

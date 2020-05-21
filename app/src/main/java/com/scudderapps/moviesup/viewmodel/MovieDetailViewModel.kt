@@ -2,9 +2,9 @@ package com.scudderapps.moviesup.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.scudderapps.moviesup.models.*
+import com.scudderapps.moviesup.models.movie.*
 import com.scudderapps.moviesup.repository.NetworkState
-import com.scudderapps.moviesup.repository.moviedetails.MovieDetailRepository
+import com.scudderapps.moviesup.repository.movie.moviedetails.MovieDetailRepository
 import io.reactivex.disposables.CompositeDisposable
 
 class MovieDetailViewModel(private val movieDetailRepository: MovieDetailRepository, movieId: Int) :

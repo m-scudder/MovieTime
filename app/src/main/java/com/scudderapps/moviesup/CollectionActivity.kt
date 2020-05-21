@@ -13,11 +13,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
-import com.scudderapps.moviesup.adapter.MovieAdapter
-import com.scudderapps.moviesup.api.TheTMDBApiInterface
+import com.scudderapps.moviesup.adapter.movie.MovieAdapter
+import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.repository.NetworkState
-import com.scudderapps.moviesup.repository.moviedetails.MovieDetailRepository
+import com.scudderapps.moviesup.repository.movie.moviedetails.MovieDetailRepository
 import com.scudderapps.moviesup.viewmodel.MovieDetailViewModel
 
 class CollectionActivity : AppCompatActivity() {
@@ -37,25 +37,27 @@ class CollectionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.collection_activity)
+        setContentView(R.layout.activity_collection)
         ButterKnife.bind(this)
         setSupportActionBar(collectionToolbar)
         supportActionBar!!.title = "Collection"
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setDisplayShowHomeEnabled(true)
 
         val data = intent.extras
         var id = data!!.getInt("id")
 
         val linearLayoutManager = GridLayoutManager(this, 4)
-        val apiService: TheTMDBApiInterface = TheTMDBClient.getClient()
+        val apiService: ApiInterface = TheTMDBClient.getClient()
 
         movieRepository = MovieDetailRepository(apiService)
         viewModel = getViewModel(id)
 
         viewModel.collection.observe(this, Observer {
             val movieList = it.parts
-            movieAdapter = MovieAdapter(movieList, this)
+            movieAdapter =
+                MovieAdapter(
+                    movieList,
+                    this
+                )
             collectionView.layoutManager = linearLayoutManager
             collectionView.setHasFixedSize(true)
             collectionView.adapter = movieAdapter
