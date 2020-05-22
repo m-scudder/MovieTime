@@ -2,9 +2,9 @@ package com.scudderapps.moviesup.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.scudderapps.moviesup.models.movie.CastResponse
-import com.scudderapps.moviesup.models.movie.MediaResponse
-import com.scudderapps.moviesup.models.movie.VideoResponse
+import com.scudderapps.moviesup.models.common.CastResponse
+import com.scudderapps.moviesup.models.common.MediaResponse
+import com.scudderapps.moviesup.models.common.VideoResponse
 import com.scudderapps.moviesup.models.tv.TvDetail
 import com.scudderapps.moviesup.repository.NetworkState
 import com.scudderapps.moviesup.repository.tv.tvdetails.TvDetailRepository

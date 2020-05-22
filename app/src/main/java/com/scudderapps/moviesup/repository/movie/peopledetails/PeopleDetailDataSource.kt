@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.scudderapps.moviesup.api.ApiInterface
-import com.scudderapps.moviesup.models.movie.MovieCredits
+import com.scudderapps.moviesup.models.common.MovieCredits
 import com.scudderapps.moviesup.models.main.PeopleDetails
 import com.scudderapps.moviesup.models.main.PeopleImages
 import com.scudderapps.moviesup.repository.NetworkState

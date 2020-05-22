@@ -2,7 +2,7 @@ package com.scudderapps.moviesup.models.tv
 
 
 import com.google.gson.annotations.SerializedName
-import com.scudderapps.moviesup.models.movie.CrewDetail
+import com.scudderapps.moviesup.models.common.CrewDetail
 
 data class Episode(
     @SerializedName("air_date")

@@ -6,10 +6,8 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.POST_PER_PAGE
-import com.scudderapps.moviesup.models.tv.TV
+import com.scudderapps.moviesup.models.main.TV
 import com.scudderapps.moviesup.repository.NetworkState
-import com.scudderapps.moviesup.repository.tv.tvlist.TvDataSource
-import com.scudderapps.moviesup.repository.tv.tvlist.TvDataSourceFactory
 import io.reactivex.disposables.CompositeDisposable
 
 class TvPagedListRepository(private val apiService: ApiInterface) {

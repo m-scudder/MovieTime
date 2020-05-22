@@ -24,9 +24,9 @@ import com.scudderapps.moviesup.adapter.movie.moviedetails.TrailerListAdapter
 import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBClient
-import com.scudderapps.moviesup.models.movie.Backdrop
-import com.scudderapps.moviesup.models.movie.Poster
-import com.scudderapps.moviesup.models.tv.Genre
+import com.scudderapps.moviesup.models.common.Backdrop
+import com.scudderapps.moviesup.models.common.Genre
+import com.scudderapps.moviesup.models.common.Poster
 import com.scudderapps.moviesup.models.tv.ProductionCompany
 import com.scudderapps.moviesup.repository.tv.tvdetails.TvDetailRepository
 import com.scudderapps.moviesup.viewmodel.TvDetailViewModel

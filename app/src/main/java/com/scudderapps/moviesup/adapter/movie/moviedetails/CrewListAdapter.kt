@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.scudderapps.moviesup.PeopleDetailActivity
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
-import com.scudderapps.moviesup.models.movie.CrewDetail
+import com.scudderapps.moviesup.models.common.CrewDetail
 import kotlinx.android.synthetic.main.crew_list_item.view.*
 import android.util.Pair as UtilPair
 

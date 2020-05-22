@@ -2,7 +2,7 @@ package com.scudderapps.moviesup.models.movie
 
 
 import com.google.gson.annotations.SerializedName
-import com.scudderapps.moviesup.models.movie.Movie
+import com.scudderapps.moviesup.models.main.Movie
 
 data class CollectionResponse(
     @SerializedName("backdrop_path")

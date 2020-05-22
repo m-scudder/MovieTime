@@ -1,4 +1,5 @@
-package com.scudderapps.moviesup.models.tv
+package com.scudderapps.moviesup.models.common
+
 
 data class Genre(
     val id: Int,

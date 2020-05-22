@@ -1,9 +1,7 @@
 package com.scudderapps.moviesup.api
 
-import com.scudderapps.moviesup.models.main.GenresResponse
-import com.scudderapps.moviesup.models.main.PeopleDetails
-import com.scudderapps.moviesup.models.main.PeopleImages
-import com.scudderapps.moviesup.models.main.PeopleResponse
+import com.scudderapps.moviesup.models.common.*
+import com.scudderapps.moviesup.models.main.*
 import com.scudderapps.moviesup.models.movie.*
 import com.scudderapps.moviesup.models.tv.TvDetail
 import com.scudderapps.moviesup.models.tv.TvResponse

@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.scudderapps.moviesup.DiscoverMovie
+import com.scudderapps.moviesup.GenreActivity
 import com.scudderapps.moviesup.R
-import com.scudderapps.moviesup.models.main.Genre
+import com.scudderapps.moviesup.models.common.Genre
 import kotlinx.android.synthetic.main.cast_known_as_item.view.*
 
 class GenreListAdapter(private val details: List<Genre>, private val context: Context) :
@@ -39,7 +39,7 @@ class GenreListAdapter(private val details: List<Genre>, private val context: Co
             view.also_known_as.text = genres.name
 
             itemView.setOnClickListener(View.OnClickListener {
-                val intent = Intent(context, DiscoverMovie::class.java)
+                val intent = Intent(context, GenreActivity::class.java)
                 intent.putExtra("id", genre?.id)
                 intent.putExtra("name", genre?.name)
                 context.startActivity(intent)

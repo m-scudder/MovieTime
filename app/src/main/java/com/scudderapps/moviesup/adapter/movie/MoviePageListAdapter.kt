@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide
 import com.scudderapps.moviesup.MovieDetailActivity
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
-import com.scudderapps.moviesup.models.movie.Movie
+import com.scudderapps.moviesup.models.main.Movie
 import com.scudderapps.moviesup.repository.NetworkState
 import kotlinx.android.synthetic.main.movie_list_item.view.*
 import kotlinx.android.synthetic.main.network_state_item.view.*

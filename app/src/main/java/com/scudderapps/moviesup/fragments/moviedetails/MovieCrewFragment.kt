@@ -17,7 +17,7 @@ import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.adapter.movie.moviedetails.CrewListAdapter
 import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
-import com.scudderapps.moviesup.models.movie.CrewDetail
+import com.scudderapps.moviesup.models.common.CrewDetail
 import com.scudderapps.moviesup.repository.movie.moviedetails.MovieDetailRepository
 import com.scudderapps.moviesup.viewmodel.MovieDetailViewModel
 

@@ -3,7 +3,7 @@ package com.scudderapps.moviesup.repository.movie.trending
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import com.scudderapps.moviesup.api.ApiInterface
-import com.scudderapps.moviesup.models.movie.Movie
+import com.scudderapps.moviesup.models.main.Movie
 import io.reactivex.disposables.CompositeDisposable
 
 class TrendingDataSourceFactory(

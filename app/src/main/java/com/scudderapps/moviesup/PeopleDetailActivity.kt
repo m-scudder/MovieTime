@@ -89,7 +89,7 @@ class PeopleDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.people_detail_activity)
+        setContentView(R.layout.cast_n_crew_detail_activity)
         ButterKnife.bind(this)
 
         setSupportActionBar(peopleToolbar)

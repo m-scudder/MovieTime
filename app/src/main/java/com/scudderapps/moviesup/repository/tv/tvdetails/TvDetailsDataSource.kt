@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.scudderapps.moviesup.api.ApiInterface
-import com.scudderapps.moviesup.models.movie.CastResponse
-import com.scudderapps.moviesup.models.movie.MediaResponse
-import com.scudderapps.moviesup.models.movie.VideoResponse
+import com.scudderapps.moviesup.models.common.CastResponse
+import com.scudderapps.moviesup.models.common.MediaResponse
+import com.scudderapps.moviesup.models.common.VideoResponse
 import com.scudderapps.moviesup.models.tv.TvDetail
 import com.scudderapps.moviesup.repository.NetworkState
 import io.reactivex.disposables.CompositeDisposable

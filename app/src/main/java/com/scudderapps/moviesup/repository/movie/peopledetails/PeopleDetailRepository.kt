@@ -2,7 +2,7 @@ package com.scudderapps.moviesup.repository.movie.peopledetails
 
 import androidx.lifecycle.LiveData
 import com.scudderapps.moviesup.api.ApiInterface
-import com.scudderapps.moviesup.models.movie.MovieCredits
+import com.scudderapps.moviesup.models.common.MovieCredits
 import com.scudderapps.moviesup.models.main.PeopleDetails
 import com.scudderapps.moviesup.models.main.PeopleImages
 import io.reactivex.disposables.CompositeDisposable

@@ -17,7 +17,7 @@ import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.adapter.movie.moviedetails.CastListAdapter
 import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
-import com.scudderapps.moviesup.models.movie.CastDetail
+import com.scudderapps.moviesup.models.common.CastDetail
 import com.scudderapps.moviesup.repository.movie.moviedetails.MovieDetailRepository
 import com.scudderapps.moviesup.viewmodel.MovieDetailViewModel
 

@@ -1,6 +1,5 @@
 package com.scudderapps.moviesup.fragments.tvshowsdetails
 
-import android.media.Image
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +18,7 @@ import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.adapter.movie.moviedetails.CrewListAdapter
 import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
-import com.scudderapps.moviesup.models.movie.CrewDetail
+import com.scudderapps.moviesup.models.common.CrewDetail
 import com.scudderapps.moviesup.repository.tv.tvdetails.TvDetailRepository
 import com.scudderapps.moviesup.viewmodel.TvDetailViewModel
 

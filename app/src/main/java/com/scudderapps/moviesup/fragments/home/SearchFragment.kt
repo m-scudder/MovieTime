@@ -17,8 +17,8 @@ import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.adapter.home.SearchListAdapter
 import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
-import com.scudderapps.moviesup.models.movie.Movie
-import com.scudderapps.moviesup.models.movie.MovieResponse
+import com.scudderapps.moviesup.models.main.Movie
+import com.scudderapps.moviesup.models.common.MovieResponse
 import io.reactivex.Single
 import io.reactivex.SingleObserver
 import io.reactivex.SingleSource
@@ -59,7 +59,7 @@ class SearchFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        rootView = inflater.inflate(R.layout.fragment_search, container, false)
+        rootView = inflater.inflate(R.layout.search_fragment, container, false)
         ButterKnife.bind(this, rootView)
         val linearLayoutManager = LinearLayoutManager(activity)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL

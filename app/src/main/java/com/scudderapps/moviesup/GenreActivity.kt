@@ -20,7 +20,7 @@ import com.scudderapps.moviesup.repository.NetworkState
 import com.scudderapps.moviesup.repository.movie.discovery.DiscoverPagedListRepository
 import com.scudderapps.moviesup.viewmodel.DiscoverViewModel
 
-class DiscoverMovie : AppCompatActivity() {
+class GenreActivity : AppCompatActivity() {
 
     @BindView(R.id.discover_view)
     lateinit var discoverView: RecyclerView
@@ -39,7 +39,7 @@ class DiscoverMovie : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.discover_movies)
+        setContentView(R.layout.activity_genres_movies)
         ButterKnife.bind(this)
         setSupportActionBar(discoverToolbar)
 

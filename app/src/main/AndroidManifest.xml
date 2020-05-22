@@ -28,7 +28,7 @@
             android:parentActivityName=".MovieDetailActivity" />
 
         <activity
-            android:name=".DiscoverMovie"
+            android:name=".GenreActivity"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".CollectionActivity"

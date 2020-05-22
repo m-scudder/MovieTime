@@ -1,4 +1,4 @@
-package com.scudderapps.moviesup.models.movie
+package com.scudderapps.moviesup.models.common
 
 import com.google.gson.annotations.SerializedName
 
