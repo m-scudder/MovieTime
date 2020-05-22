@@ -23,14 +23,17 @@ import com.bumptech.glide.Glide
 import com.ms.square.android.expandabletextview.ExpandableTextView
 import com.scudderapps.moviesup.CollectionActivity
 import com.scudderapps.moviesup.R
+import com.scudderapps.moviesup.adapter.GenreListAdapter
 import com.scudderapps.moviesup.adapter.movie.moviedetails.TrailerListAdapter
 import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.common.Backdrop
-import com.scudderapps.moviesup.models.common.Genre
 import com.scudderapps.moviesup.models.common.Poster
-import com.scudderapps.moviesup.models.movie.*
+import com.scudderapps.moviesup.models.movie.CollectionResponse
+import com.scudderapps.moviesup.models.movie.ProductionCompany
+import com.scudderapps.moviesup.models.movie.ProductionCountry
+import com.scudderapps.moviesup.models.movie.SpokenLanguage
 import com.scudderapps.moviesup.repository.movie.moviedetails.MovieDetailRepository
 import com.scudderapps.moviesup.viewmodel.MovieDetailViewModel
 import com.stfalcon.imageviewer.StfalconImageViewer
@@ -45,8 +48,8 @@ class MovieAboutFragment(private var movieId: Int) : Fragment() {
     @BindView(R.id.movie_overview)
     lateinit var movieOverview: ExpandableTextView
 
-    @BindView(R.id.genresName)
-    lateinit var genresName: TextView
+    @BindView(R.id.movie_genre_list)
+    lateinit var movieGenreListView: RecyclerView
 
     @BindView(R.id.original_title)
     lateinit var originalTitle: TextView
@@ -114,6 +117,7 @@ class MovieAboutFragment(private var movieId: Int) : Fragment() {
     private lateinit var viewModel: MovieDetailViewModel
     private lateinit var movieRepository: MovieDetailRepository
 
+    private lateinit var movieGenreListAdapter: GenreListAdapter
     private lateinit var trailerAdapter: TrailerListAdapter
     private lateinit var movieBackdrops: List<Backdrop>
     private lateinit var moviePosters: List<Poster>
@@ -141,16 +145,19 @@ class MovieAboutFragment(private var movieId: Int) : Fragment() {
             revenue.text = NumberFormat.getCurrencyInstance(Locale("en", "US"))
                 .format(it.revenue.toDouble())
             originalLanguage.text = it.originalLanguage
-            val genre: ArrayList<Genre> = it.genres
-            if (!genre.isNullOrEmpty()) {
-                for (i in genre) {
-                    genresName.append("\u25CF ${i.name}  ")
-                }
+
+            if (!it.genres.isNullOrEmpty()) {
+                movieGenreListAdapter = GenreListAdapter(it.genres, rootView.context)
+                val linearLayoutManager2 = LinearLayoutManager(activity)
+                linearLayoutManager2.orientation = LinearLayoutManager.HORIZONTAL
+                movieGenreListView.layoutManager = linearLayoutManager2
+                movieGenreListView.setHasFixedSize(true)
+                movieGenreListView.adapter = movieGenreListAdapter
             } else {
                 genresLayout.visibility = View.GONE
             }
 
-            val spokenLangaugeList : List<SpokenLanguage> = it.spokenLanguages
+            val spokenLangaugeList: List<SpokenLanguage> = it.spokenLanguages
             if (!spokenLangaugeList.isNullOrEmpty())
                 for (i in spokenLangaugeList) {
 //                    spokenLanguage.append("\u25CF ${i.name}  ")

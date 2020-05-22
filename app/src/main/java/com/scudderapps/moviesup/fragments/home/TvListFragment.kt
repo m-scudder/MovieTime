@@ -35,7 +35,6 @@ class TvListFragment(private val type: String) : Fragment() {
     private lateinit var listViewModel: TvListViewModel
     lateinit var tvPagedListRepository: TvPagedListRepository
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         tvAdapter =
@@ -75,6 +74,14 @@ class TvListFragment(private val type: String) : Fragment() {
         listViewModel.tvPagedList.observe(viewLifecycleOwner, Observer {
             tvAdapter.submitList(it)
             val layoutManager = GridLayoutManager(activity, 4)
+            layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int {
+                    val viewType = tvAdapter.getItemViewType(position)
+                    return if (viewType == tvAdapter.POPULAR_MOVIE_VIEW_TYPE) 1
+                    else 4
+                }
+
+            }
             tvView.layoutManager = layoutManager
             tvView.setHasFixedSize(true)
             tvView.adapter = tvAdapter

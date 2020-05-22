@@ -20,12 +20,12 @@ import butterknife.ButterKnife
 import com.bumptech.glide.Glide
 import com.ms.square.android.expandabletextview.ExpandableTextView
 import com.scudderapps.moviesup.R
+import com.scudderapps.moviesup.adapter.GenreListAdapter
 import com.scudderapps.moviesup.adapter.movie.moviedetails.TrailerListAdapter
 import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.common.Backdrop
-import com.scudderapps.moviesup.models.common.Genre
 import com.scudderapps.moviesup.models.common.Poster
 import com.scudderapps.moviesup.models.tv.ProductionCompany
 import com.scudderapps.moviesup.repository.tv.tvdetails.TvDetailRepository
@@ -42,8 +42,8 @@ class TvAboutFragment(private val tvId: Int) : Fragment() {
     @BindView(R.id.tv_overview)
     lateinit var tvOverview: ExpandableTextView
 
-    @BindView(R.id.tv_genresName)
-    lateinit var tvGenresName: TextView
+    @BindView(R.id.tv_genresList)
+    lateinit var tvGenresList: RecyclerView
 
     @BindView(R.id.tv_about_status)
     lateinit var tvAboutStatus: TextView
@@ -96,6 +96,7 @@ class TvAboutFragment(private val tvId: Int) : Fragment() {
     private lateinit var viewModel: TvDetailViewModel
     private lateinit var tvRepository: TvDetailRepository
 
+    private lateinit var tvGenreListAdapter: GenreListAdapter
     private lateinit var trailerAdapter: TrailerListAdapter
     private lateinit var tvBackdropList: List<Backdrop>
     private lateinit var tvPosterList: List<Poster>
@@ -135,7 +136,7 @@ class TvAboutFragment(private val tvId: Int) : Fragment() {
                 tvTotalEpisodes.text = it.numberOfEpisodes.toString() else tvTotalEpisodes.text =
                 "-"
 
-            val runTimeList :List<Int> = it.episodeRunTime
+            val runTimeList: List<Int> = it.episodeRunTime
             if (!runTimeList.isNullOrEmpty()) {
                 tvTotalRuntime.text =
                     runTimeList[0].toString() + " Min"
@@ -178,11 +179,13 @@ class TvAboutFragment(private val tvId: Int) : Fragment() {
                 tvSynopsisLayout.visibility = View.GONE
             }
 
-            val genre: ArrayList<Genre> = it.genres
-            if (!genre.isNullOrEmpty()) {
-                for (i in genre) {
-                    tvGenresName.append("\u25CF ${i.name}  ")
-                }
+            if (!it.genres.isNullOrEmpty()) {
+                tvGenreListAdapter = GenreListAdapter(it.genres, rootView.context)
+                val linearLayoutManager2 = LinearLayoutManager(activity)
+                linearLayoutManager2.orientation = LinearLayoutManager.HORIZONTAL
+                tvGenresList.layoutManager = linearLayoutManager2
+                tvGenresList.setHasFixedSize(true)
+                tvGenresList.adapter = tvGenreListAdapter
             } else {
                 tvGenresLayout.visibility = View.GONE
             }

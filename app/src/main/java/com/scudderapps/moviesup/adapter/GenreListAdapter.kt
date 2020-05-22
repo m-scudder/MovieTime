@@ -9,14 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.scudderapps.moviesup.GenreActivity
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.models.common.Genre
-import kotlinx.android.synthetic.main.cast_known_as_item.view.*
+import kotlinx.android.synthetic.main.genres_list_item.view.*
 
 class GenreListAdapter(private val details: List<Genre>, private val context: Context) :
     RecyclerView.Adapter<GenreListAdapter.GenreHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenreHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val view: View = layoutInflater.inflate(R.layout.cast_known_as_item, parent, false)
+        val view: View = layoutInflater.inflate(R.layout.genres_list_item, parent, false)
         return GenreHolder(view)
     }
 
@@ -36,7 +36,7 @@ class GenreListAdapter(private val details: List<Genre>, private val context: Co
         fun bindVideos(genre: Genre, context: Context) {
             this.genres = genre
             this.context = context
-            view.also_known_as.text = genres.name
+            view.genresName.text = genres.name
 
             itemView.setOnClickListener(View.OnClickListener {
                 val intent = Intent(context, GenreActivity::class.java)
