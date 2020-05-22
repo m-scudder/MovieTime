@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.scudderapps.moviesup.api.ApiInterface
+import com.scudderapps.moviesup.models.movie.CastResponse
 import com.scudderapps.moviesup.models.movie.MediaResponse
 import com.scudderapps.moviesup.models.movie.VideoResponse
 import com.scudderapps.moviesup.models.tv.TvDetail
@@ -30,6 +31,10 @@ class TvDetailsDataSource(
     private val _tvMediaResponse = MutableLiveData<MediaResponse>()
     val tvMediaResponse: LiveData<MediaResponse>
         get() = _tvMediaResponse
+
+    private val _tvCastResponse = MutableLiveData<CastResponse>()
+    val tvCastResponse: LiveData<CastResponse>
+        get() = _tvCastResponse
 
     fun fetchTvDetails(tvId: Int) {
         _networkState.postValue(NetworkState.LOADING)
@@ -90,6 +95,31 @@ class TvDetailsDataSource(
                 ?.subscribe(
                     {
                         _tvMediaResponse.postValue(it)
+                        _networkState.postValue(NetworkState.LOADED)
+                    },
+                    {
+                        _networkState.postValue(NetworkState.ERROR)
+                        Log.e("MovieDetailDataSource", it.message)
+                    }
+                )?.let {
+                    compositeDisposable.add(
+                        it
+                    )
+                }
+        } catch (e: Exception) {
+            Log.e("MovieDetailDataSource", e.message)
+        }
+    }
+
+    fun fetchTvCastDetails(tvId: Int) {
+        _networkState.postValue(NetworkState.LOADING)
+
+        try {
+            apiService.getTvCast(tvId)
+                .subscribeOn(Schedulers.io())
+                .subscribe(
+                    {
+                        _tvCastResponse.postValue(it)
                         _networkState.postValue(NetworkState.LOADED)
                     },
                     {

@@ -2,6 +2,7 @@ package com.scudderapps.moviesup.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.scudderapps.moviesup.models.movie.CastResponse
 import com.scudderapps.moviesup.models.movie.MediaResponse
 import com.scudderapps.moviesup.models.movie.VideoResponse
 import com.scudderapps.moviesup.models.tv.TvDetail
@@ -24,6 +25,10 @@ class TvDetailViewModel(private val tvDetailRepository: TvDetailRepository, tvId
 
     val tvMedia: LiveData<MediaResponse> by lazy {
         tvDetailRepository.fetchingTvMedia(compositeDisposable, tvId)
+    }
+
+    val tvCast: LiveData<CastResponse> by lazy {
+        tvDetailRepository.fetchingTvCastDetails(compositeDisposable, tvId)
     }
 
     val networkState: LiveData<NetworkState> by lazy {

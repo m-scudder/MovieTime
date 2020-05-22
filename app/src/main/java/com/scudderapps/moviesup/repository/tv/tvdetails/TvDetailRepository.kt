@@ -2,12 +2,11 @@ package com.scudderapps.moviesup.repository.tv.tvdetails
 
 import androidx.lifecycle.LiveData
 import com.scudderapps.moviesup.api.ApiInterface
+import com.scudderapps.moviesup.models.movie.CastResponse
 import com.scudderapps.moviesup.models.movie.MediaResponse
-import com.scudderapps.moviesup.models.movie.VideoDetail
 import com.scudderapps.moviesup.models.movie.VideoResponse
 import com.scudderapps.moviesup.models.tv.TvDetail
 import com.scudderapps.moviesup.repository.NetworkState
-import com.scudderapps.moviesup.repository.movie.moviedetails.MovieDetailDataSource
 import io.reactivex.disposables.CompositeDisposable
 
 class TvDetailRepository(private val apiService: ApiInterface) {
@@ -16,44 +15,58 @@ class TvDetailRepository(private val apiService: ApiInterface) {
 
     fun fetchingTvDetails(
         compositeDisposable: CompositeDisposable,
-        movieID: Int
+        tvId: Int
     ): LiveData<TvDetail> {
         tvDetailDataSource =
             TvDetailsDataSource(
                 apiService,
                 compositeDisposable
             )
-        tvDetailDataSource.fetchTvDetails(movieID)
+        tvDetailDataSource.fetchTvDetails(tvId)
 
         return tvDetailDataSource.tvDetailsResponse
     }
 
     fun fetchingTvVideos(
         compositeDisposable: CompositeDisposable,
-        movieID: Int
+        tvId: Int
     ): LiveData<VideoResponse> {
         tvDetailDataSource =
             TvDetailsDataSource(
                 apiService,
                 compositeDisposable
             )
-        tvDetailDataSource.fetchTvVideos(movieID)
+        tvDetailDataSource.fetchTvVideos(tvId)
 
         return tvDetailDataSource.tvVideosResponse
     }
 
     fun fetchingTvMedia(
         compositeDisposable: CompositeDisposable,
-        movieID: Int
+        tvId: Int
     ): LiveData<MediaResponse> {
         tvDetailDataSource =
             TvDetailsDataSource(
                 apiService,
                 compositeDisposable
             )
-        tvDetailDataSource.fetchMoviesMedia(movieID)
+        tvDetailDataSource.fetchMoviesMedia(tvId)
 
         return tvDetailDataSource.tvMediaResponse
+    }
+
+    fun fetchingTvCastDetails(
+        compositeDisposable: CompositeDisposable,
+        tvId: Int
+    ): LiveData<CastResponse> {
+        tvDetailDataSource =
+            TvDetailsDataSource(
+                apiService,
+                compositeDisposable
+            )
+        tvDetailDataSource.fetchTvCastDetails(tvId)
+
+        return tvDetailDataSource.tvCastResponse
     }
 
     fun getTvDetailNetworkState(): LiveData<NetworkState> {

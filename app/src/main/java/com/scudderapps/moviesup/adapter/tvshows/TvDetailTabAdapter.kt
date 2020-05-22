@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.scudderapps.moviesup.fragments.tvshowsdetails.TvAboutFragment
+import com.scudderapps.moviesup.fragments.tvshowsdetails.TvCastFragment
+import com.scudderapps.moviesup.fragments.tvshowsdetails.TvCrewFragment
 
 class TvDetailTabAdapter(
     private val tvId: Int,
@@ -23,7 +25,10 @@ class TvDetailTabAdapter(
 
             }
             2 -> {
-
+                return TvCastFragment(tvId)
+            }
+            3 -> {
+                return TvCrewFragment(tvId)
             }
         }
         return TvAboutFragment(tvId)

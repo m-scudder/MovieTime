@@ -9,19 +9,20 @@ import com.scudderapps.moviesup.repository.tv.tvlist.TvPagedListRepository
 import io.reactivex.disposables.CompositeDisposable
 
 class TvListViewModel(
-    private val movieRepository: TvPagedListRepository,
+    private val tvRepository: TvPagedListRepository,
     private val type: String
 ) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
     val tvPagedList: LiveData<PagedList<TV>> by lazy {
-        movieRepository.fetchingMovieList(compositeDisposable, type)
+        tvRepository.fetchingMovieList(compositeDisposable, type)
     }
 
     val networkState: LiveData<NetworkState> by lazy {
-        movieRepository.getNetworkState()
+        tvRepository.getNetworkState()
     }
+
 
     fun movieListIsEmpty(): Boolean {
         return tvPagedList.value?.isEmpty() ?: true
