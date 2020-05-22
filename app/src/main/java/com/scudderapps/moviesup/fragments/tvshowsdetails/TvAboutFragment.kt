@@ -1,5 +1,6 @@
 package com.scudderapps.moviesup.fragments.tvshowsdetails
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -116,29 +117,50 @@ class TvAboutFragment(private val tvId: Int) : Fragment() {
     }
 
 
+    @SuppressLint("SetTextI18n")
     private fun populatingView() {
 
         viewModel.tvDetails.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
 
-            tvAboutStatus.text = it.status
-            tvShowType.text = it.type
-            tvTotalSeasons.text = it.numberOfSeasons.toString()
-            tvTotalEpisodes.text = it.numberOfEpisodes.toString()
-            tvTotalRuntime.text = it.episodeRunTime[0].toString() + " Min"
-            firstEpisodeAired.text = it.firstAirDate
+            if (!it.status.isNullOrEmpty())
+                tvAboutStatus.text = it.status else tvAboutStatus.text = "-"
+
+            if (!it.type.isNullOrEmpty())
+                tvShowType.text = it.type else tvShowType.text = "-"
+
+            if (!it.numberOfSeasons.toString().isNullOrEmpty())
+                tvTotalSeasons.text = it.numberOfSeasons.toString() else tvTotalSeasons.text = "-"
+
+            if (!it.numberOfEpisodes.toString().isNullOrEmpty())
+                tvTotalEpisodes.text = it.numberOfEpisodes.toString() else tvTotalEpisodes.text =
+                "-"
+
+            val runTimeList :List<Int> = it.episodeRunTime
+            if (!runTimeList.isNullOrEmpty()) {
+                tvTotalRuntime.text =
+                    runTimeList[0].toString() + " Min"
+            } else {
+                tvTotalRuntime.text = "-"
+            }
+
             if (!it.firstAirDate.isNullOrEmpty()) {
                 val originalFormat: DateFormat = SimpleDateFormat("yyyy-MM-d", Locale.ENGLISH)
                 val targetFormat: DateFormat = SimpleDateFormat(getString(R.string.dateFormat))
                 val date: Date = originalFormat.parse(it.firstAirDate)
                 val formattedDate: String = targetFormat.format(date)
                 firstEpisodeAired.text = formattedDate
+            } else {
+                firstEpisodeAired.text = "-"
             }
+
             if (!it.lastAirDate.isNullOrEmpty()) {
                 val originalFormat: DateFormat = SimpleDateFormat("yyyy-MM-d", Locale.ENGLISH)
                 val targetFormat: DateFormat = SimpleDateFormat(getString(R.string.dateFormat))
                 val date: Date = originalFormat.parse(it.lastAirDate)
                 val formattedDate: String = targetFormat.format(date)
                 lastEpisodeAired.text = formattedDate
+            } else {
+                lastEpisodeAired.text = "-"
             }
 
             val tvProductionCompaniesList: List<ProductionCompany> = it.productionCompanies
@@ -155,6 +177,7 @@ class TvAboutFragment(private val tvId: Int) : Fragment() {
             } else {
                 tvSynopsisLayout.visibility = View.GONE
             }
+
             val genre: ArrayList<Genre> = it.genres
             if (!genre.isNullOrEmpty()) {
                 for (i in genre) {
@@ -197,13 +220,15 @@ class TvAboutFragment(private val tvId: Int) : Fragment() {
                         activity,
                         tvPosterList
                     ) { posterMedia: ImageView, poster: Poster ->
-                        Glide.with(this).load(IMAGE_BASE_URL + poster.filePath).into(posterMedia)
+                        Glide.with(this).load(IMAGE_BASE_URL + poster.filePath)
+                            .into(posterMedia)
                     }
                         .withHiddenStatusBar(false)
                         .show()
                 })
             } else {
-                Glide.with(this).load(R.drawable.no_image_found).centerInside().into(tvPosterImage)
+                Glide.with(this).load(R.drawable.no_image_found).centerInside()
+                    .into(tvPosterImage)
                 tvPosterCount.text = "No Posters"
             }
             if (!tvBackdropList.isNullOrEmpty()) {
