@@ -69,7 +69,7 @@ class MovieListFragment(private val type: String) : Fragment() {
     }
 
     private fun populatingViews() {
-        listViewModel.moviePagedList.observe(this, Observer {
+        listViewModel.moviePagedList.observe(viewLifecycleOwner, Observer {
             movieAdapter.submitList(it)
             val layoutManager = GridLayoutManager(activity, 4)
             movieView.layoutManager = layoutManager
@@ -78,7 +78,7 @@ class MovieListFragment(private val type: String) : Fragment() {
 
         })
 
-        listViewModel.networkState.observe(this, Observer {
+        listViewModel.networkState.observe(viewLifecycleOwner, Observer {
 
             mainProgressBar.visibility =
                 if (listViewModel.movieListIsEmpty() && it == NetworkState.LOADING) View.VISIBLE else View.GONE

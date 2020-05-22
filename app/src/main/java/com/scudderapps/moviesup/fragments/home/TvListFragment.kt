@@ -72,7 +72,7 @@ class TvListFragment(private val type: String) : Fragment() {
     }
 
     private fun populatingViews() {
-        listViewModel.tvPagedList.observe(this, Observer {
+        listViewModel.tvPagedList.observe(viewLifecycleOwner, Observer {
             tvAdapter.submitList(it)
             val layoutManager = GridLayoutManager(activity, 4)
             tvView.layoutManager = layoutManager
@@ -81,7 +81,7 @@ class TvListFragment(private val type: String) : Fragment() {
 
         })
 
-        listViewModel.networkState.observe(this, Observer {
+        listViewModel.networkState.observe(viewLifecycleOwner, Observer {
 
             tvProgressBar.visibility =
                 if (listViewModel.movieListIsEmpty() && it == NetworkState.LOADING) View.VISIBLE else View.GONE

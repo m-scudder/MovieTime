@@ -44,7 +44,7 @@ class MovieCrewFragment(private var movieId: Int) : Fragment() {
         val apiService: ApiInterface = TheTMDBClient.getClient()
         movieRepository = MovieDetailRepository(apiService)
         viewModel = getViewModel(movieId)
-        viewModel.castDetails.observe(this, Observer {
+        viewModel.castDetails.observe(viewLifecycleOwner, Observer {
             crewDetailList = it.crewDetail
             crewAdapter = CrewListAdapter(crewDetailList, rootView.context)
             linearLayoutManager = LinearLayoutManager(activity)
