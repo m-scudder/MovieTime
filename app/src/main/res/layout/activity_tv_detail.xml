@@ -82,6 +82,7 @@
                     android:layout_below="@id/tv_title"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
+                    android:padding="2dp"
                     android:layout_toEndOf="@id/tv_poster_card"
                     android:textAppearance="@style/TitleTheme" />
 
@@ -92,6 +93,7 @@
                     android:layout_below="@id/tv_releaseDate"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
+                    android:padding="2dp"
                     android:layout_toEndOf="@id/tv_poster_card"
                     android:textAlignment="viewStart"
                     android:textAppearance="@style/TitleTheme" />

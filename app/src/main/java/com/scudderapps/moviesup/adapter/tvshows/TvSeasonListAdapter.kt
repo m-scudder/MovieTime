@@ -1,20 +1,29 @@
 package com.scudderapps.moviesup.adapter.tvshows
 
+import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.scudderapps.moviesup.R
+import com.scudderapps.moviesup.SeasonActivity
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.models.tv.Season
 import kotlinx.android.synthetic.main.tv_season_list_item.view.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import android.util.Pair as UtilPair
 
-class TvSeasonListAdapter(private val seasons: List<Season>, private val context: Context) :
+class TvSeasonListAdapter(
+    val tvId: Int,
+    private val seasons: List<Season>,
+    private val context: Context
+) :
     RecyclerView.Adapter<TvSeasonListAdapter.TvSeasonHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvSeasonHolder {
@@ -27,7 +36,7 @@ class TvSeasonListAdapter(private val seasons: List<Season>, private val context
 
     override fun onBindViewHolder(holder: TvSeasonHolder, position: Int) {
         val castItem = seasons[position]
-        holder.bindVideos(castItem, context)
+        holder.bindVideos(castItem, context, tvId)
     }
 
     override fun getItemCount() = seasons.size
@@ -38,7 +47,7 @@ class TvSeasonListAdapter(private val seasons: List<Season>, private val context
         private var season: Season? = null
         private lateinit var context: Context
 
-        fun bindVideos(season: Season, context: Context) {
+        fun bindVideos(season: Season, context: Context, tvId: Int) {
             this.season = season
             this.context = context
             itemView.tvSeasonName.text = season.name
@@ -63,16 +72,17 @@ class TvSeasonListAdapter(private val seasons: List<Season>, private val context
                     .into(itemView.tvSeasonPoster)
             }
 
-//            itemView.setOnClickListener(View.OnClickListener {
-//
-//                val intent = Intent(context, PeopleDetailActivity::class.java)
-//                intent.putExtra("id", season?.id)
-//                val options = ActivityOptions.makeSceneTransitionAnimation(
-//                    context as Activity?,
-//                    UtilPair<View, String>(itemView.castImage, "peopleImageTransition")
-//                )
-//                context.startActivity(intent, options.toBundle())
-//            })
+            itemView.setOnClickListener(View.OnClickListener {
+
+                val intent = Intent(context, SeasonActivity::class.java)
+                intent.putExtra("seasonNumber", season?.seasonNumber)
+                intent.putExtra("tvId", tvId)
+                val options = ActivityOptions.makeSceneTransitionAnimation(
+                    context as Activity?,
+                    UtilPair<View, String>(itemView.tvSeasonPoster, "seasonPosterTransition")
+                )
+                context.startActivity(intent, options.toBundle())
+            })
         }
     }
 }

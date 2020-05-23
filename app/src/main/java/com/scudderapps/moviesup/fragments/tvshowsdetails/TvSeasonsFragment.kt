@@ -46,7 +46,7 @@ class TvSeasonsFragment(val tvId: Int) : Fragment() {
         viewModel = getViewModel(tvId)
         viewModel.tvDetails.observe(viewLifecycleOwner, Observer {
             tvSeasonsList = it.seasons
-            tvSeasonAdapter = TvSeasonListAdapter(tvSeasonsList, rootView.context)
+            tvSeasonAdapter = TvSeasonListAdapter(tvId, tvSeasonsList, rootView.context)
             linearLayoutManager = LinearLayoutManager(activity)
             linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
             tvSeasonListView.layoutManager = linearLayoutManager

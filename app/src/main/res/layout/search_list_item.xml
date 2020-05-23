@@ -14,7 +14,7 @@
         android:layout_height="130dp"
         android:layout_margin="8dp"
         android:orientation="horizontal"
-        android:transitionName="imageTransition"
+            android:transitionName="seasonPosterTransition"
         app:cardCornerRadius="8dp">
 
         <ImageView

@@ -12,7 +12,8 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TvDetailActivity"></activity>
+        <activity android:name=".SeasonActivity"></activity>
+        <activity android:name=".TvDetailActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +27,6 @@
         <activity
             android:name=".PeopleDetailActivity"
             android:parentActivityName=".MovieDetailActivity" />
-
         <activity
             android:name=".GenreActivity"
             android:parentActivityName=".MainActivity" />

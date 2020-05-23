@@ -1,10 +1,14 @@
 package com.scudderapps.moviesup.api
 
 import com.scudderapps.moviesup.models.common.*
-import com.scudderapps.moviesup.models.main.*
-import com.scudderapps.moviesup.models.movie.*
+import com.scudderapps.moviesup.models.main.PeopleDetails
+import com.scudderapps.moviesup.models.main.PeopleImages
+import com.scudderapps.moviesup.models.main.PeopleResponse
+import com.scudderapps.moviesup.models.movie.CollectionResponse
+import com.scudderapps.moviesup.models.movie.MovieDetail
 import com.scudderapps.moviesup.models.tv.TvDetail
 import com.scudderapps.moviesup.models.tv.TvResponse
+import com.scudderapps.moviesup.models.tv.TvSeasonDetails
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -78,16 +82,16 @@ interface ApiInterface {
         @Query("page") page: Int
     ): Single<MovieResponse>
 
-    @GET("collection/{id}")
-    fun getCollections(
-        @Path("id") id: Int
-    ): Single<CollectionResponse>
-
-    @GET("tv/{type}?region=in")
+    @GET("tv/{type}")
     fun getTVList(
         @Path("type") type: String,
         @Query("page") page: Int
     ): Single<TvResponse>
+
+    @GET("collection/{id}")
+    fun getCollections(
+        @Path("id") id: Int
+    ): Single<CollectionResponse>
 
     @GET("tv/{tv_id}")
     fun getTVDetails(
@@ -106,6 +110,12 @@ interface ApiInterface {
 
     @GET("tv/{tv_id}/credits")
     fun getTvCast(
-        @Path("tv_id") tvId : Int
+        @Path("tv_id") tvId: Int
     ): Single<CastResponse>
+
+    @GET("tv/{tv_id}/season/{season_number}")
+    fun getTvSeason(
+        @Path("tv_id") tvId: Int,
+        @Path("season_number") seasonNumber: Int
+    ): Single<TvSeasonDetails>
 }
