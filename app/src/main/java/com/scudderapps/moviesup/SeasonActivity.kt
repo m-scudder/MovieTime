@@ -1,6 +1,7 @@
 package com.scudderapps.moviesup
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -62,6 +63,7 @@ class SeasonActivity : AppCompatActivity() {
         val data = intent.extras
         val seasonNumber = data!!.getInt("seasonNumber")
         val tvId = data.getInt("tvId")
+        Log.d("tvid", tvId.toString())
 
         val apiService: ApiInterface = TheTMDBClient.getClient()
         tvSeasonRepository =
@@ -83,6 +85,7 @@ class SeasonActivity : AppCompatActivity() {
         val adapter =
             SeasonDetailTabAdapter(
                 seasonNumber,
+                tvId,
                 this,
                 supportFragmentManager,
                 tvSeasonDetailTabLayout.tabCount

@@ -24,7 +24,6 @@ import com.scudderapps.moviesup.viewmodel.TvDetailViewModel
 class TvSeasonsFragment(val tvId: Int) : Fragment() {
     private lateinit var rootView: View
 
-
     @BindView(R.id.tv_season_list)
     lateinit var tvSeasonListView: RecyclerView
 

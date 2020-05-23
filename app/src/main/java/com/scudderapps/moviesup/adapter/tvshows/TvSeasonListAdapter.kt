@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -77,6 +78,8 @@ class TvSeasonListAdapter(
                 val intent = Intent(context, SeasonActivity::class.java)
                 intent.putExtra("seasonNumber", season?.seasonNumber)
                 intent.putExtra("tvId", tvId)
+                val data : Int = season.seasonNumber + tvId
+                Log.d("SeasonListData: OnClick", data.toString())
                 val options = ActivityOptions.makeSceneTransitionAnimation(
                     context as Activity?,
                     UtilPair<View, String>(itemView.tvSeasonPoster, "seasonPosterTransition")
