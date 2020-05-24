@@ -25,7 +25,7 @@ class MovieFragment() : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.movie_fragment, container, false)
+        val view = inflater.inflate(R.layout.movie_main_fragment, container, false)
         ButterKnife.bind(this, view)
         movieTabLayout.addTab(movieTabLayout.newTab().setText("Now Playing"))
         movieTabLayout.addTab(movieTabLayout.newTab().setText("Popular"))

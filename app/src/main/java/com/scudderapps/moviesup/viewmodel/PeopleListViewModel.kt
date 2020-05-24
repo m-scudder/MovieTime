@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
 import com.scudderapps.moviesup.models.main.People
 import com.scudderapps.moviesup.repository.NetworkState
-import com.scudderapps.moviesup.repository.movie.peoplelist.PeoplePagedListRepository
+import com.scudderapps.moviesup.repository.discover.PeoplePagedListRepository
 import io.reactivex.disposables.CompositeDisposable
 
 class PeopleListViewModel(private val peopleListRepository: PeoplePagedListRepository) :

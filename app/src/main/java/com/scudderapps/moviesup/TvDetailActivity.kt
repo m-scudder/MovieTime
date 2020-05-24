@@ -1,26 +1,24 @@
 package com.scudderapps.moviesup
 
 import android.os.Bundle
-import android.view.View
 import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.viewpager.widget.ViewPager
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.bumptech.glide.Glide
-import com.ms.square.android.expandabletextview.ExpandableTextView
+import com.google.android.material.tabs.TabLayout
+import com.scudderapps.moviesup.adapter.tvshows.tvdetails.TvDetailTabAdapter
 import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBClient
-import com.scudderapps.moviesup.models.tv.Genre
 import com.scudderapps.moviesup.models.tv.TvDetail
-import com.scudderapps.moviesup.repository.tv.TvDetailRepository
+import com.scudderapps.moviesup.repository.tv.tvdetails.TvDetailRepository
 import com.scudderapps.moviesup.viewmodel.TvDetailViewModel
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -34,9 +32,6 @@ class TvDetailActivity : AppCompatActivity() {
     @BindView(R.id.tv_poster_image)
     lateinit var tvPosterImage: ImageView
 
-    @BindView(R.id.tv_overview)
-    lateinit var tvOverview: ExpandableTextView
-
     @BindView(R.id.tv_title)
     lateinit var tvTitle: TextView
 
@@ -46,20 +41,14 @@ class TvDetailActivity : AppCompatActivity() {
     @BindView(R.id.tv_status)
     lateinit var tvStatus: TextView
 
-    @BindView(R.id.tv_genresName)
-    lateinit var tvGenresName: TextView
-
     @BindView(R.id.tv_detail_toolbar)
     lateinit var tvToolbar: Toolbar
 
-    @BindView(R.id.tv_DetailBar)
-    lateinit var tvProgressBar: ProgressBar
+    @BindView(R.id.tv_detail_tab_layout)
+    lateinit var tvDetailTabLayout: TabLayout
 
-    @BindView(R.id.tv_synopsis_layout)
-    lateinit var tvSynopsisLayout: LinearLayout
-
-    @BindView(R.id.tv_genres_layout)
-    lateinit var tvGenresLayout: LinearLayout
+    @BindView(R.id.tv_detail_viewpager)
+    lateinit var tvDetailViewPager: ViewPager
 
     private lateinit var viewModel: TvDetailViewModel
     private lateinit var tvRepository: TvDetailRepository
@@ -75,9 +64,32 @@ class TvDetailActivity : AppCompatActivity() {
         var tvId = data!!.getInt("id")
 
         val apiService: ApiInterface = TheTMDBClient.getClient()
-        tvRepository = TvDetailRepository(apiService)
+        tvRepository =
+            TvDetailRepository(
+                apiService
+            )
         viewModel = getViewModel(tvId)
 
+        tvDetailTabLayout.addTab(tvDetailTabLayout.newTab().setText("About"))
+        tvDetailTabLayout.addTab(tvDetailTabLayout.newTab().setText("Seasons"))
+        tvDetailTabLayout.addTab(tvDetailTabLayout.newTab().setText("Cast"))
+        tvDetailTabLayout.addTab(tvDetailTabLayout.newTab().setText("Crew"))
+
+        val adapter =
+            TvDetailTabAdapter(
+                tvId,
+                this,
+                supportFragmentManager,
+                tvDetailTabLayout.tabCount
+            )
+        tvDetailViewPager.adapter = adapter
+
+        tvDetailTabLayout.setupWithViewPager(tvDetailViewPager)
+        tvDetailViewPager.addOnPageChangeListener(
+            TabLayout.TabLayoutOnPageChangeListener(
+                tvDetailTabLayout
+            )
+        )
         viewModel.tvDetails.observe(this, androidx.lifecycle.Observer {
             bindUi(it)
         })
@@ -92,21 +104,7 @@ class TvDetailActivity : AppCompatActivity() {
             val targetFormat: DateFormat = SimpleDateFormat(getString(R.string.dateFormat))
             val date: Date = originalFormat.parse(it.firstAirDate)
             val formattedDate: String = targetFormat.format(date)
-            tvReleaseDate.text = formattedDate + "  ●"
-        }
-
-        if (!it.overview.isNullOrEmpty()) {
-            tvOverview.text = it.overview
-        } else {
-            tvSynopsisLayout.visibility = View.GONE
-        }
-        val genre: ArrayList<Genre> = it.genres
-        if (!genre.isNullOrEmpty()) {
-            for (i in genre) {
-                tvGenresName.append("\u25CF ${i.name}  ")
-            }
-        } else {
-            tvGenresLayout.visibility = View.GONE
+            tvReleaseDate.text = formattedDate
         }
 
 

@@ -8,7 +8,7 @@ data class Season(
     val airDate: String,
     @SerializedName("episode_count")
     val episodeCount: Int,
-    val id: Int,
+    val _id: Int,
     val name: String,
     val overview: String,
     @SerializedName("poster_path")

@@ -15,11 +15,11 @@ import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.scudderapps.moviesup.R
-import com.scudderapps.moviesup.adapter.tvshows.TvPagedListAdapter
+import com.scudderapps.moviesup.adapter.tvshows.tvdetails.TvPagedListAdapter
 import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.repository.NetworkState
-import com.scudderapps.moviesup.repository.tv.TvPagedListRepository
+import com.scudderapps.moviesup.repository.tv.tvlist.TvPagedListRepository
 import com.scudderapps.moviesup.viewmodel.TvListViewModel
 
 class TvListFragment(private val type: String) : Fragment() {
@@ -34,7 +34,6 @@ class TvListFragment(private val type: String) : Fragment() {
     private lateinit var tvAdapter: TvPagedListAdapter
     private lateinit var listViewModel: TvListViewModel
     lateinit var tvPagedListRepository: TvPagedListRepository
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +51,10 @@ class TvListFragment(private val type: String) : Fragment() {
         rootView = inflater.inflate(R.layout.tv_list_fragment, container, false)
         ButterKnife.bind(this, rootView)
         val apiService: ApiInterface = TheTMDBClient.getClient()
-        tvPagedListRepository = TvPagedListRepository(apiService)
+        tvPagedListRepository =
+            TvPagedListRepository(
+                apiService
+            )
         listViewModel = tvListViewModel(type)
         populatingViews()
 
@@ -69,16 +71,24 @@ class TvListFragment(private val type: String) : Fragment() {
     }
 
     private fun populatingViews() {
-        listViewModel.tvPagedList.observe(this, Observer {
+        listViewModel.tvPagedList.observe(viewLifecycleOwner, Observer {
             tvAdapter.submitList(it)
             val layoutManager = GridLayoutManager(activity, 4)
+            layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int {
+                    val viewType = tvAdapter.getItemViewType(position)
+                    return if (viewType == tvAdapter.POPULAR_MOVIE_VIEW_TYPE) 1
+                    else 4
+                }
+
+            }
             tvView.layoutManager = layoutManager
             tvView.setHasFixedSize(true)
             tvView.adapter = tvAdapter
 
         })
 
-        listViewModel.networkState.observe(this, Observer {
+        listViewModel.networkState.observe(viewLifecycleOwner, Observer {
 
             tvProgressBar.visibility =
                 if (listViewModel.movieListIsEmpty() && it == NetworkState.LOADING) View.VISIBLE else View.GONE

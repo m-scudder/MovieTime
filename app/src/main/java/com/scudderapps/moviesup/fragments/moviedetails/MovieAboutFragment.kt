@@ -23,12 +23,17 @@ import com.bumptech.glide.Glide
 import com.ms.square.android.expandabletextview.ExpandableTextView
 import com.scudderapps.moviesup.CollectionActivity
 import com.scudderapps.moviesup.R
-import com.scudderapps.moviesup.adapter.movie.moviedetails.TrailerListAdapter
+import com.scudderapps.moviesup.adapter.common.TrailerListAdapter
+import com.scudderapps.moviesup.adapter.movie.MovieGenreListAdapter
 import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBClient
-import com.scudderapps.moviesup.models.main.Genre
-import com.scudderapps.moviesup.models.movie.*
+import com.scudderapps.moviesup.models.common.Backdrop
+import com.scudderapps.moviesup.models.common.Poster
+import com.scudderapps.moviesup.models.common.ProductionCompany
+import com.scudderapps.moviesup.models.movie.CollectionResponse
+import com.scudderapps.moviesup.models.movie.ProductionCountry
+import com.scudderapps.moviesup.models.movie.SpokenLanguage
 import com.scudderapps.moviesup.repository.movie.moviedetails.MovieDetailRepository
 import com.scudderapps.moviesup.viewmodel.MovieDetailViewModel
 import com.stfalcon.imageviewer.StfalconImageViewer
@@ -43,8 +48,8 @@ class MovieAboutFragment(private var movieId: Int) : Fragment() {
     @BindView(R.id.movie_overview)
     lateinit var movieOverview: ExpandableTextView
 
-    @BindView(R.id.genresName)
-    lateinit var genresName: TextView
+    @BindView(R.id.movie_genre_list)
+    lateinit var movieGenreListView: RecyclerView
 
     @BindView(R.id.original_title)
     lateinit var originalTitle: TextView
@@ -112,6 +117,7 @@ class MovieAboutFragment(private var movieId: Int) : Fragment() {
     private lateinit var viewModel: MovieDetailViewModel
     private lateinit var movieRepository: MovieDetailRepository
 
+    private lateinit var movieGenreListAdapter: MovieGenreListAdapter
     private lateinit var trailerAdapter: TrailerListAdapter
     private lateinit var movieBackdrops: List<Backdrop>
     private lateinit var moviePosters: List<Poster>
@@ -130,7 +136,7 @@ class MovieAboutFragment(private var movieId: Int) : Fragment() {
     }
 
     private fun populatingViews() {
-        viewModel.movieDetails.observe(this, Observer {
+        viewModel.movieDetails.observe(viewLifecycleOwner, Observer {
             movieOverview.text = it.overview
             originalTitle.text = it.originalTitle
             movieRuntime.text = it.runtime.toString() + " Min"
@@ -138,17 +144,25 @@ class MovieAboutFragment(private var movieId: Int) : Fragment() {
                 .format(it.budget.toDouble())
             revenue.text = NumberFormat.getCurrencyInstance(Locale("en", "US"))
                 .format(it.revenue.toDouble())
-            originalLanguage.text = it.originalLanguage
-            val genre: ArrayList<Genre> = it.genres
-            if (!genre.isNullOrEmpty()) {
-                for (i in genre) {
-                    genresName.append("\u25CF ${i.name}  ")
-                }
+
+            originalLanguage.text = "-"
+
+            if (!it.genres.isNullOrEmpty()) {
+                movieGenreListAdapter =
+                    MovieGenreListAdapter(
+                        it.genres,
+                        rootView.context
+                    )
+                val linearLayoutManager2 = LinearLayoutManager(activity)
+                linearLayoutManager2.orientation = LinearLayoutManager.HORIZONTAL
+                movieGenreListView.layoutManager = linearLayoutManager2
+                movieGenreListView.setHasFixedSize(true)
+                movieGenreListView.adapter = movieGenreListAdapter
             } else {
                 genresLayout.visibility = View.GONE
             }
 
-            val spokenLangaugeList : List<SpokenLanguage> = it.spokenLanguages
+            val spokenLangaugeList: List<SpokenLanguage> = it.spokenLanguages
             if (!spokenLangaugeList.isNullOrEmpty())
                 for (i in spokenLangaugeList) {
 //                    spokenLanguage.append("\u25CF ${i.name}  ")
@@ -184,10 +198,14 @@ class MovieAboutFragment(private var movieId: Int) : Fragment() {
                 productionCompany.text = "-"
         })
 
-        viewModel.videoDetails.observe(this, Observer {
+        viewModel.videoDetails.observe(viewLifecycleOwner, Observer {
 
             if (!it.videosList.isNullOrEmpty()) {
-                trailerAdapter = TrailerListAdapter(it.videosList, rootView.context)
+                trailerAdapter =
+                    TrailerListAdapter(
+                        it.videosList,
+                        rootView.context
+                    )
                 val linearLayoutManager = LinearLayoutManager(activity)
                 linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
                 trailerListView.layoutManager = linearLayoutManager
@@ -199,7 +217,7 @@ class MovieAboutFragment(private var movieId: Int) : Fragment() {
 
         })
 
-        viewModel.movieMedia.observe(this, Observer {
+        viewModel.movieMedia.observe(viewLifecycleOwner, Observer {
             movieBackdrops = it.backdrops
             moviePosters = it.posters
             if (!moviePosters.isNullOrEmpty()) {

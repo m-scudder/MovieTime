@@ -25,7 +25,7 @@ class TvFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.tv_fragment, container, false)
+        val view = inflater.inflate(R.layout.tv_main_fragment, container, false)
         ButterKnife.bind(this, view)
         tvTabLayout.addTab(tvTabLayout.newTab().setText("Now Playing"))
         tvTabLayout.addTab(tvTabLayout.newTab().setText("On Air Today"))

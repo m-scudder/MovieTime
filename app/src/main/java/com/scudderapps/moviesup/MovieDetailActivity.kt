@@ -72,9 +72,6 @@ class MovieDetailActivity : AppCompatActivity() {
         movieDetailTabLayout.addTab(movieDetailTabLayout.newTab().setText("About"))
         movieDetailTabLayout.addTab(movieDetailTabLayout.newTab().setText("Cast"))
         movieDetailTabLayout.addTab(movieDetailTabLayout.newTab().setText("Crew"))
-        movieDetailTabLayout.addTab(movieDetailTabLayout.newTab().setText("Reviews"))
-        movieDetailTabLayout.addTab(movieDetailTabLayout.newTab().setText("Similar"))
-        movieDetailTabLayout.addTab(movieDetailTabLayout.newTab().setText("Recommended"))
 
         val adapter =
             MovieDetailTabAdapter(

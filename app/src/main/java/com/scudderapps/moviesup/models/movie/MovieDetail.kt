@@ -2,7 +2,8 @@ package com.scudderapps.moviesup.models.movie
 
 
 import com.google.gson.annotations.SerializedName
-import com.scudderapps.moviesup.models.main.Genre
+import com.scudderapps.moviesup.models.common.Genre
+import com.scudderapps.moviesup.models.common.ProductionCompany
 
 data class MovieDetail(
     val adult: Boolean,
@@ -10,7 +11,7 @@ data class MovieDetail(
     val backdropPath: String,
     @SerializedName("belongs_to_collection")
     val belongsToCollection: CollectionResponse,
-    val budget: Int,
+    val budget: String,
     val genres: ArrayList<Genre>,
     val homepage: String,
     val id: Int,
@@ -30,7 +31,7 @@ data class MovieDetail(
     val productionCountries: List<ProductionCountry>,
     @SerializedName("release_date")
     val releaseDate: String,
-    val revenue: Int,
+    val revenue: String,
     val runtime: Int,
     @SerializedName("spoken_languages")
     val spokenLanguages: List<SpokenLanguage>,

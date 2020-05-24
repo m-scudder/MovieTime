@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.tvshowsdetails.tvseasondetails.TvSeasonCastFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/tv_season_cast_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" />
+
+    <ImageView
+        android:id="@+id/no_tv_season_cast_found"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/no_image_found"
+        android:visibility="gone" />
+
+</FrameLayout>

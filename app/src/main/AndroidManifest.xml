@@ -12,7 +12,12 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TvDetailActivity"></activity>
+        <activity android:name=".TvGenreActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".SeasonActivity"
+            android:parentActivityName=".TvDetailActivity" />
+        <activity android:name=".TvDetailActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,11 +29,10 @@
             android:name=".MovieDetailActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".PeopleDetailActivity"
+            android:name=".CastAndCrewDetailActivity"
             android:parentActivityName=".MovieDetailActivity" />
-
         <activity
-            android:name=".DiscoverMovie"
+            android:name=".MovieGenreActivity"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".CollectionActivity"

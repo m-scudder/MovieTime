@@ -35,7 +35,6 @@ class MovieListFragment(private val type: String) : Fragment() {
     private lateinit var listViewModel: MovieListViewModel
     lateinit var moviePagedListRepository: MoviePagedListRepository
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         movieAdapter =
@@ -69,16 +68,23 @@ class MovieListFragment(private val type: String) : Fragment() {
     }
 
     private fun populatingViews() {
-        listViewModel.moviePagedList.observe(this, Observer {
+        listViewModel.moviePagedList.observe(viewLifecycleOwner, Observer {
             movieAdapter.submitList(it)
             val layoutManager = GridLayoutManager(activity, 4)
+            layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int {
+                    val viewType = movieAdapter.getItemViewType(position)
+                    return if (viewType == movieAdapter.POPULAR_MOVIE_VIEW_TYPE) 1
+                    else 4
+                }
+            }
             movieView.layoutManager = layoutManager
             movieView.setHasFixedSize(true)
             movieView.adapter = movieAdapter
 
         })
 
-        listViewModel.networkState.observe(this, Observer {
+        listViewModel.networkState.observe(viewLifecycleOwner, Observer {
 
             mainProgressBar.visibility =
                 if (listViewModel.movieListIsEmpty() && it == NetworkState.LOADING) View.VISIBLE else View.GONE
