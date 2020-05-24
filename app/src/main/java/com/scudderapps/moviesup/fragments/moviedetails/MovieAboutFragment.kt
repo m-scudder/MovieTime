@@ -23,15 +23,15 @@ import com.bumptech.glide.Glide
 import com.ms.square.android.expandabletextview.ExpandableTextView
 import com.scudderapps.moviesup.CollectionActivity
 import com.scudderapps.moviesup.R
-import com.scudderapps.moviesup.adapter.movie.MovieGenreListAdapter
 import com.scudderapps.moviesup.adapter.common.TrailerListAdapter
+import com.scudderapps.moviesup.adapter.movie.MovieGenreListAdapter
 import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.common.Backdrop
 import com.scudderapps.moviesup.models.common.Poster
-import com.scudderapps.moviesup.models.movie.CollectionResponse
 import com.scudderapps.moviesup.models.common.ProductionCompany
+import com.scudderapps.moviesup.models.movie.CollectionResponse
 import com.scudderapps.moviesup.models.movie.ProductionCountry
 import com.scudderapps.moviesup.models.movie.SpokenLanguage
 import com.scudderapps.moviesup.repository.movie.moviedetails.MovieDetailRepository
@@ -144,7 +144,8 @@ class MovieAboutFragment(private var movieId: Int) : Fragment() {
                 .format(it.budget.toDouble())
             revenue.text = NumberFormat.getCurrencyInstance(Locale("en", "US"))
                 .format(it.revenue.toDouble())
-            originalLanguage.text = it.originalLanguage
+
+            originalLanguage.text = "-"
 
             if (!it.genres.isNullOrEmpty()) {
                 movieGenreListAdapter =

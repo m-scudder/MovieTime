@@ -1,4 +1,4 @@
-package com.scudderapps.moviesup.adapter
+package com.scudderapps.moviesup.adapter.castandncrew
 
 import android.app.Activity
 import android.app.ActivityOptions
@@ -11,7 +11,7 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.scudderapps.moviesup.PeopleDetailActivity
+import com.scudderapps.moviesup.CastAndCrewDetailActivity
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.models.main.People
@@ -33,10 +33,14 @@ class PeoplePagedListAdapter(private val context: Context) :
         lateinit var view: View
         return if (viewType == POPULAR_PEOPLE_VIEW_TYPE) {
             view = layoutInflater.inflate(R.layout.cast_list_item, parent, false)
-            PeopleItemVieHolder(view)
+            PeopleItemVieHolder(
+                view
+            )
         } else {
             view = layoutInflater.inflate(R.layout.network_state_item, parent, false)
-            PeopleItemVieHolder(view)
+            PeopleItemVieHolder(
+                view
+            )
         }
 
     }
@@ -83,19 +87,19 @@ class PeoplePagedListAdapter(private val context: Context) :
                 val posterUrl = IMAGE_BASE_URL + people?.profilePath
                 Glide.with(itemView.context)
                     .load(posterUrl)
-                    .into(itemView.castImage)
+                    .into(itemView.people_image)
             } else {
                 Glide.with(itemView.context)
                     .load(R.drawable.default_avatar)
-                    .into(itemView.castImage)
+                    .into(itemView.people_image)
             }
             itemView.setOnClickListener {
 
-                val intent = Intent(context, PeopleDetailActivity::class.java)
+                val intent = Intent(context, CastAndCrewDetailActivity::class.java)
                 intent.putExtra("id", people?.id)
                 val options = ActivityOptions.makeSceneTransitionAnimation(
                     context as Activity?,
-                    UtilPair<View, String>(itemView.castImage, "peopleImageTransition")
+                    UtilPair<View, String>(itemView.people_image, "peopleImageTransition")
                 )
                 context.startActivity(intent, options.toBundle())
 

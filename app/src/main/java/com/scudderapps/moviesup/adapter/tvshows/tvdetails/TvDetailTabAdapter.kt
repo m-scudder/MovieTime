@@ -45,9 +45,6 @@ class TvDetailTabAdapter(
             1 -> "Seasons"
             2 -> "Cast"
             3 -> "Crew"
-            4 -> "Reviews"
-            5 -> "Similar"
-            6 -> "Recommended"
             else -> null
         }
     }

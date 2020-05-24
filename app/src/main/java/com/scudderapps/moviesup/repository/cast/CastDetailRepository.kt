@@ -1,22 +1,23 @@
-package com.scudderapps.moviesup.repository.common.peopledetails
+package com.scudderapps.moviesup.repository.cast
 
 import androidx.lifecycle.LiveData
 import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.models.common.MovieCredits
+import com.scudderapps.moviesup.models.common.TvCredits
 import com.scudderapps.moviesup.models.main.PeopleDetails
 import com.scudderapps.moviesup.models.main.PeopleImages
 import io.reactivex.disposables.CompositeDisposable
 
-class PeopleDetailRepository(private val apiService: ApiInterface) {
+class CastDetailRepository(private val apiService: ApiInterface) {
 
-    lateinit var peopleDetailDataSource: PeopleDetailDataSource
+    lateinit var peopleDetailDataSource: CastDetailDataSource
 
     fun fetchingPeoplesDetails(
         compositeDisposable: CompositeDisposable,
         peopleID: Int
     ): LiveData<PeopleDetails> {
         peopleDetailDataSource =
-            PeopleDetailDataSource(
+            CastDetailDataSource(
                 apiService,
                 compositeDisposable
             )
@@ -30,7 +31,7 @@ class PeopleDetailRepository(private val apiService: ApiInterface) {
         peopleID: Int
     ): LiveData<MovieCredits> {
         peopleDetailDataSource =
-            PeopleDetailDataSource(
+            CastDetailDataSource(
                 apiService,
                 compositeDisposable
             )
@@ -39,12 +40,26 @@ class PeopleDetailRepository(private val apiService: ApiInterface) {
         return peopleDetailDataSource.movieCreditsResponse
     }
 
+    fun fetchingTvCredits(
+        compositeDisposable: CompositeDisposable,
+        peopleID: Int
+    ): LiveData<TvCredits> {
+        peopleDetailDataSource =
+            CastDetailDataSource(
+                apiService,
+                compositeDisposable
+            )
+        peopleDetailDataSource.fetchTvCredits(peopleID)
+
+        return peopleDetailDataSource.tvCreditsResponse
+    }
+
     fun fetchingPeopleImages(
         compositeDisposable: CompositeDisposable,
         peopleID: Int
     ): LiveData<PeopleImages> {
         peopleDetailDataSource =
-            PeopleDetailDataSource(
+            CastDetailDataSource(
                 apiService,
                 compositeDisposable
             )

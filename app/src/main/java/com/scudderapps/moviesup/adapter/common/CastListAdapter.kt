@@ -4,12 +4,13 @@ import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.scudderapps.moviesup.PeopleDetailActivity
+import com.scudderapps.moviesup.CastAndCrewDetailActivity
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.models.common.CastDetail
@@ -49,20 +50,21 @@ class CastListAdapter(private val cast: ArrayList<CastDetail>, private val conte
                 val profileUrl = IMAGE_BASE_URL + cast?.profilePath
                 Glide.with(view)
                     .load(profileUrl)
-                    .into(itemView.castImage)
+                    .into(itemView.people_image)
             } else {
                 Glide.with(view)
                     .load(R.drawable.default_avatar)
-                    .into(itemView.castImage)
+                    .into(itemView.people_image)
             }
 
             itemView.setOnClickListener(View.OnClickListener {
 
-                val intent = Intent(context, PeopleDetailActivity::class.java)
-                intent.putExtra("id", cast?.id)
+                val intent = Intent(context, CastAndCrewDetailActivity::class.java)
+                intent.putExtra("id", cast.id)
+                Log.d("personId", cast.id.toString())
                 val options = ActivityOptions.makeSceneTransitionAnimation(
                     context as Activity?,
-                    UtilPair<View, String>(itemView.castImage, "peopleImageTransition")
+                    UtilPair<View, String>(itemView.people_image, "peopleImageTransition")
                 )
                 context.startActivity(intent, options.toBundle())
             })

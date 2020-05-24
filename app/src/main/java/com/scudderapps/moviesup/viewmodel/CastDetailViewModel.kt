@@ -3,13 +3,14 @@ package com.scudderapps.moviesup.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.scudderapps.moviesup.models.common.MovieCredits
+import com.scudderapps.moviesup.models.common.TvCredits
 import com.scudderapps.moviesup.models.main.PeopleDetails
 import com.scudderapps.moviesup.models.main.PeopleImages
-import com.scudderapps.moviesup.repository.common.peopledetails.PeopleDetailRepository
+import com.scudderapps.moviesup.repository.cast.CastDetailRepository
 import io.reactivex.disposables.CompositeDisposable
 
-class PeopleDetailViewModel(
-    private val peopleDetailRepository: PeopleDetailRepository,
+class CastDetailViewModel(
+    private val peopleDetailRepository: CastDetailRepository,
     peopleId: Int
 ) :
     ViewModel() {
@@ -26,6 +27,10 @@ class PeopleDetailViewModel(
 
     val peopleImages: LiveData<PeopleImages> by lazy {
         peopleDetailRepository.fetchingPeopleImages(compositeDisposable, peopleId)
+    }
+
+    val tvCredits  : LiveData<TvCredits> by lazy {
+        peopleDetailRepository.fetchingTvCredits(compositeDisposable, peopleId)
     }
 
     override fun onCleared() {

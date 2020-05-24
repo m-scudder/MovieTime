@@ -11,8 +11,8 @@
         android:id="@+id/genresName"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp"
-        android:background="@color/grey"
+        android:padding="4dp"
+        android:background="@color/dark_gray"
         android:textAlignment="viewStart"
         android:textAppearance="@style/TitleTextTheme" />
 

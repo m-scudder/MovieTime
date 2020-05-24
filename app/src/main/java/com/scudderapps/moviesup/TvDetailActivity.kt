@@ -74,9 +74,6 @@ class TvDetailActivity : AppCompatActivity() {
         tvDetailTabLayout.addTab(tvDetailTabLayout.newTab().setText("Seasons"))
         tvDetailTabLayout.addTab(tvDetailTabLayout.newTab().setText("Cast"))
         tvDetailTabLayout.addTab(tvDetailTabLayout.newTab().setText("Crew"))
-        tvDetailTabLayout.addTab(tvDetailTabLayout.newTab().setText("Reviews"))
-        tvDetailTabLayout.addTab(tvDetailTabLayout.newTab().setText("Similar"))
-        tvDetailTabLayout.addTab(tvDetailTabLayout.newTab().setText("Recommended"))
 
         val adapter =
             TvDetailTabAdapter(

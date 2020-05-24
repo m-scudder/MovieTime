@@ -40,9 +40,6 @@ class MovieDetailTabAdapter(
             0 -> "About"
             1 -> "Cast"
             2 -> "Crew"
-            3 -> "Reviews"
-            4 -> "Similar"
-            5 -> "Recommended"
             else -> null
         }
     }

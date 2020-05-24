@@ -1,17 +1,18 @@
-package com.scudderapps.moviesup.repository.common.peopledetails
+package com.scudderapps.moviesup.repository.cast
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.models.common.MovieCredits
+import com.scudderapps.moviesup.models.common.TvCredits
 import com.scudderapps.moviesup.models.main.PeopleDetails
 import com.scudderapps.moviesup.models.main.PeopleImages
 import com.scudderapps.moviesup.repository.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class PeopleDetailDataSource(
+class CastDetailDataSource(
     private val apiService: ApiInterface,
     private val compositeDisposable: CompositeDisposable
 ) {
@@ -26,6 +27,10 @@ class PeopleDetailDataSource(
     private val _movieCreditsResponse = MutableLiveData<MovieCredits>()
     val movieCreditsResponse: LiveData<MovieCredits>
         get() = _movieCreditsResponse
+
+    private val _tvCreditsResponse = MutableLiveData<TvCredits>()
+    val tvCreditsResponse: LiveData<TvCredits>
+        get() = _tvCreditsResponse
 
     private val _peopleProfileImages = MutableLiveData<PeopleImages>()
     val peopleProfileImages: LiveData<PeopleImages>
@@ -66,6 +71,31 @@ class PeopleDetailDataSource(
                 ?.subscribe(
                     {
                         _movieCreditsResponse.postValue(it)
+                        _networkState.postValue(NetworkState.LOADED)
+                    },
+                    {
+                        _networkState.postValue(NetworkState.ERROR)
+                        Log.e("PeopleDetailDataSource", it.message)
+                    }
+                )?.let {
+                    compositeDisposable.add(
+                        it
+                    )
+                }
+        } catch (e: Exception) {
+            Log.e("PeopleDetailDataSource", e.message)
+        }
+    }
+
+    fun fetchTvCredits(peopleID: Int) {
+        _networkState.postValue(NetworkState.LOADING)
+
+        try {
+            apiService.getTvCredits(peopleID)
+                ?.subscribeOn(Schedulers.io())
+                ?.subscribe(
+                    {
+                        _tvCreditsResponse.postValue(it)
                         _networkState.postValue(NetworkState.LOADED)
                     },
                     {

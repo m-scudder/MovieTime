@@ -62,6 +62,11 @@ interface ApiInterface {
         @Path("id") id: Int
     ): Single<MovieCredits>
 
+    @GET("person/{id}/tv_credits")
+    fun getTvCredits(
+        @Path("id") id: Int
+    ): Single<TvCredits>
+
     @GET("person/{id}/images")
     fun getPeopleImages(
         @Path("id") id: Int

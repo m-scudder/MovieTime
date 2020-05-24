@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.scudderapps.moviesup.PeopleDetailActivity
+import com.scudderapps.moviesup.CastAndCrewDetailActivity
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.models.common.CrewDetail
@@ -58,7 +58,7 @@ class CrewListAdapter(private val crew: ArrayList<CrewDetail>, private val conte
 
             itemView.setOnClickListener(View.OnClickListener {
 
-                val intent = Intent(context, PeopleDetailActivity::class.java)
+                val intent = Intent(context, CastAndCrewDetailActivity::class.java)
                 intent.putExtra("id", crew?.id)
                 val options = ActivityOptions.makeSceneTransitionAnimation(
                     context as Activity?,
