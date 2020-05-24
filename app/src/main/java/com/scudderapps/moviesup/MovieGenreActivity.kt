@@ -17,8 +17,8 @@ import com.scudderapps.moviesup.adapter.movie.MoviePageListAdapter
 import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.repository.NetworkState
-import com.scudderapps.moviesup.repository.genres.movies.DiscoverPagedListRepository
-import com.scudderapps.moviesup.viewmodel.GenreDiscoverViewModel
+import com.scudderapps.moviesup.repository.discovergenres.movies.MovieDiscoverPagedListRepository
+import com.scudderapps.moviesup.viewmodel.MovieGenreDiscoverViewModel
 
 class MovieGenreActivity : AppCompatActivity() {
 
@@ -31,8 +31,8 @@ class MovieGenreActivity : AppCompatActivity() {
     @BindView(R.id.discover_progress_bar)
     lateinit var discoverProgressBar: ProgressBar
 
-    private lateinit var discoverViewModel: GenreDiscoverViewModel
-    lateinit var moviePagedListRepository: DiscoverPagedListRepository
+    private lateinit var discoverViewModel: MovieGenreDiscoverViewModel
+    lateinit var moviePagedListRepository: MovieDiscoverPagedListRepository
     private val discoverAdapter =
         MoviePageListAdapter(this)
     private val layoutManager = GridLayoutManager(this, 4)
@@ -53,7 +53,7 @@ class MovieGenreActivity : AppCompatActivity() {
 
         val apiService: ApiInterface = TheTMDBClient.getClient()
         moviePagedListRepository =
-            DiscoverPagedListRepository(
+            MovieDiscoverPagedListRepository(
                 apiService
             )
 
@@ -86,12 +86,12 @@ class MovieGenreActivity : AppCompatActivity() {
 
     }
 
-    private fun discoverViewModel(id: Int): GenreDiscoverViewModel {
+    private fun discoverViewModel(id: Int): MovieGenreDiscoverViewModel {
         return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 @Suppress("UNCHECKED_CAST")
-                return GenreDiscoverViewModel(moviePagedListRepository, id) as T
+                return MovieGenreDiscoverViewModel(moviePagedListRepository, id) as T
             }
-        })[GenreDiscoverViewModel::class.java]
+        })[MovieGenreDiscoverViewModel::class.java]
     }
 }

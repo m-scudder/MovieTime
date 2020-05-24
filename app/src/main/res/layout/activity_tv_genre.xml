@@ -13,7 +13,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/discover_toolbar"
+        android:layout_below="@+id/tv_genre_toolbar"
         android:orientation="vertical">
 
         <ProgressBar

@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.scudderapps.moviesup.MovieGenreActivity
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.TvGenreActivity
 import com.scudderapps.moviesup.models.common.Genre

@@ -1,4 +1,4 @@
-package com.scudderapps.moviesup.repository.genres.movies
+package com.scudderapps.moviesup.repository.discovergenres.movies
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
@@ -10,17 +10,17 @@ import com.scudderapps.moviesup.models.main.Movie
 import com.scudderapps.moviesup.repository.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 
-class DiscoverPagedListRepository(private val apiService: ApiInterface) {
+class MovieDiscoverPagedListRepository(private val apiService: ApiInterface) {
 
     lateinit var moviePageList: LiveData<PagedList<Movie>>
-    lateinit var discoverDataSourceFactory: DiscoverDataSourceFactory
+    lateinit var discoverDataSourceFactory: MovieDiscoverDataSourceFactory
 
     fun fetchingMovieList(
         compositeDisposable: CompositeDisposable,
         id: Int
     ): LiveData<PagedList<Movie>> {
 
-        discoverDataSourceFactory = DiscoverDataSourceFactory(apiService, compositeDisposable, id)
+        discoverDataSourceFactory = MovieDiscoverDataSourceFactory(apiService, compositeDisposable, id)
         val config = PagedList.Config
             .Builder()
             .setEnablePlaceholders(false)
@@ -32,8 +32,8 @@ class DiscoverPagedListRepository(private val apiService: ApiInterface) {
     }
 
     fun getNetworkState(): LiveData<NetworkState> {
-        return Transformations.switchMap<DiscoverDataSource, NetworkState>(
-            discoverDataSourceFactory.discoverLiveDataSource, DiscoverDataSource::networkState
+        return Transformations.switchMap<MovieDiscoverDataSource, NetworkState>(
+            discoverDataSourceFactory.discoverLiveDataSource, MovieDiscoverDataSource::networkState
         )
     }
 }

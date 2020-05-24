@@ -79,6 +79,12 @@ interface ApiInterface {
         @Query("page") page: Int
     ): Single<MovieResponse>
 
+    @GET("discover/tv?&region=in&sort_by=popularity.desc")
+    fun getDiscoveredTv(
+        @Query("with_genres") id: Int,
+        @Query("page") page: Int
+    ): Single<TvResponse>
+
     @GET("trending/movie/{type}")
     fun getTrendingList(
         @Path("type") type: String,

@@ -5,11 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
 import com.scudderapps.moviesup.models.main.Movie
 import com.scudderapps.moviesup.repository.NetworkState
-import com.scudderapps.moviesup.repository.genres.movies.DiscoverPagedListRepository
+import com.scudderapps.moviesup.repository.discovergenres.movies.MovieDiscoverPagedListRepository
 import io.reactivex.disposables.CompositeDisposable
 
-class GenreDiscoverViewModel(
-    private val discoverPagedListRepository: DiscoverPagedListRepository,
+class MovieGenreDiscoverViewModel(
+    private val discoverPagedListRepository: MovieDiscoverPagedListRepository,
     private val id: Int
 ) : ViewModel() {
 
