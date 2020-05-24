@@ -4,7 +4,8 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.scudderapps.moviesup.fragments.tvshowsdetails.SeasonEpisodeFragment
+import com.scudderapps.moviesup.fragments.tvshowsdetails.tvseasondetails.TvSeasonAboutFragment
+import com.scudderapps.moviesup.fragments.tvshowsdetails.tvseasondetails.TvSeasonEpisodeListFragment
 
 class SeasonDetailTabAdapter(
     private val seasonNumber: Int,
@@ -18,14 +19,22 @@ class SeasonDetailTabAdapter(
     override fun getItem(position: Int): Fragment {
         when (position) {
             0 -> {
-                return SeasonEpisodeFragment(tvId, seasonNumber)
+                return TvSeasonEpisodeListFragment(
+                    tvId,
+                    seasonNumber
+                )
             }
             1 -> {
-            }
-            2 -> {
+                return TvSeasonAboutFragment(
+                    tvId,
+                    seasonNumber
+                )
             }
         }
-        return SeasonEpisodeFragment(tvId, seasonNumber)
+        return TvSeasonEpisodeListFragment(
+            tvId,
+            seasonNumber
+        )
     }
 
     override fun getCount(): Int {

@@ -1,10 +1,9 @@
-package com.scudderapps.moviesup.fragments.tvshowsdetails
+package com.scudderapps.moviesup.fragments.tvshowsdetails.tvseasondetails
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -20,22 +19,19 @@ import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.tv.Episode
 import com.scudderapps.moviesup.repository.tv.seasons.SeasonDetailRepository
-import com.scudderapps.moviesup.viewmodel.SeasonDetailViewModel
+import com.scudderapps.moviesup.viewmodel.TvSeasonDetailViewModel
 
-class SeasonEpisodeFragment(val tvId: Int, val seasonNumber: Int) : Fragment() {
+class TvSeasonEpisodeListFragment(val tvId: Int, val seasonNumber: Int) : Fragment() {
 
     private lateinit var rootView: View
 
     @BindView(R.id.tv_episode_list)
     lateinit var tvSeasonEpisodeListView: RecyclerView
 
-    @BindView(R.id.episodeCount)
-    lateinit var episodeCount: TextView
-
     private lateinit var tvSeasonEpisodeListAdapter: SeasonEpisodeListAdapter
     private lateinit var tvSeasonsEpisodeList: List<Episode>
 
-    private lateinit var seasonViewModel: SeasonDetailViewModel
+    private lateinit var seasonViewModel: TvSeasonDetailViewModel
     private lateinit var tvSeasonRepository: SeasonDetailRepository
     lateinit var linearLayoutManager: LinearLayoutManager
 
@@ -51,7 +47,6 @@ class SeasonEpisodeFragment(val tvId: Int, val seasonNumber: Int) : Fragment() {
         seasonViewModel = getViewModel(tvId, seasonNumber)
         seasonViewModel.tvSeasonDetails.observe(viewLifecycleOwner, Observer {
             tvSeasonsEpisodeList = it.episodes
-            episodeCount.text = "Total episodes :" + it.episodes.size.toString()
             tvSeasonEpisodeListAdapter =
                 SeasonEpisodeListAdapter(tvSeasonsEpisodeList, rootView.context)
             linearLayoutManager = LinearLayoutManager(activity)
@@ -64,13 +59,13 @@ class SeasonEpisodeFragment(val tvId: Int, val seasonNumber: Int) : Fragment() {
         return rootView
     }
 
-    private fun getViewModel(tvId: Int, seasonNumber: Int): SeasonDetailViewModel {
+    private fun getViewModel(tvId: Int, seasonNumber: Int): TvSeasonDetailViewModel {
         return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 @Suppress("UNCHECKED_CAST")
-                return SeasonDetailViewModel(tvSeasonRepository, tvId, seasonNumber) as T
+                return TvSeasonDetailViewModel(tvSeasonRepository, tvId, seasonNumber) as T
             }
-        })[SeasonDetailViewModel::class.java]
+        })[TvSeasonDetailViewModel::class.java]
     }
 
 }

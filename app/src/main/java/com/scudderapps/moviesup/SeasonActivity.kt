@@ -21,12 +21,12 @@ import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.repository.tv.seasons.SeasonDetailRepository
 import com.scudderapps.moviesup.repository.tv.tvdetails.TvDetailRepository
-import com.scudderapps.moviesup.viewmodel.SeasonDetailViewModel
+import com.scudderapps.moviesup.viewmodel.TvSeasonDetailViewModel
 import com.scudderapps.moviesup.viewmodel.TvDetailViewModel
 
 class SeasonActivity : AppCompatActivity() {
 
-    @BindView(R.id.season_backdrop_image)
+    @BindView(R.id.tv_season_backdrop_image)
     lateinit var tvSeasonBackdropImage: ImageView
 
     @BindView(R.id.tv_season_poster_image)
@@ -47,7 +47,7 @@ class SeasonActivity : AppCompatActivity() {
     @BindView(R.id.tv_season_detail_viewpager)
     lateinit var tvSeasonDetailViewPager: ViewPager
 
-    private lateinit var viewModel: SeasonDetailViewModel
+    private lateinit var tvSeasonDetailViewModel: TvSeasonDetailViewModel
     private lateinit var tvSeasonRepository: SeasonDetailRepository
 
     lateinit var tvDetailViewModel: TvDetailViewModel
@@ -70,7 +70,7 @@ class SeasonActivity : AppCompatActivity() {
             SeasonDetailRepository(
                 apiService
             )
-        viewModel = getViewModel(tvId, seasonNumber)
+        tvSeasonDetailViewModel = getViewModel(tvId, seasonNumber)
 
         tvDetailRepository =
             TvDetailRepository(
@@ -92,6 +92,13 @@ class SeasonActivity : AppCompatActivity() {
             )
         tvSeasonDetailViewPager.adapter = adapter
 
+        tvSeasonDetailTabLayout.setupWithViewPager(tvSeasonDetailViewPager)
+        tvSeasonDetailViewPager.addOnPageChangeListener(
+            TabLayout.TabLayoutOnPageChangeListener(
+                tvSeasonDetailTabLayout
+            )
+        )
+
         tvDetailViewModel.tvDetails.observe(this, Observer {
             tvSeasonName.text = it.name
             if (!it.backdropPath.isNullOrEmpty()) {
@@ -107,7 +114,7 @@ class SeasonActivity : AppCompatActivity() {
             }
         })
 
-        viewModel.tvSeasonDetails.observe(this, Observer {
+        tvSeasonDetailViewModel.tvSeasonDetails.observe(this, Observer {
             tvSeasonTitle.text = it.name
 
             if (!it.posterPath.isNullOrEmpty()) {
@@ -125,13 +132,13 @@ class SeasonActivity : AppCompatActivity() {
 
     }
 
-    private fun getViewModel(tvId: Int, seasonNumber: Int): SeasonDetailViewModel {
+    private fun getViewModel(tvId: Int, seasonNumber: Int): TvSeasonDetailViewModel {
         return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 @Suppress("UNCHECKED_CAST")
-                return SeasonDetailViewModel(tvSeasonRepository, tvId, seasonNumber) as T
+                return TvSeasonDetailViewModel(tvSeasonRepository, tvId, seasonNumber) as T
             }
-        })[SeasonDetailViewModel::class.java]
+        })[TvSeasonDetailViewModel::class.java]
     }
 
     private fun getTvViewModel(tvId: Int): TvDetailViewModel {

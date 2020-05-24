@@ -118,4 +118,10 @@ interface ApiInterface {
         @Path("tv_id") tvId: Int,
         @Path("season_number") seasonNumber: Int
     ): Single<TvSeasonDetails>
+
+    @GET("tv/{tv_id}/season/{season_number}/videos")
+    fun getTvSeasonVideos(
+        @Path("tv_id") tvId: Int,
+        @Path("season_number") seasonNumber: Int
+    ): Single<VideoResponse>
 }

@@ -12,8 +12,12 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SeasonActivity"></activity>
+        <activity
+            android:name=".SeasonActivity"
+            android:parentActivityName=".TvDetailActivity" />
+
         <activity android:name=".TvDetailActivity" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
