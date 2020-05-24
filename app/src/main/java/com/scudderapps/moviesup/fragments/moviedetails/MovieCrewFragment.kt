@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.scudderapps.moviesup.R
-import com.scudderapps.moviesup.adapter.movie.moviedetails.CrewListAdapter
+import com.scudderapps.moviesup.adapter.common.CrewListAdapter
 import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.common.CrewDetail
@@ -46,7 +46,11 @@ class MovieCrewFragment(private var movieId: Int) : Fragment() {
         viewModel = getViewModel(movieId)
         viewModel.castDetails.observe(viewLifecycleOwner, Observer {
             crewDetailList = it.crewDetail
-            crewAdapter = CrewListAdapter(crewDetailList, rootView.context)
+            crewAdapter =
+                CrewListAdapter(
+                    crewDetailList,
+                    rootView.context
+                )
             linearLayoutManager = LinearLayoutManager(activity)
             linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
             movieCrewView.layoutManager = linearLayoutManager

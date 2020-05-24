@@ -15,7 +15,7 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
-import com.scudderapps.moviesup.adapter.tvshows.SeasonDetailTabAdapter
+import com.scudderapps.moviesup.adapter.tvshows.seasondetails.SeasonDetailTabAdapter
 import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBClient
@@ -55,7 +55,7 @@ class SeasonActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_season)
+        setContentView(R.layout.activity_season_detail)
         ButterKnife.bind(this)
         setSupportActionBar(tvSeasonToolbar)
         supportActionBar!!.title = ""

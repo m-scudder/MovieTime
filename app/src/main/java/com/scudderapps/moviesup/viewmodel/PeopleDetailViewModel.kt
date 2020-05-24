@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.scudderapps.moviesup.models.common.MovieCredits
 import com.scudderapps.moviesup.models.main.PeopleDetails
 import com.scudderapps.moviesup.models.main.PeopleImages
-import com.scudderapps.moviesup.repository.movie.peopledetails.PeopleDetailRepository
+import com.scudderapps.moviesup.repository.common.peopledetails.PeopleDetailRepository
 import io.reactivex.disposables.CompositeDisposable
 
 class PeopleDetailViewModel(

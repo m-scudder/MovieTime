@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.scudderapps.moviesup.R
-import com.scudderapps.moviesup.adapter.tvshows.TvSeasonListAdapter
+import com.scudderapps.moviesup.adapter.tvshows.tvdetails.TvSeasonListAdapter
 import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.tv.Season
@@ -45,7 +45,12 @@ class TvSeasonsFragment(val tvId: Int) : Fragment() {
         viewModel = getViewModel(tvId)
         viewModel.tvDetails.observe(viewLifecycleOwner, Observer {
             tvSeasonsList = it.seasons
-            tvSeasonAdapter = TvSeasonListAdapter(tvId, tvSeasonsList, rootView.context)
+            tvSeasonAdapter =
+                TvSeasonListAdapter(
+                    tvId,
+                    tvSeasonsList,
+                    rootView.context
+                )
             linearLayoutManager = LinearLayoutManager(activity)
             linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
             tvSeasonListView.layoutManager = linearLayoutManager

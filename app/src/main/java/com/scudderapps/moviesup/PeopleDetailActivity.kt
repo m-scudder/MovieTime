@@ -17,14 +17,14 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.bumptech.glide.Glide
 import com.ms.square.android.expandabletextview.ExpandableTextView
-import com.scudderapps.moviesup.adapter.movie.MovieAdapter
-import com.scudderapps.moviesup.adapter.AlsoKnownAsAdapter
+import com.scudderapps.moviesup.adapter.MovieAdapter
+import com.scudderapps.moviesup.adapter.common.AlsoKnownAsAdapter
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.main.PeopleDetails
 import com.scudderapps.moviesup.models.main.PeopleProfileImages
-import com.scudderapps.moviesup.repository.movie.peopledetails.PeopleDetailRepository
+import com.scudderapps.moviesup.repository.common.peopledetails.PeopleDetailRepository
 import com.scudderapps.moviesup.viewmodel.PeopleDetailViewModel
 import com.stfalcon.imageviewer.StfalconImageViewer
 import java.text.DateFormat

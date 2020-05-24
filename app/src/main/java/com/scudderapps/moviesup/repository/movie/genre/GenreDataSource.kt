@@ -21,11 +21,11 @@ class GenreDataSource(
     val genresResponse: LiveData<GenresResponse>
         get() = _genresResponse
 
-    fun fetchGenresList() {
+    fun fetchMovieGenresList() {
         _networkState.postValue(NetworkState.LOADING)
 
         try {
-            apiService.getGenresList()
+            apiService.getMovieGenresList()
                 ?.subscribeOn(Schedulers.io())
                 ?.subscribe(
                     {
@@ -34,7 +34,7 @@ class GenreDataSource(
                     },
                     {
                         _networkState.postValue(NetworkState.ERROR)
-                        Log.e("MovieDetailDataSource", it.message)
+                        Log.e("GenreDataSource", it.message)
                     }
                 )?.let {
                     compositeDisposable.add(
@@ -42,7 +42,33 @@ class GenreDataSource(
                     )
                 }
         } catch (e: Exception) {
-            Log.e("MovieDetailDataSource", e.message)
+            Log.e("GenreDataSource", e.message)
         }
     }
+
+    fun fetchTvGenresList() {
+        _networkState.postValue(NetworkState.LOADING)
+
+        try {
+            apiService.getTvGenresList()
+                ?.subscribeOn(Schedulers.io())
+                ?.subscribe(
+                    {
+                        _genresResponse.postValue(it)
+                        _networkState.postValue(NetworkState.LOADED)
+                    },
+                    {
+                        _networkState.postValue(NetworkState.ERROR)
+                        Log.e("GenreDataSource", it.message)
+                    }
+                )?.let {
+                    compositeDisposable.add(
+                        it
+                    )
+                }
+        } catch (e: Exception) {
+            Log.e("GenreDataSource", e.message)
+        }
+    }
+
 }

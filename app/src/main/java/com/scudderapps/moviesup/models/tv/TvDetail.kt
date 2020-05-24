@@ -3,6 +3,7 @@ package com.scudderapps.moviesup.models.tv
 
 import com.google.gson.annotations.SerializedName
 import com.scudderapps.moviesup.models.common.Genre
+import com.scudderapps.moviesup.models.common.ProductionCompany
 
 data class TvDetail(
     @SerializedName("backdrop_path")

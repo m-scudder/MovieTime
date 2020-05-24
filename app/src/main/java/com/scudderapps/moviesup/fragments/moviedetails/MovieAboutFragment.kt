@@ -23,15 +23,15 @@ import com.bumptech.glide.Glide
 import com.ms.square.android.expandabletextview.ExpandableTextView
 import com.scudderapps.moviesup.CollectionActivity
 import com.scudderapps.moviesup.R
-import com.scudderapps.moviesup.adapter.GenreListAdapter
-import com.scudderapps.moviesup.adapter.movie.moviedetails.TrailerListAdapter
+import com.scudderapps.moviesup.adapter.movie.MovieGenreListAdapter
+import com.scudderapps.moviesup.adapter.common.TrailerListAdapter
 import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.common.Backdrop
 import com.scudderapps.moviesup.models.common.Poster
 import com.scudderapps.moviesup.models.movie.CollectionResponse
-import com.scudderapps.moviesup.models.movie.ProductionCompany
+import com.scudderapps.moviesup.models.common.ProductionCompany
 import com.scudderapps.moviesup.models.movie.ProductionCountry
 import com.scudderapps.moviesup.models.movie.SpokenLanguage
 import com.scudderapps.moviesup.repository.movie.moviedetails.MovieDetailRepository
@@ -117,7 +117,7 @@ class MovieAboutFragment(private var movieId: Int) : Fragment() {
     private lateinit var viewModel: MovieDetailViewModel
     private lateinit var movieRepository: MovieDetailRepository
 
-    private lateinit var movieGenreListAdapter: GenreListAdapter
+    private lateinit var movieGenreListAdapter: MovieGenreListAdapter
     private lateinit var trailerAdapter: TrailerListAdapter
     private lateinit var movieBackdrops: List<Backdrop>
     private lateinit var moviePosters: List<Poster>
@@ -147,7 +147,11 @@ class MovieAboutFragment(private var movieId: Int) : Fragment() {
             originalLanguage.text = it.originalLanguage
 
             if (!it.genres.isNullOrEmpty()) {
-                movieGenreListAdapter = GenreListAdapter(it.genres, rootView.context)
+                movieGenreListAdapter =
+                    MovieGenreListAdapter(
+                        it.genres,
+                        rootView.context
+                    )
                 val linearLayoutManager2 = LinearLayoutManager(activity)
                 linearLayoutManager2.orientation = LinearLayoutManager.HORIZONTAL
                 movieGenreListView.layoutManager = linearLayoutManager2
@@ -196,7 +200,11 @@ class MovieAboutFragment(private var movieId: Int) : Fragment() {
         viewModel.videoDetails.observe(viewLifecycleOwner, Observer {
 
             if (!it.videosList.isNullOrEmpty()) {
-                trailerAdapter = TrailerListAdapter(it.videosList, rootView.context)
+                trailerAdapter =
+                    TrailerListAdapter(
+                        it.videosList,
+                        rootView.context
+                    )
                 val linearLayoutManager = LinearLayoutManager(activity)
                 linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
                 trailerListView.layoutManager = linearLayoutManager

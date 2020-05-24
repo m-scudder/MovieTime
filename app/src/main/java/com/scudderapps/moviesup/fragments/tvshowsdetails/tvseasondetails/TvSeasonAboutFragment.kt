@@ -18,7 +18,7 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.ms.square.android.expandabletextview.ExpandableTextView
 import com.scudderapps.moviesup.R
-import com.scudderapps.moviesup.adapter.movie.moviedetails.TrailerListAdapter
+import com.scudderapps.moviesup.adapter.common.TrailerListAdapter
 import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.repository.tv.seasons.SeasonDetailRepository
@@ -87,7 +87,11 @@ class TvSeasonAboutFragment(private val tvId: Int, private val seasonNumber: Int
 
         seasonViewModel.tvSeasonVideos.observe(viewLifecycleOwner, Observer {
             if (!it.videosList.isNullOrEmpty()) {
-                trailerAdapter = TrailerListAdapter(it.videosList, rootView.context)
+                trailerAdapter =
+                    TrailerListAdapter(
+                        it.videosList,
+                        rootView.context
+                    )
                 val linearLayoutManager = LinearLayoutManager(activity)
                 linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
                 tvSeasonTrailerView.layoutManager = linearLayoutManager

@@ -68,7 +68,10 @@ interface ApiInterface {
     ): Single<PeopleImages>
 
     @GET("genre/movie/list")
-    fun getGenresList(): Single<GenresResponse>
+    fun getMovieGenresList(): Single<GenresResponse>
+
+    @GET("genre/tv/list")
+    fun getTvGenresList(): Single<GenresResponse>
 
     @GET("discover/movie?&region=in&sort_by=popularity.desc")
     fun getDiscoveredMovies(

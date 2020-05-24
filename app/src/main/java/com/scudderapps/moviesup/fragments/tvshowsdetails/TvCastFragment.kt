@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.scudderapps.moviesup.R
-import com.scudderapps.moviesup.adapter.movie.moviedetails.CastListAdapter
+import com.scudderapps.moviesup.adapter.common.CastListAdapter
 import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.common.CastDetail
@@ -51,7 +51,11 @@ class TvCastFragment(val tvId: Int) : Fragment() {
         viewModel.tvCast.observe(viewLifecycleOwner, Observer {
             if (!it.castDetail.isNullOrEmpty()) {
                 castDetail = it.castDetail
-                castAdapter = CastListAdapter(castDetail, rootView.context)
+                castAdapter =
+                    CastListAdapter(
+                        castDetail,
+                        rootView.context
+                    )
                 linearLayoutManager = LinearLayoutManager(activity)
                 linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
                 tvCastListView.layoutManager = linearLayoutManager

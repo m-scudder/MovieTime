@@ -20,14 +20,15 @@ import butterknife.ButterKnife
 import com.bumptech.glide.Glide
 import com.ms.square.android.expandabletextview.ExpandableTextView
 import com.scudderapps.moviesup.R
-import com.scudderapps.moviesup.adapter.GenreListAdapter
-import com.scudderapps.moviesup.adapter.movie.moviedetails.TrailerListAdapter
+import com.scudderapps.moviesup.adapter.movie.MovieGenreListAdapter
+import com.scudderapps.moviesup.adapter.common.TrailerListAdapter
+import com.scudderapps.moviesup.adapter.tvshows.tvdetails.TvGenreListAdapter
 import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.common.Backdrop
 import com.scudderapps.moviesup.models.common.Poster
-import com.scudderapps.moviesup.models.tv.ProductionCompany
+import com.scudderapps.moviesup.models.common.ProductionCompany
 import com.scudderapps.moviesup.repository.tv.tvdetails.TvDetailRepository
 import com.scudderapps.moviesup.viewmodel.TvDetailViewModel
 import com.stfalcon.imageviewer.StfalconImageViewer
@@ -96,7 +97,7 @@ class TvAboutFragment(private val tvId: Int) : Fragment() {
     private lateinit var viewModel: TvDetailViewModel
     private lateinit var tvRepository: TvDetailRepository
 
-    private lateinit var tvGenreListAdapter: GenreListAdapter
+    private lateinit var tvGenreListAdapter: TvGenreListAdapter
     private lateinit var trailerAdapter: TrailerListAdapter
     private lateinit var tvBackdropList: List<Backdrop>
     private lateinit var tvPosterList: List<Poster>
@@ -180,7 +181,11 @@ class TvAboutFragment(private val tvId: Int) : Fragment() {
             }
 
             if (!it.genres.isNullOrEmpty()) {
-                tvGenreListAdapter = GenreListAdapter(it.genres, rootView.context)
+                tvGenreListAdapter =
+                    TvGenreListAdapter(
+                        it.genres,
+                        rootView.context
+                    )
                 val linearLayoutManager2 = LinearLayoutManager(activity)
                 linearLayoutManager2.orientation = LinearLayoutManager.HORIZONTAL
                 tvGenresList.layoutManager = linearLayoutManager2
@@ -193,7 +198,11 @@ class TvAboutFragment(private val tvId: Int) : Fragment() {
 
         viewModel.tvVideoDetails.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             if (!it.videosList.isNullOrEmpty()) {
-                trailerAdapter = TrailerListAdapter(it.videosList, rootView.context)
+                trailerAdapter =
+                    TrailerListAdapter(
+                        it.videosList,
+                        rootView.context
+                    )
                 val linearLayoutManager = LinearLayoutManager(activity)
                 linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
                 tvTrailerListView.layoutManager = linearLayoutManager

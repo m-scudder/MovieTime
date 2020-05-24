@@ -11,7 +11,7 @@ class GenresViewModel(private val genreRepository: GenreRepository) : ViewModel(
     private val compositeDisposable = CompositeDisposable()
 
     val genresList: LiveData<GenresResponse> by lazy {
-        genreRepository.fetchingGenresResponse(compositeDisposable)
+        genreRepository.fetchingMovieGenresResponse(compositeDisposable)
     }
 
     override fun onCleared() {

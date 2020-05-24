@@ -9,7 +9,7 @@ class GenreRepository(private val apiService: ApiInterface) {
 
     lateinit var genresDataSource: GenreDataSource
 
-    fun fetchingGenresResponse(
+    fun fetchingMovieGenresResponse(
         compositeDisposable: CompositeDisposable
     ): LiveData<GenresResponse> {
         genresDataSource =
@@ -17,8 +17,23 @@ class GenreRepository(private val apiService: ApiInterface) {
                 apiService,
                 compositeDisposable
             )
-        genresDataSource.fetchGenresList()
+        genresDataSource.fetchMovieGenresList()
 
         return genresDataSource.genresResponse
     }
+
+    fun fetchingTvGenresResponse(
+        compositeDisposable: CompositeDisposable
+    ): LiveData<GenresResponse> {
+        genresDataSource =
+            GenreDataSource(
+                apiService,
+                compositeDisposable
+            )
+        genresDataSource.fetchTvGenresList()
+
+        return genresDataSource.genresResponse
+    }
+
+
 }

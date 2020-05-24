@@ -13,9 +13,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabGravity="fill"
-            app:tabMode="scrollable"
             app:tabIndicatorColor="@color/orange"
+            app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/orange"
+            app:tabTextAppearance="@style/TabTitleTheme"
             app:tabTextColor="@color/colorAccent" />
 
     </com.google.android.material.appbar.AppBarLayout>
