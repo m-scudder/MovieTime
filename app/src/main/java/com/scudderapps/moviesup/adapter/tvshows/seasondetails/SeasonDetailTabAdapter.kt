@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.scudderapps.moviesup.fragments.tvshowsdetails.tvseasondetails.TvSeasonAboutFragment
+import com.scudderapps.moviesup.fragments.tvshowsdetails.tvseasondetails.TvSeasonCastFragment
 import com.scudderapps.moviesup.fragments.tvshowsdetails.tvseasondetails.TvSeasonEpisodeListFragment
 
 class SeasonDetailTabAdapter(
@@ -31,7 +32,7 @@ class SeasonDetailTabAdapter(
                 )
             }
         }
-        return TvSeasonEpisodeListFragment(
+        return TvSeasonCastFragment(
             tvId,
             seasonNumber
         )

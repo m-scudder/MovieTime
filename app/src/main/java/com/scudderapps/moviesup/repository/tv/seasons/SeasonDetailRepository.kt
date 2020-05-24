@@ -2,6 +2,7 @@ package com.scudderapps.moviesup.repository.tv.seasons
 
 import androidx.lifecycle.LiveData
 import com.scudderapps.moviesup.api.ApiInterface
+import com.scudderapps.moviesup.models.common.CastResponse
 import com.scudderapps.moviesup.models.common.VideoResponse
 import com.scudderapps.moviesup.models.tv.TvSeasonDetails
 import com.scudderapps.moviesup.repository.NetworkState
@@ -39,6 +40,21 @@ class SeasonDetailRepository(private val apiService: ApiInterface) {
         tvSeasonDetailDataSource.fetchTvSeasonVideos(tvId, seasonNumber)
 
         return tvSeasonDetailDataSource.tvSeasonVideoResponse
+    }
+
+    fun fetchingTvSeasonCast(
+        compositeDisposable: CompositeDisposable,
+        tvId: Int,
+        seasonNumber: Int
+    ): LiveData<CastResponse> {
+        tvSeasonDetailDataSource =
+            SeasonDetailDataSource(
+                apiService,
+                compositeDisposable
+            )
+        tvSeasonDetailDataSource.fetchTvSeasonCast(tvId, seasonNumber)
+
+        return tvSeasonDetailDataSource.tvSeasonCastResponse
     }
 
     fun getTvSeasonDetailNetworkState(): LiveData<NetworkState> {

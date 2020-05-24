@@ -133,4 +133,10 @@ interface ApiInterface {
         @Path("tv_id") tvId: Int,
         @Path("season_number") seasonNumber: Int
     ): Single<VideoResponse>
+
+    @GET("tv/{tv_id}/season/{season_number}/credits")
+    fun getTvSeasonCast(
+        @Path("tv_id") tvId: Int,
+        @Path("season_number") seasonNumber: Int
+    ) : Single<CastResponse>
 }
