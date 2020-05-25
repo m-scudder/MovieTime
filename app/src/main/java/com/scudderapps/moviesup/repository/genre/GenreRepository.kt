@@ -1,4 +1,4 @@
-package com.scudderapps.moviesup.repository.movie.genre
+package com.scudderapps.moviesup.repository.genre
 
 import androidx.lifecycle.LiveData
 import com.scudderapps.moviesup.api.ApiInterface
