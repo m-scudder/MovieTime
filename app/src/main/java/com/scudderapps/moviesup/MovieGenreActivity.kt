@@ -35,7 +35,6 @@ class MovieGenreActivity : AppCompatActivity() {
     lateinit var moviePagedListRepository: MovieDiscoverPagedListRepository
     private val discoverAdapter =
         MoviePageListAdapter(this)
-    private val layoutManager = GridLayoutManager(this, 4)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,12 +57,12 @@ class MovieGenreActivity : AppCompatActivity() {
             )
 
         discoverViewModel = discoverViewModel(id)
-
+        val layoutManager = GridLayoutManager(this, 3)
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 val viewType = discoverAdapter.getItemViewType(position)
                 return if (viewType == discoverAdapter.POPULAR_MOVIE_VIEW_TYPE) 1
-                else 4
+                else 3
             }
 
         }

@@ -55,7 +55,7 @@ class CastShowsFragment(private val castId: Int) : Fragment() {
                     it.cast,
                     rootView.context
                 )
-                val layoutManager = GridLayoutManager(activity, 4)
+                val layoutManager = GridLayoutManager(activity, 3)
                 castShowsList.layoutManager = layoutManager
                 castShowsList.setHasFixedSize(true)
                 castShowsList.adapter = tvAdapter

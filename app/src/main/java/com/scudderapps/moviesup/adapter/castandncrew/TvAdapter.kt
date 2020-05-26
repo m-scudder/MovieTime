@@ -1,8 +1,11 @@
 package com.scudderapps.moviesup.adapter.castandncrew
 
+import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import android.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,7 +64,12 @@ class TvAdapter(private val tv: List<TV>, private val context: Context) :
 
                 val intent = Intent(context, TvDetailActivity::class.java)
                 intent.putExtra("id", tv?.id)
-                context.startActivity(intent)
+                val options = ActivityOptions.makeSceneTransitionAnimation(
+                    context as Activity,
+                    Pair<View, String>(itemView.itemCard, "imageTransition")
+                )
+                context.startActivity(intent, options.toBundle())
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
 
             }
         }

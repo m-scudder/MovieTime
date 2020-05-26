@@ -45,7 +45,7 @@ class CollectionActivity : AppCompatActivity() {
         val data = intent.extras
         var id = data!!.getInt("id")
 
-        val linearLayoutManager = GridLayoutManager(this, 4)
+        val linearLayoutManager = GridLayoutManager(this, 3)
         val apiService: ApiInterface = TheTMDBClient.getClient()
 
         movieRepository = MovieDetailRepository(apiService)

@@ -56,7 +56,7 @@ class CastMovieFragment(val castId: Int) : Fragment() {
                         it.cast,
                         rootView.context
                     )
-                val layoutManager = GridLayoutManager(activity, 4)
+                val layoutManager = GridLayoutManager(activity, 3)
                 castMovieList.layoutManager = layoutManager
                 castMovieList.setHasFixedSize(true)
                 castMovieList.adapter = movieAdapter

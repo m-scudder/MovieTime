@@ -70,12 +70,12 @@ class MovieListFragment(private val type: String) : Fragment() {
     private fun populatingViews() {
         listViewModel.moviePagedList.observe(viewLifecycleOwner, Observer {
             movieAdapter.submitList(it)
-            val layoutManager = GridLayoutManager(activity, 4)
+            val layoutManager = GridLayoutManager(activity, 3)
             layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
                     val viewType = movieAdapter.getItemViewType(position)
                     return if (viewType == movieAdapter.POPULAR_MOVIE_VIEW_TYPE) 1
-                    else 4
+                    else 3
                 }
             }
             movieView.layoutManager = layoutManager

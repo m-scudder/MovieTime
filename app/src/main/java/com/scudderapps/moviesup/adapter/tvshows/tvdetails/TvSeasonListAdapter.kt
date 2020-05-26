@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.tv_season_list_item.view.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
-import android.util.Pair as UtilPair
+import android.util.Pair
 
 class TvSeasonListAdapter(
     val tvId: Int,
@@ -82,7 +82,7 @@ class TvSeasonListAdapter(
                 Log.d("SeasonListData: OnClick", data.toString())
                 val options = ActivityOptions.makeSceneTransitionAnimation(
                     context as Activity?,
-                    UtilPair<View, String>(itemView.tvSeasonPoster, "seasonPosterTransition")
+                    Pair<View, String>(itemView.tvSeasonPoster, "seasonPosterTransition")
                 )
                 context.startActivity(intent, options.toBundle())
             })
