@@ -106,8 +106,8 @@ class TvPagedListAdapter(private val context: Context) :
 //                    UtilPair<View, String>(itemView.itemCard, "imageTransition")
 //                )
 //                context.startActivity(intent, options.toBundle())
-                context.startActivity(intent)
                 intent.flags = FLAG_ACTIVITY_NEW_TASK
+                context.startActivity(intent)
 
             }
         }

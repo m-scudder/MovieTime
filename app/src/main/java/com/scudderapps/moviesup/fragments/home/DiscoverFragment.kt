@@ -32,6 +32,9 @@ class DiscoverFragment : Fragment() {
     @BindView(R.id.discover_tv_genre_list)
     lateinit var discoverTvGenreList: RecyclerView
 
+    @BindView(R.id.discover_people_list)
+    lateinit var discoverPeopleList: RecyclerView
+
     private lateinit var genresViewModel: GenresViewModel
     private lateinit var genreRepository: GenreRepository
     private lateinit var movieGenreListAdapter: MovieGenreListAdapter
@@ -48,15 +51,6 @@ class DiscoverFragment : Fragment() {
         genresViewModel = getGenreViewModel()
         populatingViews()
         return rootView
-    }
-
-    private fun getGenreViewModel(): GenresViewModel {
-        return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                @Suppress("UNCHECKED_CAST")
-                return GenresViewModel(genreRepository) as T
-            }
-        })[GenresViewModel::class.java]
     }
 
     private fun populatingViews() {
@@ -78,6 +72,15 @@ class DiscoverFragment : Fragment() {
             discoverTvGenreList.adapter = tvGenreListAdapter
         })
 
+    }
+
+    private fun getGenreViewModel(): GenresViewModel {
+        return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                @Suppress("UNCHECKED_CAST")
+                return GenresViewModel(genreRepository) as T
+            }
+        })[GenresViewModel::class.java]
     }
 
     override fun onResume() {

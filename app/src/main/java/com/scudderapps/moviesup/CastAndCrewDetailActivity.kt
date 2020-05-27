@@ -1,7 +1,6 @@
 package com.scudderapps.moviesup
 
 import android.os.Bundle
-import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -22,16 +21,13 @@ import com.scudderapps.moviesup.models.main.PeopleDetails
 import com.scudderapps.moviesup.repository.cast.CastDetailRepository
 import com.scudderapps.moviesup.viewmodel.CastDetailViewModel
 import de.hdodenhof.circleimageview.CircleImageView
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.*
 
 class CastAndCrewDetailActivity : AppCompatActivity() {
 
     @BindView(R.id.people_name)
     lateinit var peopleName: TextView
 
-    @BindView(R.id.people_image)
+    @BindView(R.id.castImage)
     lateinit var peopleImage: CircleImageView
 
     @BindView(R.id.people_department)
@@ -51,7 +47,7 @@ class CastAndCrewDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.cast_n_crew_detail_activity)
+        setContentView(R.layout.activity_cast_n_crew_detail)
         ButterKnife.bind(this)
 
         setSupportActionBar(peopleToolbar)
