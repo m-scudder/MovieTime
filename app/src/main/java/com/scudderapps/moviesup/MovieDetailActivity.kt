@@ -139,9 +139,4 @@ class MovieDetailActivity : AppCompatActivity() {
             }
         })[MovieDetailViewModel::class.java]
     }
-
-    override fun onBackPressed() {
-        finish()
-        super.onBackPressed()
-    }
 }

@@ -1,6 +1,7 @@
 package com.scudderapps.moviesup.fragments.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,12 +15,15 @@ import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.scudderapps.moviesup.R
+import com.scudderapps.moviesup.adapter.home.PeoplePagedListAdapter
 import com.scudderapps.moviesup.adapter.movie.MovieGenreListAdapter
 import com.scudderapps.moviesup.adapter.tvshows.tvdetails.TvGenreListAdapter
 import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
+import com.scudderapps.moviesup.repository.discover.PeoplePagedListRepository
 import com.scudderapps.moviesup.repository.genre.GenreRepository
 import com.scudderapps.moviesup.viewmodel.GenresViewModel
+import com.scudderapps.moviesup.viewmodel.PeopleListViewModel
 
 
 class DiscoverFragment : Fragment() {
@@ -40,15 +44,23 @@ class DiscoverFragment : Fragment() {
     private lateinit var movieGenreListAdapter: MovieGenreListAdapter
     private lateinit var tvGenreListAdapter: TvGenreListAdapter
 
+    private lateinit var peopleRepository: PeoplePagedListRepository
+    private lateinit var peopleViewModel: PeopleListViewModel
+    private lateinit var peopleListAdapter: PeoplePagedListAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         rootView = inflater.inflate(R.layout.discover_fragment, container, false)
+        Log.d("DiscoverFragment :", "onCreateView Called")
         ButterKnife.bind(this, rootView)
+        peopleListAdapter = PeoplePagedListAdapter(context!!.applicationContext)
         val apiService: ApiInterface = TheTMDBClient.getClient()
         genreRepository = GenreRepository(apiService)
+        peopleRepository = PeoplePagedListRepository(apiService)
         genresViewModel = getGenreViewModel()
+        peopleViewModel = getPeopleViewModel()
         populatingViews()
         return rootView
     }
@@ -72,6 +84,16 @@ class DiscoverFragment : Fragment() {
             discoverTvGenreList.adapter = tvGenreListAdapter
         })
 
+        peopleViewModel.peoplePagedList.observe(viewLifecycleOwner, Observer {
+            peopleListAdapter = PeoplePagedListAdapter(context!!.applicationContext)
+            peopleListAdapter.submitList(it)
+            val linearLayoutManager3 = LinearLayoutManager(activity)
+            linearLayoutManager3.orientation = LinearLayoutManager.HORIZONTAL
+            discoverPeopleList.layoutManager = linearLayoutManager3
+            discoverPeopleList.setHasFixedSize(true)
+            discoverPeopleList.adapter = peopleListAdapter
+        })
+
     }
 
     private fun getGenreViewModel(): GenresViewModel {
@@ -83,8 +105,24 @@ class DiscoverFragment : Fragment() {
         })[GenresViewModel::class.java]
     }
 
+    private fun getPeopleViewModel(): PeopleListViewModel {
+        return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                @Suppress("UNCHECKED_CAST")
+                return PeopleListViewModel(peopleRepository) as T
+            }
+        })[PeopleListViewModel::class.java]
+    }
+
     override fun onResume() {
+        Log.d("DiscoverFragment :", "onResume Called")
         populatingViews()
         super.onResume()
+    }
+
+    override fun onPause() {
+        Log.d("DiscoverFragment :", "onPause Called")
+        populatingViews()
+        super.onPause()
     }
 }
