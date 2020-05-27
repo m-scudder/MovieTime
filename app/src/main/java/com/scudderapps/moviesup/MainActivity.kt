@@ -48,6 +48,8 @@ class MainActivity : AppCompatActivity() {
             setFragment(errorFragment)
         }
 
+
+
     }
 
     private fun bottomBarSetting(savedInstanceState: Bundle?) {

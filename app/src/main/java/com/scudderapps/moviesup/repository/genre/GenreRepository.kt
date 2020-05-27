@@ -34,6 +34,4 @@ class GenreRepository(private val apiService: TmdbApiInterface) {
 
         return genresDataSource.genresResponse
     }
-
-
 }

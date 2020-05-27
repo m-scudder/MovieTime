@@ -1,10 +1,12 @@
 package com.scudderapps.moviesup.fragments.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -14,14 +16,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.scudderapps.moviesup.CollectionActivity
+import com.scudderapps.moviesup.MovieDetailActivity
 import com.scudderapps.moviesup.R
+import com.scudderapps.moviesup.TopMovies
+import com.scudderapps.moviesup.adapter.discover.TopMovieAdapter
 import com.scudderapps.moviesup.adapter.home.PeoplePagedListAdapter
 import com.scudderapps.moviesup.adapter.movie.MovieGenreListAdapter
 import com.scudderapps.moviesup.adapter.tvshows.tvdetails.TvGenreListAdapter
-import com.scudderapps.moviesup.api.TmdbApiInterface
+import com.scudderapps.moviesup.api.ImdbApiInterface
+import com.scudderapps.moviesup.api.TheIMDBClient
 import com.scudderapps.moviesup.api.TheTMDBClient
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.repository.discover.PeoplePagedListRepository
+import com.scudderapps.moviesup.repository.discover.lists.FeaturedListRepository
 import com.scudderapps.moviesup.repository.genre.GenreRepository
+import com.scudderapps.moviesup.viewmodel.FeatureViewModel
 import com.scudderapps.moviesup.viewmodel.GenresViewModel
 import com.scudderapps.moviesup.viewmodel.PeopleListViewModel
 
@@ -39,6 +49,9 @@ class DiscoverFragment : Fragment() {
     @BindView(R.id.discover_people_list)
     lateinit var discoverPeopleList: RecyclerView
 
+    @BindView(R.id.top_movies)
+    lateinit var top250Movie: Button
+
     private lateinit var genresViewModel: GenresViewModel
     private lateinit var genreRepository: GenreRepository
     private lateinit var movieGenreListAdapter: MovieGenreListAdapter
@@ -47,6 +60,7 @@ class DiscoverFragment : Fragment() {
     private lateinit var peopleRepository: PeoplePagedListRepository
     private lateinit var peopleViewModel: PeopleListViewModel
     private lateinit var peopleListAdapter: PeoplePagedListAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,9 +73,15 @@ class DiscoverFragment : Fragment() {
         val apiService: TmdbApiInterface = TheTMDBClient.getClient()
         genreRepository = GenreRepository(apiService)
         peopleRepository = PeoplePagedListRepository(apiService)
+
         genresViewModel = getGenreViewModel()
         peopleViewModel = getPeopleViewModel()
+
         populatingViews()
+        top250Movie.setOnClickListener(View.OnClickListener {
+            val intent = Intent(context, TopMovies::class.java)
+            startActivity(intent)
+        })
         return rootView
     }
 
@@ -104,6 +124,8 @@ class DiscoverFragment : Fragment() {
             }
         })[GenresViewModel::class.java]
     }
+
+
 
     private fun getPeopleViewModel(): PeopleListViewModel {
         return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
