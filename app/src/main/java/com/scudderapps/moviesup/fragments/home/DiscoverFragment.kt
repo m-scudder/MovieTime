@@ -18,7 +18,7 @@ import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.adapter.home.PeoplePagedListAdapter
 import com.scudderapps.moviesup.adapter.movie.MovieGenreListAdapter
 import com.scudderapps.moviesup.adapter.tvshows.tvdetails.TvGenreListAdapter
-import com.scudderapps.moviesup.api.ApiInterface
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.repository.discover.PeoplePagedListRepository
 import com.scudderapps.moviesup.repository.genre.GenreRepository
@@ -56,7 +56,7 @@ class DiscoverFragment : Fragment() {
         Log.d("DiscoverFragment :", "onCreateView Called")
         ButterKnife.bind(this, rootView)
         peopleListAdapter = PeoplePagedListAdapter(context!!.applicationContext)
-        val apiService: ApiInterface = TheTMDBClient.getClient()
+        val apiService: TmdbApiInterface = TheTMDBClient.getClient()
         genreRepository = GenreRepository(apiService)
         peopleRepository = PeoplePagedListRepository(apiService)
         genresViewModel = getGenreViewModel()

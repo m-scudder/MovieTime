@@ -16,7 +16,7 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.adapter.castandncrew.MovieAdapter
-import com.scudderapps.moviesup.api.ApiInterface
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.repository.cast.CastDetailRepository
 import com.scudderapps.moviesup.viewmodel.CastDetailViewModel
@@ -41,7 +41,7 @@ class CastMovieFragment(val castId: Int) : Fragment() {
     ): View? {
         rootView = inflater.inflate(R.layout.cast_movie_fragment, container, false)
         ButterKnife.bind(this, rootView)
-        val apiService: ApiInterface = TheTMDBClient.getClient()
+        val apiService: TmdbApiInterface = TheTMDBClient.getClient()
         peopleDetailRepository =
             CastDetailRepository(
                 apiService

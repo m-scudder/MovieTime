@@ -18,7 +18,7 @@ const val TRAILER_THUMBNAIL_END_URL = "/0.jpg"
 
 
 object TheTMDBClient {
-    fun getClient(): ApiInterface {
+    fun getClient(): TmdbApiInterface {
 
         val requestInterceptor = Interceptor { chain ->
             val url = chain.request()
@@ -49,7 +49,7 @@ object TheTMDBClient {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(ApiInterface::class.java)
+            .create(TmdbApiInterface::class.java)
     }
 
 }

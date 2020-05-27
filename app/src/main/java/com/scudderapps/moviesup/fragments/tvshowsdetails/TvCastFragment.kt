@@ -16,7 +16,7 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.adapter.common.CastListAdapter
-import com.scudderapps.moviesup.api.ApiInterface
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.common.CastDetail
 import com.scudderapps.moviesup.repository.tv.tvdetails.TvDetailRepository
@@ -45,7 +45,7 @@ class TvCastFragment(val tvId: Int) : Fragment() {
     ): View? {
         rootView = inflater.inflate(R.layout.tv_cast_fragment, container, false)
         ButterKnife.bind(this, rootView)
-        val apiService: ApiInterface = TheTMDBClient.getClient()
+        val apiService: TmdbApiInterface = TheTMDBClient.getClient()
         tvRepository = TvDetailRepository(apiService)
         viewModel = getViewModel(tvId)
         viewModel.tvCast.observe(viewLifecycleOwner, Observer {

@@ -3,7 +3,7 @@ package com.scudderapps.moviesup.repository.cast
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.scudderapps.moviesup.api.ApiInterface
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.models.common.MovieCredits
 import com.scudderapps.moviesup.models.common.TvCredits
 import com.scudderapps.moviesup.models.main.PeopleDetails
@@ -13,7 +13,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class CastDetailDataSource(
-    private val apiService: ApiInterface,
+    private val apiService: TmdbApiInterface,
     private val compositeDisposable: CompositeDisposable
 ) {
     private val _networkState = MutableLiveData<NetworkState>()

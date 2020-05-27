@@ -14,7 +14,7 @@ import butterknife.ButterKnife
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.scudderapps.moviesup.adapter.tvshows.tvdetails.TvDetailTabAdapter
-import com.scudderapps.moviesup.api.ApiInterface
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.tv.TvDetail
@@ -63,7 +63,7 @@ class TvDetailActivity : AppCompatActivity() {
         val data = intent.extras
         var tvId = data!!.getInt("id")
 
-        val apiService: ApiInterface = TheTMDBClient.getClient()
+        val apiService: TmdbApiInterface = TheTMDBClient.getClient()
         tvRepository =
             TvDetailRepository(
                 apiService

@@ -3,14 +3,14 @@ package com.scudderapps.moviesup.repository.genre
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.scudderapps.moviesup.api.ApiInterface
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.models.common.GenresResponse
 import com.scudderapps.moviesup.repository.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class GenreDataSource(
-    private val apiService: ApiInterface,
+    private val apiService: TmdbApiInterface,
     private val compositeDisposable: CompositeDisposable
 ) {
     private val _networkState = MutableLiveData<NetworkState>()

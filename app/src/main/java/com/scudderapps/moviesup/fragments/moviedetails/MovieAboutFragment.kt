@@ -25,7 +25,7 @@ import com.scudderapps.moviesup.CollectionActivity
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.adapter.common.TrailerListAdapter
 import com.scudderapps.moviesup.adapter.movie.MovieGenreListAdapter
-import com.scudderapps.moviesup.api.ApiInterface
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.common.Backdrop
@@ -128,7 +128,7 @@ class MovieAboutFragment(private var movieId: Int) : Fragment() {
     ): View? {
         rootView = inflater.inflate(R.layout.movie_about_fragment, container, false)
         ButterKnife.bind(this, rootView)
-        val apiService: ApiInterface = TheTMDBClient.getClient()
+        val apiService: TmdbApiInterface = TheTMDBClient.getClient()
         movieRepository = MovieDetailRepository(apiService)
         viewModel = getViewModel(movieId)
         populatingViews()

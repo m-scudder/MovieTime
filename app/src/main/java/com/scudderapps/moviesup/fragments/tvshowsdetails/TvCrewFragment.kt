@@ -16,7 +16,7 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.adapter.common.CrewListAdapter
-import com.scudderapps.moviesup.api.ApiInterface
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.common.CrewDetail
 import com.scudderapps.moviesup.repository.tv.tvdetails.TvDetailRepository
@@ -46,7 +46,7 @@ class TvCrewFragment(val tvId: Int) : Fragment() {
 
         rootView = inflater.inflate(R.layout.tv_crew_fragment, container, false)
         ButterKnife.bind(this, rootView)
-        val apiService: ApiInterface = TheTMDBClient.getClient()
+        val apiService: TmdbApiInterface = TheTMDBClient.getClient()
         tvRepository = TvDetailRepository(apiService)
         viewModel = getViewModel(tvId)
         viewModel.tvCast.observe(viewLifecycleOwner, Observer {

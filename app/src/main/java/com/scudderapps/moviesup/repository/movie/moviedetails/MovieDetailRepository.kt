@@ -1,7 +1,7 @@
 package com.scudderapps.moviesup.repository.movie.moviedetails
 
 import androidx.lifecycle.LiveData
-import com.scudderapps.moviesup.api.ApiInterface
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.models.common.CastResponse
 import com.scudderapps.moviesup.models.common.MediaResponse
 import com.scudderapps.moviesup.models.common.VideoResponse
@@ -9,7 +9,7 @@ import com.scudderapps.moviesup.models.movie.*
 import com.scudderapps.moviesup.repository.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 
-class MovieDetailRepository(private val apiService: ApiInterface) {
+class MovieDetailRepository(private val apiService: TmdbApiInterface) {
 
     lateinit var movieDetailDataSource: MovieDetailDataSource
 

@@ -14,7 +14,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface ApiInterface {
+interface TmdbApiInterface {
 
     @GET("movie/{type}?region=in")
     fun getMovieList(

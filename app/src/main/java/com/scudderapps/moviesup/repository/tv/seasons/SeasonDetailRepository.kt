@@ -1,14 +1,14 @@
 package com.scudderapps.moviesup.repository.tv.seasons
 
 import androidx.lifecycle.LiveData
-import com.scudderapps.moviesup.api.ApiInterface
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.models.common.CastResponse
 import com.scudderapps.moviesup.models.common.VideoResponse
 import com.scudderapps.moviesup.models.tv.TvSeasonDetails
 import com.scudderapps.moviesup.repository.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 
-class SeasonDetailRepository(private val apiService: ApiInterface) {
+class SeasonDetailRepository(private val apiService: TmdbApiInterface) {
 
     lateinit var tvSeasonDetailDataSource: SeasonDetailDataSource
 

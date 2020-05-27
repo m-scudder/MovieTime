@@ -16,7 +16,7 @@ import butterknife.ButterKnife
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.scudderapps.moviesup.adapter.tvshows.seasondetails.SeasonDetailTabAdapter
-import com.scudderapps.moviesup.api.ApiInterface
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.repository.tv.seasons.SeasonDetailRepository
@@ -65,7 +65,7 @@ class SeasonActivity : AppCompatActivity() {
         val tvId = data.getInt("tvId")
         Log.d("tvid", tvId.toString())
 
-        val apiService: ApiInterface = TheTMDBClient.getClient()
+        val apiService: TmdbApiInterface = TheTMDBClient.getClient()
         tvSeasonRepository =
             SeasonDetailRepository(
                 apiService

@@ -2,12 +2,12 @@ package com.scudderapps.moviesup.repository.tv.tvlist
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
-import com.scudderapps.moviesup.api.ApiInterface
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.models.main.TV
 import io.reactivex.disposables.CompositeDisposable
 
 class TvDataSourceFactory(
-    private val apiService: ApiInterface,
+    private val apiService: TmdbApiInterface,
     private val compositeDisposable: CompositeDisposable,
     private val type: String
 ) : DataSource.Factory<Int, TV>() {

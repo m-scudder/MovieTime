@@ -20,7 +20,7 @@ import com.bumptech.glide.Glide
 import com.ms.square.android.expandabletextview.ExpandableTextView
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.adapter.common.AlsoKnownAsAdapter
-import com.scudderapps.moviesup.api.ApiInterface
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.main.PeopleProfileImages
@@ -75,7 +75,7 @@ class CastAboutFragment(val castId: Int) : Fragment() {
         rootView = inflater.inflate(R.layout.cast_about_fragment, container, false)
         ButterKnife.bind(this, rootView)
 
-        val apiService: ApiInterface = TheTMDBClient.getClient()
+        val apiService: TmdbApiInterface = TheTMDBClient.getClient()
         peopleDetailRepository =
             CastDetailRepository(
                 apiService

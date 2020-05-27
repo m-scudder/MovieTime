@@ -15,7 +15,7 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.adapter.tvshows.tvdetails.TvSeasonListAdapter
-import com.scudderapps.moviesup.api.ApiInterface
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.tv.Season
 import com.scudderapps.moviesup.repository.tv.tvdetails.TvDetailRepository
@@ -40,7 +40,7 @@ class TvSeasonsFragment(val tvId: Int) : Fragment() {
     ): View? {
         rootView = inflater.inflate(R.layout.tv_seasons_fragment, container, false)
         ButterKnife.bind(this, rootView)
-        val apiService: ApiInterface = TheTMDBClient.getClient()
+        val apiService: TmdbApiInterface = TheTMDBClient.getClient()
         tvRepository = TvDetailRepository(apiService)
         viewModel = getViewModel(tvId)
         viewModel.tvDetails.observe(viewLifecycleOwner, Observer {

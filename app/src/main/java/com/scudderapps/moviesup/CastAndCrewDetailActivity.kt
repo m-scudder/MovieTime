@@ -14,7 +14,7 @@ import butterknife.ButterKnife
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.scudderapps.moviesup.adapter.common.CastDetailTabAdapter
-import com.scudderapps.moviesup.api.ApiInterface
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.main.PeopleDetails
@@ -56,7 +56,7 @@ class CastAndCrewDetailActivity : AppCompatActivity() {
         val peopleDetails = intent.extras
         val id: Int = peopleDetails!!.getInt("id")
 
-        val apiService: ApiInterface = TheTMDBClient.getClient()
+        val apiService: TmdbApiInterface = TheTMDBClient.getClient()
         peopleDetailRepository =
             CastDetailRepository(
                 apiService
