@@ -1,5 +1,6 @@
 package com.scudderapps.moviesup.adapter.discover
 
+
 import android.content.Context
 import android.content.Intent
 import android.util.Log
@@ -8,15 +9,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.scudderapps.moviesup.FeaturedMovies
+import com.scudderapps.moviesup.FeaturedTv
 import com.scudderapps.moviesup.models.featuredlist.FeaturedMovieItem
+import com.scudderapps.moviesup.models.featuredlist.FeaturedTvItem
 import kotlinx.android.synthetic.main.featured_list_item.view.*
 
-class FeaturedMovieListAdapter(
-    private val featuredItem: ArrayList<FeaturedMovieItem>,
+class FeaturedTvListAdapter(
+    private val featuredItem: ArrayList<FeaturedTvItem>,
     private val context: Context
 ) :
-    RecyclerView.Adapter<FeaturedMovieListAdapter.MovieHolder>() {
+    RecyclerView.Adapter<FeaturedTvListAdapter.MovieHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -41,10 +43,10 @@ class FeaturedMovieListAdapter(
     class MovieHolder(v: View) : RecyclerView.ViewHolder(v) {
 
         private var view: View = v
-        private var featuredItem: FeaturedMovieItem? = null
+        private var featuredItem: FeaturedTvItem? = null
         private lateinit var context: Context
 
-        fun bindVideos(featuredItem: FeaturedMovieItem, context: Context) {
+        fun bindVideos(featuredItem: FeaturedTvItem, context: Context) {
             this.featuredItem = featuredItem
             this.context = context
             Log.d("featuredList", featuredItem.toString())
@@ -63,7 +65,7 @@ class FeaturedMovieListAdapter(
             }
 
             itemView.setOnClickListener {
-                val intent = Intent(context, FeaturedMovies::class.java)
+                val intent = Intent(context, FeaturedTv::class.java)
                 intent.putExtra("listId", featuredItem?.listId)
                 context.startActivity(intent)
             }

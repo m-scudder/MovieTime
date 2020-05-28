@@ -71,7 +71,24 @@
             android:textAppearance="@style/TitleTheme" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/featured_list_view"
+            android:id="@+id/featured_movie_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Featured TV Lists"
+            android:textAlignment="viewStart"
+            android:textAppearance="@style/TitleTheme" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/featured_tv_list_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"

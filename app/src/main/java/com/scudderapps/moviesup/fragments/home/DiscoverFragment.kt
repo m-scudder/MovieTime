@@ -16,12 +16,14 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.adapter.discover.FeaturedMovieListAdapter
+import com.scudderapps.moviesup.adapter.discover.FeaturedTvListAdapter
 import com.scudderapps.moviesup.adapter.home.PeoplePagedListAdapter
 import com.scudderapps.moviesup.adapter.movie.MovieGenreListAdapter
 import com.scudderapps.moviesup.adapter.tvshows.tvdetails.TvGenreListAdapter
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.api.TmdbApiInterface
-import com.scudderapps.moviesup.models.featuredlist.FeaturedItem
+import com.scudderapps.moviesup.models.featuredlist.FeaturedMovieItem
+import com.scudderapps.moviesup.models.featuredlist.FeaturedTvItem
 import com.scudderapps.moviesup.repository.discover.PeoplePagedListRepository
 import com.scudderapps.moviesup.repository.genre.GenreRepository
 import com.scudderapps.moviesup.viewmodel.GenresViewModel
@@ -41,8 +43,11 @@ class DiscoverFragment : Fragment() {
     @BindView(R.id.discover_people_list)
     lateinit var discoverPeopleList: RecyclerView
 
-    @BindView(R.id.featured_list_view)
-    lateinit var featuredListView: RecyclerView
+    @BindView(R.id.featured_movie_list_view)
+    lateinit var featuredMovieListView: RecyclerView
+
+    @BindView(R.id.featured_tv_list_view)
+    lateinit var featuredTvListView: RecyclerView
 
     private lateinit var genresViewModel: GenresViewModel
     private lateinit var genreRepository: GenreRepository
@@ -53,7 +58,11 @@ class DiscoverFragment : Fragment() {
     private lateinit var peopleViewModel: PeopleListViewModel
     private lateinit var peopleListAdapter: PeoplePagedListAdapter
 
-    private lateinit var featuredListAdapter: FeaturedMovieListAdapter
+    private lateinit var featuredMovieListAdapter: FeaturedMovieListAdapter
+    private val featuredMovieList = ArrayList<FeaturedMovieItem>()
+
+    private lateinit var featuredTvListAdapter: FeaturedTvListAdapter
+    private val featuredTvList = ArrayList<FeaturedTvItem>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,58 +78,108 @@ class DiscoverFragment : Fragment() {
 
         genresViewModel = getGenreViewModel()
         peopleViewModel = getPeopleViewModel()
+        populatingFeatureList()
+        populatingViews()
+        return rootView
+    }
 
-        val featuredList = ArrayList<FeaturedItem>()
-        featuredList.add(
+    private fun addingFeaturedMovieList() {
+        featuredMovieList.add(
             0,
-            FeaturedItem(
+            FeaturedMovieItem(
                 "All time Top Rated Movies(IMDb)",
                 "https://image.tmdb.org/t/p/original/avedvodAZUcwqevBfm8p4G2NziQ.jpg",
                 144105
             )
         )
-        featuredList.add(
+        featuredMovieList.add(
             1,
-            FeaturedItem(
+            FeaturedMovieItem(
                 "Top 10 Movies 2019 (TMDb)",
                 "https://image.tmdb.org/t/p/original/ApiBzeaa95TNYliSbQ8pJv4Fje7.jpg",
                 132857
             )
         )
-        featuredList.add(
+        featuredMovieList.add(
             2,
-            FeaturedItem(
+            FeaturedMovieItem(
                 "Golden Globe Winners 2020",
                 "https://image.tmdb.org/t/p/original/2lBOQK06tltt8SQaswgb8d657Mv.jpg",
                 132860
             )
         )
-        featuredList.add(
+        featuredMovieList.add(
             3,
-            FeaturedItem(
+            FeaturedMovieItem(
                 "Oscar 2019",
                 "https://image.tmdb.org/t/p/original/78PjwaykLY2QqhMfWRDvmfbC6EV.jpg",
                 118240
             )
         )
-        featuredList.add(
+        featuredMovieList.add(
             4,
-            FeaturedItem(
+            FeaturedMovieItem(
                 "Spy Movies",
                 "https://image.tmdb.org/t/p/original/nMgELJEb9ly9HIamnX4ZZ1Z2pH6.jpg",
                 82976
             )
         )
+    }
 
+    private fun addingFeaturedTvList() {
+        featuredTvList.add(
+            0,
+            FeaturedTvItem(
+                "Top 10 Shows 2019 (TMDb)",
+                "https://image.tmdb.org/t/p/original/uL6Ad12W09L1sfuOE2pcTeak7bt.jpg",
+                132859
+            )
+        )
+
+        featuredTvList.add(
+            1,
+            FeaturedTvItem(
+                "Fantasy Series",
+                "https://image.tmdb.org/t/p/original/s56eyXy8rADp5DpZknfe2HXq4u4.jpg",
+                132861
+            )
+        )
+
+        featuredTvList.add(
+            2,
+            FeaturedTvItem(
+                "Creepy Series",
+                "https://image.tmdb.org/t/p/original/56v2KjBlU4XaOv9rVYEQypROD7P.jpg",
+                132862
+            )
+        )
+
+        featuredTvList.add(
+            3,
+            FeaturedTvItem(
+                "Netflix Top Picks",
+                "https://image.tmdb.org/t/p/original/qsnXwGS7KBbX4JLqHvICngtR8qg.jpg",
+                43923
+            )
+        )
+    }
+
+    private fun populatingFeatureList() {
+        addingFeaturedMovieList()
+        addingFeaturedTvList()
         val linearLayoutManager4 = LinearLayoutManager(activity)
         linearLayoutManager4.orientation = LinearLayoutManager.HORIZONTAL
-        featuredListAdapter = FeaturedMovieListAdapter(featuredList, rootView.context)
-        featuredListView.layoutManager = linearLayoutManager4
-        featuredListView.setHasFixedSize(true)
-        featuredListView.adapter = featuredListAdapter
+        featuredMovieListAdapter = FeaturedMovieListAdapter(featuredMovieList, rootView.context)
+        featuredMovieListView.layoutManager = linearLayoutManager4
+        featuredMovieListView.setHasFixedSize(true)
+        featuredMovieListView.adapter = featuredMovieListAdapter
 
-        populatingViews()
-        return rootView
+        val linearLayoutManager5 = LinearLayoutManager(activity)
+        linearLayoutManager5.orientation = LinearLayoutManager.HORIZONTAL
+        featuredTvListAdapter = FeaturedTvListAdapter(featuredTvList, rootView.context)
+        featuredTvListView.layoutManager = linearLayoutManager5
+        featuredTvListView.setHasFixedSize(true)
+        featuredTvListView.adapter = featuredTvListAdapter
     }
 
     private fun populatingViews() {
@@ -162,7 +221,6 @@ class DiscoverFragment : Fragment() {
             }
         })[GenresViewModel::class.java]
     }
-
 
     private fun getPeopleViewModel(): PeopleListViewModel {
         return ViewModelProviders.of(this, object : ViewModelProvider.Factory {

@@ -13,34 +13,34 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
-import com.scudderapps.moviesup.adapter.castandncrew.MovieAdapter
+import com.scudderapps.moviesup.adapter.castandncrew.TvAdapter
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.repository.NetworkState
 import com.scudderapps.moviesup.repository.discover.lists.FeaturedListRepository
 import com.scudderapps.moviesup.viewmodel.FeatureViewModel
 
-class FeaturedMovies : AppCompatActivity() {
+class FeaturedTv : AppCompatActivity() {
 
-    @BindView(R.id.featured_movies_view)
-    lateinit var topMoviesList: RecyclerView
+    @BindView(R.id.feature_tv_view)
+    lateinit var featuredTvListView: RecyclerView
 
-    @BindView(R.id.top_bar)
+    @BindView(R.id.feature_tv_bar)
     lateinit var topBar: ProgressBar
 
-    @BindView(R.id.top_movie_toolbar)
+    @BindView(R.id.feature_tv_toolbar)
     lateinit var topToolBar: Toolbar
 
     private lateinit var featuredListRepository: FeaturedListRepository
     private lateinit var featureViewModel: FeatureViewModel
-    private lateinit var topMovieAdapter: MovieAdapter
+    private lateinit var featuredTvAdapter: TvAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_featured_movies)
+        setContentView(R.layout.activity_featured_tv)
         ButterKnife.bind(this)
         setSupportActionBar(topToolBar)
-        supportActionBar!!.title = "Featured Movies List"
+        supportActionBar!!.title = "Featured Shows List"
 
         val data = intent.extras
         var listId = data!!.getInt("listId")
@@ -50,12 +50,12 @@ class FeaturedMovies : AppCompatActivity() {
         featureViewModel = getTopMovie(listId)
 
         val linearLayoutManager = GridLayoutManager(this, 3)
-        featureViewModel.featuredMovieLists.observe(this, Observer {
-            val movieList = it.items
-            topMovieAdapter = MovieAdapter(movieList, this)
-            topMoviesList.layoutManager = linearLayoutManager
-            topMoviesList.setHasFixedSize(true)
-            topMoviesList.adapter = topMovieAdapter
+        featureViewModel.featuredTvLists.observe(this, Observer {
+            val tvList = it.items
+            featuredTvAdapter = TvAdapter(tvList, this)
+            featuredTvListView.layoutManager = linearLayoutManager
+            featuredTvListView.setHasFixedSize(true)
+            featuredTvListView.adapter = featuredTvAdapter
         })
 
         featureViewModel.getNetworkState.observe(this, Observer {

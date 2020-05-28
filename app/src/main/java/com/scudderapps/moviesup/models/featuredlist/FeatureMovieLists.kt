@@ -4,7 +4,7 @@ package com.scudderapps.moviesup.models.featuredlist
 import com.google.gson.annotations.SerializedName
 import com.scudderapps.moviesup.models.main.Movie
 
-data class FeatureLists(
+data class FeatureMovieLists(
     @SerializedName("created_by")
     val createdBy: String,
     val description: String,

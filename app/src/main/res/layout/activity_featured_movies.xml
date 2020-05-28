@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/top_movies_view"
+        android:id="@+id/featured_movies_view"
         android:layout_width="match_parent"
         android:layout_below="@id/top_movie_toolbar"
         android:layout_height="match_parent"

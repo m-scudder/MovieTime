@@ -1,7 +1,8 @@
 package com.scudderapps.moviesup.api
 
 import com.scudderapps.moviesup.models.common.*
-import com.scudderapps.moviesup.models.featuredlist.FeatureLists
+import com.scudderapps.moviesup.models.featuredlist.FeatureMovieLists
+import com.scudderapps.moviesup.models.featuredlist.FeaturedTvLists
 import com.scudderapps.moviesup.models.main.PeopleDetails
 import com.scudderapps.moviesup.models.main.PeopleImages
 import com.scudderapps.moviesup.models.main.PeopleResponse
@@ -149,5 +150,10 @@ interface TmdbApiInterface {
     @GET("list/{list_id}")
     fun getFeaturedMovies(
         @Path("list_id") listId: Int
-    ): Single<FeatureLists>
+    ): Single<FeatureMovieLists>
+
+    @GET("list/{list_id}")
+    fun getFeaturedTv(
+        @Path("list_id") listId: Int
+    ): Single<FeaturedTvLists>
 }
