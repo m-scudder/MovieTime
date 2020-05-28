@@ -1,6 +1,7 @@
 package com.scudderapps.moviesup.api
 
 import com.scudderapps.moviesup.models.common.*
+import com.scudderapps.moviesup.models.featuredlist.FeatureLists
 import com.scudderapps.moviesup.models.main.PeopleDetails
 import com.scudderapps.moviesup.models.main.PeopleImages
 import com.scudderapps.moviesup.models.main.PeopleResponse
@@ -144,4 +145,7 @@ interface TmdbApiInterface {
         @Path("tv_id") tvId: Int,
         @Path("season_number") seasonNumber: Int
     ) : Single<CastResponse>
+
+    @GET("list/144105")
+    fun getTop10Movies(): Single<FeatureLists>
 }

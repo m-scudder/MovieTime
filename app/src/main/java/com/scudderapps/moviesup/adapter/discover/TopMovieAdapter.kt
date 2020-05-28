@@ -14,11 +14,11 @@ import com.bumptech.glide.Glide
 import com.scudderapps.moviesup.MovieDetailActivity
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
-import com.scudderapps.moviesup.models.tmdb.Item
+import com.scudderapps.moviesup.models.main.Movie
 import kotlinx.android.synthetic.main.movie_list_item.view.*
 import android.util.Pair as UtilPair
 
-class TopMovieAdapter(private val movies: List<Item>, private val context: Context) :
+class TopMovieAdapter(private val movies: List<Movie>, private val context: Context) :
     RecyclerView.Adapter<TopMovieAdapter.MovieHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
@@ -39,18 +39,18 @@ class TopMovieAdapter(private val movies: List<Item>, private val context: Conte
     class MovieHolder(v: View) : RecyclerView.ViewHolder(v) {
 
         private var view: View = v
-        private var movie: Item? = null
+        private var movie: Movie? = null
         private lateinit var context: Context
 
-        fun bindVideos(movies: Item, context: Context) {
+        fun bindVideos(movies: Movie, context: Context) {
             this.movie = movies
             this.context = context
             Log.d("movie", movie.toString())
             view.title.text = movie?.title
-            view.rating_view.text = "\uD83C\uDF1F " + movie?.imDbRating.toString()
+            view.rating_view.text = "\uD83C\uDF1F " + movie?.voteAverage.toString()
 
-            if (!movie?.image.isNullOrEmpty()) {
-                val posterUrl =  movie?.image
+            if (!movie?.posterPath.isNullOrEmpty()) {
+                val posterUrl = IMAGE_BASE_URL + movie?.posterPath
                 Glide.with(itemView.context)
                     .load(posterUrl)
                     .into(view.movie_image)
@@ -61,17 +61,17 @@ class TopMovieAdapter(private val movies: List<Item>, private val context: Conte
                     .into(view.movie_image)
             }
 
-//            itemView.setOnClickListener {
-//
-//                val intent = Intent(context, MovieDetailActivity::class.java)
-//                intent.putExtra("id", movie?.id)
-//                val options = ActivityOptions.makeSceneTransitionAnimation(
-//                    context as Activity?,
-//                    UtilPair<View, String>(itemView.itemCard, "imageTransition")
-//                )
-//                context.startActivity(intent, options.toBundle())
-//                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-//            }
+            itemView.setOnClickListener {
+
+                val intent = Intent(context, MovieDetailActivity::class.java)
+                intent.putExtra("id", movie?.id)
+                val options = ActivityOptions.makeSceneTransitionAnimation(
+                    context as Activity?,
+                    UtilPair<View, String>(itemView.itemCard, "imageTransition")
+                )
+                context.startActivity(intent, options.toBundle())
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            }
         }
     }
 }

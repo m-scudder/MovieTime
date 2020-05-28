@@ -2,19 +2,18 @@ package com.scudderapps.moviesup.repository.discover.lists
 
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
-import com.scudderapps.moviesup.api.ImdbApiInterface
-import com.scudderapps.moviesup.models.tmdb.TOP250MOVIES
+import com.scudderapps.moviesup.api.TmdbApiInterface
+import com.scudderapps.moviesup.models.featuredlist.FeatureLists
 import com.scudderapps.moviesup.repository.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 
-class FeaturedListRepository(private val apiService: ImdbApiInterface) {
+class FeaturedListRepository(private val apiService: TmdbApiInterface) {
 
     lateinit var featuredDetailDataSource: FeaturedListDataSource
 
     fun fetchingTopMovies(
         compositeDisposable: CompositeDisposable
-    ): LiveData<TOP250MOVIES> {
+    ): LiveData<FeatureLists> {
         featuredDetailDataSource =
             FeaturedListDataSource(
                 apiService,

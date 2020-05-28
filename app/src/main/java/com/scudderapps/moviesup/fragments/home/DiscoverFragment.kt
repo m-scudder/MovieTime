@@ -16,22 +16,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
-import com.scudderapps.moviesup.CollectionActivity
-import com.scudderapps.moviesup.MovieDetailActivity
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.TopMovies
-import com.scudderapps.moviesup.adapter.discover.TopMovieAdapter
+import com.scudderapps.moviesup.adapter.discover.FeaturedListAdapter
 import com.scudderapps.moviesup.adapter.home.PeoplePagedListAdapter
 import com.scudderapps.moviesup.adapter.movie.MovieGenreListAdapter
 import com.scudderapps.moviesup.adapter.tvshows.tvdetails.TvGenreListAdapter
-import com.scudderapps.moviesup.api.ImdbApiInterface
-import com.scudderapps.moviesup.api.TheIMDBClient
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.api.TmdbApiInterface
+import com.scudderapps.moviesup.models.featuredlist.FeaturedItem
 import com.scudderapps.moviesup.repository.discover.PeoplePagedListRepository
-import com.scudderapps.moviesup.repository.discover.lists.FeaturedListRepository
 import com.scudderapps.moviesup.repository.genre.GenreRepository
-import com.scudderapps.moviesup.viewmodel.FeatureViewModel
 import com.scudderapps.moviesup.viewmodel.GenresViewModel
 import com.scudderapps.moviesup.viewmodel.PeopleListViewModel
 
@@ -49,8 +44,8 @@ class DiscoverFragment : Fragment() {
     @BindView(R.id.discover_people_list)
     lateinit var discoverPeopleList: RecyclerView
 
-    @BindView(R.id.top_movies)
-    lateinit var top250Movie: Button
+    @BindView(R.id.featured_list_view)
+    lateinit var featuredListView: RecyclerView
 
     private lateinit var genresViewModel: GenresViewModel
     private lateinit var genreRepository: GenreRepository
@@ -61,6 +56,7 @@ class DiscoverFragment : Fragment() {
     private lateinit var peopleViewModel: PeopleListViewModel
     private lateinit var peopleListAdapter: PeoplePagedListAdapter
 
+    private lateinit var featuredListAdapter: FeaturedListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -77,11 +73,23 @@ class DiscoverFragment : Fragment() {
         genresViewModel = getGenreViewModel()
         peopleViewModel = getPeopleViewModel()
 
+        val featuredList = ArrayList<FeaturedItem>()
+        featuredList.add(
+            0,
+            FeaturedItem("Top 10 IMDB Movies", "https://image.tmdb.org/t/p/original/avedvodAZUcwqevBfm8p4G2NziQ.jpg")
+        )
+        featuredList.add(
+            1,
+            FeaturedItem("Top 10 IMDB Movies", "https://image.tmdb.org/t/p/original/avedvodAZUcwqevBfm8p4G2NziQ.jpg")
+        )
+        val linearLayoutManager4 = LinearLayoutManager(activity)
+        linearLayoutManager4.orientation = LinearLayoutManager.HORIZONTAL
+        featuredListAdapter = FeaturedListAdapter(featuredList, rootView.context)
+        featuredListView.layoutManager = linearLayoutManager4
+        featuredListView.setHasFixedSize(true)
+        featuredListView.adapter = featuredListAdapter
+
         populatingViews()
-        top250Movie.setOnClickListener(View.OnClickListener {
-            val intent = Intent(context, TopMovies::class.java)
-            startActivity(intent)
-        })
         return rootView
     }
 
@@ -124,7 +132,6 @@ class DiscoverFragment : Fragment() {
             }
         })[GenresViewModel::class.java]
     }
-
 
 
     private fun getPeopleViewModel(): PeopleListViewModel {

@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.scudderapps.moviesup.adapter.discover.TopMovieAdapter
-import com.scudderapps.moviesup.api.ImdbApiInterface
-import com.scudderapps.moviesup.api.TheIMDBClient
+import com.scudderapps.moviesup.api.TheTMDBClient
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.repository.NetworkState
 import com.scudderapps.moviesup.repository.discover.lists.FeaturedListRepository
 import com.scudderapps.moviesup.viewmodel.FeatureViewModel
@@ -26,10 +26,10 @@ class TopMovies : AppCompatActivity() {
     lateinit var topMoviesList: RecyclerView
 
     @BindView(R.id.top_bar)
-    lateinit var topBar : ProgressBar
+    lateinit var topBar: ProgressBar
 
     @BindView(R.id.top_movie_toolbar)
-    lateinit var topToolBar : Toolbar
+    lateinit var topToolBar: Toolbar
 
     private lateinit var featuredListRepository: FeaturedListRepository
     private lateinit var featureViewModel: FeatureViewModel
@@ -42,7 +42,7 @@ class TopMovies : AppCompatActivity() {
         setSupportActionBar(topToolBar)
         supportActionBar!!.title = "Top 250 Movies"
 
-        val imdbApiService: ImdbApiInterface = TheIMDBClient.getClient()
+        val imdbApiService: TmdbApiInterface = TheTMDBClient.getClient()
         featuredListRepository = FeaturedListRepository(imdbApiService)
         featureViewModel = getTopMovie()
 
