@@ -8,12 +8,15 @@ import com.scudderapps.moviesup.repository.NetworkState
 import com.scudderapps.moviesup.repository.discover.lists.FeaturedListRepository
 import io.reactivex.disposables.CompositeDisposable
 
-class FeatureViewModel(private val featuredListRepository: FeaturedListRepository) : ViewModel() {
+class FeatureViewModel(
+    private val featuredListRepository: FeaturedListRepository,
+    private val listId: Int
+) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
     val top250MoviesList: LiveData<FeatureLists> by lazy {
-        featuredListRepository.fetchingTopMovies(compositeDisposable)
+        featuredListRepository.fetchingFeaturedMovies(compositeDisposable, listId)
     }
     val getNetworkState: LiveData<NetworkState> by lazy {
         featuredListRepository.getTvSeasonDetailNetworkState()

@@ -8,15 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.scudderapps.moviesup.TopMovies
+import com.scudderapps.moviesup.FeaturedMovies
 import com.scudderapps.moviesup.models.featuredlist.FeaturedItem
 import kotlinx.android.synthetic.main.featured_list_item.view.*
 
-class FeaturedListAdapter(
+class FeaturedMovieListAdapter(
     private val featuredItem: ArrayList<FeaturedItem>,
     private val context: Context
 ) :
-    RecyclerView.Adapter<FeaturedListAdapter.MovieHolder>() {
+    RecyclerView.Adapter<FeaturedMovieListAdapter.MovieHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -63,7 +63,8 @@ class FeaturedListAdapter(
             }
 
             itemView.setOnClickListener {
-                val intent = Intent(context, TopMovies::class.java)
+                val intent = Intent(context, FeaturedMovies::class.java)
+                intent.putExtra("listId", featuredItem?.listId)
                 context.startActivity(intent)
             }
         }

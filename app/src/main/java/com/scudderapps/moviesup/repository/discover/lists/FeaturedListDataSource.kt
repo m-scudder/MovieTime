@@ -11,7 +11,8 @@ import io.reactivex.schedulers.Schedulers
 
 class FeaturedListDataSource(
     private val apiService: TmdbApiInterface,
-    private val compositeDisposable: CompositeDisposable
+    private val compositeDisposable: CompositeDisposable,
+    private val listId: Int
 ) {
     private val _networkState = MutableLiveData<NetworkState>()
     val networkState: LiveData<NetworkState>
@@ -21,11 +22,11 @@ class FeaturedListDataSource(
     val topMovieResponse: LiveData<FeatureLists>
         get() = _topMovieResponse
 
-    fun fetch250Movies() {
+    fun fetchFeaturedMovies() {
         _networkState.postValue(NetworkState.LOADING)
 
         try {
-            apiService.getTop10Movies()
+            apiService.getFeaturedMovies(listId)
                 ?.subscribeOn(Schedulers.io())
                 ?.subscribe(
                     {

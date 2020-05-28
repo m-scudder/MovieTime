@@ -13,14 +13,14 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
-import com.scudderapps.moviesup.adapter.discover.TopMovieAdapter
+import com.scudderapps.moviesup.adapter.castandncrew.MovieAdapter
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.repository.NetworkState
 import com.scudderapps.moviesup.repository.discover.lists.FeaturedListRepository
 import com.scudderapps.moviesup.viewmodel.FeatureViewModel
 
-class TopMovies : AppCompatActivity() {
+class FeaturedMovies : AppCompatActivity() {
 
     @BindView(R.id.top_movies_view)
     lateinit var topMoviesList: RecyclerView
@@ -33,23 +33,26 @@ class TopMovies : AppCompatActivity() {
 
     private lateinit var featuredListRepository: FeaturedListRepository
     private lateinit var featureViewModel: FeatureViewModel
-    private lateinit var topMovieAdapter: TopMovieAdapter
+    private lateinit var topMovieAdapter: MovieAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.top_movies_activity)
         ButterKnife.bind(this)
         setSupportActionBar(topToolBar)
-        supportActionBar!!.title = "Top 250 Movies"
+        supportActionBar!!.title = "Featured Movies List"
 
-        val imdbApiService: TmdbApiInterface = TheTMDBClient.getClient()
-        featuredListRepository = FeaturedListRepository(imdbApiService)
-        featureViewModel = getTopMovie()
+        val data = intent.extras
+        var listId = data!!.getInt("listId")
+
+        val tmdbApiService: TmdbApiInterface = TheTMDBClient.getClient()
+        featuredListRepository = FeaturedListRepository(tmdbApiService)
+        featureViewModel = getTopMovie(listId)
 
         val linearLayoutManager = GridLayoutManager(this, 3)
         featureViewModel.top250MoviesList.observe(this, Observer {
             val movieList = it.items
-            topMovieAdapter = TopMovieAdapter(movieList, this)
+            topMovieAdapter = MovieAdapter(movieList, this)
             topMoviesList.layoutManager = linearLayoutManager
             topMoviesList.setHasFixedSize(true)
             topMoviesList.adapter = topMovieAdapter
@@ -61,11 +64,11 @@ class TopMovies : AppCompatActivity() {
         })
     }
 
-    private fun getTopMovie(): FeatureViewModel {
+    private fun getTopMovie(listID: Int): FeatureViewModel {
         return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 @Suppress("UNCHECKED_CAST")
-                return FeatureViewModel(featuredListRepository) as T
+                return FeatureViewModel(featuredListRepository, listID) as T
             }
         })[FeatureViewModel::class.java]
     }

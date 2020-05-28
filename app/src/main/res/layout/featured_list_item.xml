@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:layout_margin="8dp"
+    android:background="@color/colorPrimaryDark"
     android:orientation="horizontal">
 
     <androidx.cardview.widget.CardView
@@ -17,7 +18,7 @@
             android:id="@+id/featured_media"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/no_image_found"
+            android:src="@drawable/no_image_found"
             android:scaleType="center" />
 
         <View

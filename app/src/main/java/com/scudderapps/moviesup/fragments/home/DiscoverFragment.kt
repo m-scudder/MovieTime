@@ -1,12 +1,10 @@
 package com.scudderapps.moviesup.fragments.home
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -17,8 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.scudderapps.moviesup.R
-import com.scudderapps.moviesup.TopMovies
-import com.scudderapps.moviesup.adapter.discover.FeaturedListAdapter
+import com.scudderapps.moviesup.adapter.discover.FeaturedMovieListAdapter
 import com.scudderapps.moviesup.adapter.home.PeoplePagedListAdapter
 import com.scudderapps.moviesup.adapter.movie.MovieGenreListAdapter
 import com.scudderapps.moviesup.adapter.tvshows.tvdetails.TvGenreListAdapter
@@ -56,7 +53,7 @@ class DiscoverFragment : Fragment() {
     private lateinit var peopleViewModel: PeopleListViewModel
     private lateinit var peopleListAdapter: PeoplePagedListAdapter
 
-    private lateinit var featuredListAdapter: FeaturedListAdapter
+    private lateinit var featuredListAdapter: FeaturedMovieListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,15 +73,48 @@ class DiscoverFragment : Fragment() {
         val featuredList = ArrayList<FeaturedItem>()
         featuredList.add(
             0,
-            FeaturedItem("Top 10 IMDB Movies", "https://image.tmdb.org/t/p/original/avedvodAZUcwqevBfm8p4G2NziQ.jpg")
+            FeaturedItem(
+                "All time Top Rated Movies(IMDb)",
+                "https://image.tmdb.org/t/p/original/avedvodAZUcwqevBfm8p4G2NziQ.jpg",
+                144105
+            )
         )
         featuredList.add(
             1,
-            FeaturedItem("Top 10 IMDB Movies", "https://image.tmdb.org/t/p/original/avedvodAZUcwqevBfm8p4G2NziQ.jpg")
+            FeaturedItem(
+                "Top 10 Movies 2019 (TMDb)",
+                "https://image.tmdb.org/t/p/original/ApiBzeaa95TNYliSbQ8pJv4Fje7.jpg",
+                132857
+            )
         )
+        featuredList.add(
+            2,
+            FeaturedItem(
+                "Golden Globe Winners 2020",
+                "https://image.tmdb.org/t/p/original/2lBOQK06tltt8SQaswgb8d657Mv.jpg",
+                132860
+            )
+        )
+        featuredList.add(
+            3,
+            FeaturedItem(
+                "Oscar 2019",
+                "https://image.tmdb.org/t/p/original/78PjwaykLY2QqhMfWRDvmfbC6EV.jpg",
+                118240
+            )
+        )
+        featuredList.add(
+            4,
+            FeaturedItem(
+                "Spy Movies",
+                "https://image.tmdb.org/t/p/original/nMgELJEb9ly9HIamnX4ZZ1Z2pH6.jpg",
+                82976
+            )
+        )
+
         val linearLayoutManager4 = LinearLayoutManager(activity)
         linearLayoutManager4.orientation = LinearLayoutManager.HORIZONTAL
-        featuredListAdapter = FeaturedListAdapter(featuredList, rootView.context)
+        featuredListAdapter = FeaturedMovieListAdapter(featuredList, rootView.context)
         featuredListView.layoutManager = linearLayoutManager4
         featuredListView.setHasFixedSize(true)
         featuredListView.adapter = featuredListAdapter

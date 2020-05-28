@@ -12,7 +12,7 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TopMovies"></activity>
+        <activity android:name=".FeaturedMovies"></activity>
         <activity
             android:name=".TvGenreActivity"
             android:parentActivityName=".MainActivity" />

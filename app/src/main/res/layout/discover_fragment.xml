@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="Featured Lists"
+            android:text="Featured Movie Lists"
             android:textAlignment="viewStart"
             android:textAppearance="@style/TitleTheme" />
 

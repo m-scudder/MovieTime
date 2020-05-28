@@ -52,6 +52,8 @@
                     android:layout_toEndOf="@id/poster_card"
                     android:fitsSystemWindows="true"
                     android:padding="2dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:textAppearance="@style/MovieTitleTheme"
                     app:layout_collapseMode="pin" />
 

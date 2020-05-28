@@ -146,6 +146,8 @@ interface TmdbApiInterface {
         @Path("season_number") seasonNumber: Int
     ) : Single<CastResponse>
 
-    @GET("list/144105")
-    fun getTop10Movies(): Single<FeatureLists>
+    @GET("list/{list_id}")
+    fun getFeaturedMovies(
+        @Path("list_id") listId: Int
+    ): Single<FeatureLists>
 }

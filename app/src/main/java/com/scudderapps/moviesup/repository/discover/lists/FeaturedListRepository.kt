@@ -7,19 +7,23 @@ import com.scudderapps.moviesup.models.featuredlist.FeatureLists
 import com.scudderapps.moviesup.repository.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 
-class FeaturedListRepository(private val apiService: TmdbApiInterface) {
+class FeaturedListRepository(
+    private val apiService: TmdbApiInterface
+) {
 
     lateinit var featuredDetailDataSource: FeaturedListDataSource
 
-    fun fetchingTopMovies(
-        compositeDisposable: CompositeDisposable
+    fun fetchingFeaturedMovies(
+        compositeDisposable: CompositeDisposable,
+        listId: Int
     ): LiveData<FeatureLists> {
         featuredDetailDataSource =
             FeaturedListDataSource(
                 apiService,
-                compositeDisposable
-            )
-        featuredDetailDataSource.fetch250Movies()
+                compositeDisposable,
+                listId
+                )
+        featuredDetailDataSource.fetchFeaturedMovies()
 
         return featuredDetailDataSource.topMovieResponse
     }
