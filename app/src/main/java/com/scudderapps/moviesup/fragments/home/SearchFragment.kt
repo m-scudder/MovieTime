@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -15,10 +15,10 @@ import com.jakewharton.rxbinding2.widget.RxTextView
 import com.jakewharton.rxbinding2.widget.TextViewTextChangeEvent
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.adapter.home.SearchListAdapter
-import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
-import com.scudderapps.moviesup.models.main.Movie
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.models.common.MovieResponse
+import com.scudderapps.moviesup.models.main.Movie
 import io.reactivex.Single
 import io.reactivex.SingleObserver
 import io.reactivex.SingleSource
@@ -61,8 +61,7 @@ class SearchFragment : Fragment() {
     ): View? {
         rootView = inflater.inflate(R.layout.search_fragment, container, false)
         ButterKnife.bind(this, rootView)
-        val linearLayoutManager = LinearLayoutManager(activity)
-        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+        val linearLayoutManager = GridLayoutManager(activity, 3)
         linearLayoutManager.reverseLayout = false
         searchView.layoutManager = linearLayoutManager
         searchView.setHasFixedSize(true)
