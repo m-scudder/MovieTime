@@ -99,7 +99,7 @@ class MovieDetailActivity : AppCompatActivity() {
                 val formattedDate: String = targetFormat.format(date)
                 releaseDate.text = formattedDate + "  ●"
             }
-            runTime.text = "${it.runtime} Min"
+
             status.text = it.status
             if (!it.backdropPath.isNullOrEmpty()) {
                 var backDropURL: String = IMAGE_BASE_URL + it.backdropPath

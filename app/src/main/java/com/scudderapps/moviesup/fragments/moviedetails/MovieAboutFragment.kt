@@ -25,9 +25,9 @@ import com.scudderapps.moviesup.CollectionActivity
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.adapter.common.TrailerListAdapter
 import com.scudderapps.moviesup.adapter.movie.MovieGenreListAdapter
-import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBClient
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.models.common.Backdrop
 import com.scudderapps.moviesup.models.common.Poster
 import com.scudderapps.moviesup.models.common.ProductionCompany
@@ -139,11 +139,20 @@ class MovieAboutFragment(private var movieId: Int) : Fragment() {
         viewModel.movieDetails.observe(viewLifecycleOwner, Observer {
             movieOverview.text = it.overview
             originalTitle.text = it.originalTitle
-            movieRuntime.text = it.runtime.toString() + " Min"
-            budget.text = NumberFormat.getCurrencyInstance(Locale("en", "US"))
-                .format(it.budget.toDouble())
-            revenue.text = NumberFormat.getCurrencyInstance(Locale("en", "US"))
-                .format(it.revenue.toDouble())
+
+            if (it.runtime.toString() != "0")
+                movieRuntime.text = it.runtime.toString() + " Min"
+            else movieRuntime.text = "-"
+
+            if (it.budget != "0")
+                budget.text = NumberFormat.getCurrencyInstance(Locale("en", "US"))
+                    .format(it.budget.toDouble())
+            else budget.text = "-"
+
+            if (it.revenue != "0")
+                revenue.text = NumberFormat.getCurrencyInstance(Locale("en", "US"))
+                    .format(it.revenue.toDouble())
+            else revenue.text = "-"
 
             originalLanguage.text = "-"
 
