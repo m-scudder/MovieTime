@@ -79,6 +79,8 @@ class DiscoverFragment : Fragment() {
         genresViewModel = getGenreViewModel()
         peopleViewModel = getPeopleViewModel()
         populatingFeatureList()
+        addingFeaturedMovieList()
+        addingFeaturedTvList()
         populatingViews()
         return rootView
     }
@@ -165,8 +167,6 @@ class DiscoverFragment : Fragment() {
     }
 
     private fun populatingFeatureList() {
-        addingFeaturedMovieList()
-        addingFeaturedTvList()
         val linearLayoutManager4 = LinearLayoutManager(activity)
         linearLayoutManager4.orientation = LinearLayoutManager.HORIZONTAL
         featuredMovieListAdapter = FeaturedMovieListAdapter(featuredMovieList, rootView.context)
@@ -202,7 +202,7 @@ class DiscoverFragment : Fragment() {
         })
 
         peopleViewModel.peoplePagedList.observe(viewLifecycleOwner, Observer {
-            peopleListAdapter = PeoplePagedListAdapter(context!!.applicationContext)
+            peopleListAdapter = PeoplePagedListAdapter(rootView.context)
             peopleListAdapter.submitList(it)
             val linearLayoutManager3 = LinearLayoutManager(activity)
             linearLayoutManager3.orientation = LinearLayoutManager.HORIZONTAL
@@ -233,13 +233,14 @@ class DiscoverFragment : Fragment() {
 
     override fun onResume() {
         Log.d("DiscoverFragment :", "onResume Called")
-        populatingViews()
+//        populatingViews()
+        populatingFeatureList()
         super.onResume()
     }
 
     override fun onPause() {
         Log.d("DiscoverFragment :", "onPause Called")
-        populatingViews()
+//        populatingViews()
         super.onPause()
     }
 }

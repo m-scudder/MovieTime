@@ -13,7 +13,6 @@
         android:layout_gravity="bottom|center"
         android:layout_margin="4dp"
         android:layout_centerVertical="true"
-        android:text="12"
         android:textAppearance="@style/TitleTheme" />
 
     <LinearLayout
@@ -21,7 +20,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:layout_toRightOf="@id/tvSeasonEpisodeNumber"
         android:orientation="vertical">
 
         <TextView
@@ -29,7 +27,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
-            android:text="Hello How Are you ??"
             android:textAppearance="@style/TitleTextTheme" />
 
         <TextView
@@ -37,14 +34,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
-            android:text="December 2 2019"
             android:textAppearance="@style/TitleTheme" />
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:alpha="0.2"
             android:layout_marginTop="4dp"
-            android:layout_below="@id/episodeListLayout"
             android:background="@color/dark_gray"/>
     </LinearLayout>
 

@@ -22,6 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_margin="4dp"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:textAppearance="@style/TitleTextTheme" />
 
 </LinearLayout>

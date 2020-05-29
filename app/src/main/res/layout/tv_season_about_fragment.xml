@@ -1,164 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/movieDetailScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.tvshowsdetails.tvseasondetails.TvSeasonAboutFragment">
+    android:background="@color/colorPrimary"
+    android:fillViewport="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <ScrollView
-        android:id="@+id/movieDetailScrollView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
-        android:fillViewport="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:id="@+id/tv_season_about_synopsis_layout"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/synopsis"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/release_date"
+                    android:textAlignment="viewStart"
+                    android:textAppearance="@style/TitleTheme" />
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="@string/the_synopsis"
+                    android:text="@string/episodes"
                     android:textAlignment="viewStart"
                     android:textAppearance="@style/TitleTheme" />
 
-                <com.ms.square.android.expandabletextview.ExpandableTextView
-                    android:id="@+id/tv_season_overview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:animDuration="200"
-                    app:maxCollapsedLines="3">
 
-                    <TextView
-                        android:id="@+id/expandable_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:textAlignment="viewStart"
-                        android:textAppearance="@style/TitleTextTheme" />
-
-                    <ImageButton
-                        android:id="@id/expand_collapse"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right|bottom"
-                        android:background="@android:color/transparent"
-                        android:padding="16dp" />
-
-                </com.ms.square.android.expandabletextview.ExpandableTextView>
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:fontFamily="@font/raleway_medium"
-                android:text="More Info"
-                android:textColor="@color/dark_gray"
-                android:textSize="16sp"
-                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:text="Release Date"
-                        android:textAlignment="viewStart"
-                        android:textAppearance="@style/TitleTheme" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:text="Episodes"
-                        android:textAlignment="viewStart"
-                        android:textAppearance="@style/TitleTheme" />
-
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_season_release_date"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:text="2019ajgk"
-                        android:textAlignment="viewStart"
-                        android:textAppearance="@style/TitleTextTheme" />
-
-                    <TextView
-                        android:id="@+id/tv_season_total_episodes_count"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:text="fjkgluiv"
-                        android:textAlignment="viewStart"
-                        android:textAppearance="@style/TitleTextTheme" />
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/season_trailer_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/the_trailers"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tv_season_release_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:textAlignment="viewStart"
+                    android:textAppearance="@style/TitleTextTheme" />
+
+                <TextView
+                    android:id="@+id/tv_season_total_episodes_count"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="@string/trailers_amp_clips"
                     android:textAlignment="viewStart"
-                    android:textAppearance="@style/TitleTheme" />
+                    android:textAppearance="@style/TitleTextTheme" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/trailerListView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp" />
             </LinearLayout>
-
         </LinearLayout>
 
-    </ScrollView>
+        <LinearLayout
+            android:id="@+id/tv_season_about_synopsis_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-</FrameLayout>
+            <TextView
+                android:id="@+id/synopsis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/the_synopsis"
+                android:textAlignment="viewStart"
+                android:textAppearance="@style/TitleTheme" />
+
+            <com.ms.square.android.expandabletextview.ExpandableTextView
+                android:id="@+id/tv_season_overview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:animDuration="200"
+                app:maxCollapsedLines="3">
+
+                <TextView
+                    android:id="@+id/expandable_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:textAlignment="viewStart"
+                    android:textAppearance="@style/TitleTextTheme" />
+
+                <ImageButton
+                    android:id="@id/expand_collapse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|bottom"
+                    android:background="@android:color/transparent"
+                    android:padding="16dp" />
+
+            </com.ms.square.android.expandabletextview.ExpandableTextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/season_trailer_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/the_trailers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/trailers_amp_clips"
+                android:textAlignment="viewStart"
+                android:textAppearance="@style/TitleTheme" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/trailerListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

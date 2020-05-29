@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="4dp"
-        android:text="No More Items"
+        android:text="@string/no_more_items"
         android:textColor="@color/orange"
         android:textSize="16sp"
         android:visibility="visible" />
