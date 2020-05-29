@@ -157,9 +157,9 @@ class DiscoverFragment : Fragment() {
         featuredTvList.add(
             3,
             FeaturedTvItem(
-                "Netflix Top Picks",
-                "https://image.tmdb.org/t/p/original/qsnXwGS7KBbX4JLqHvICngtR8qg.jpg",
-                43923
+                "Netflix Originals - TV Shows",
+                "https://image.tmdb.org/t/p/original/6ygiUWflbmz5p2LFc3COVHriQzK.jpg",
+                43921
             )
         )
     }
