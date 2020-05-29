@@ -5,12 +5,12 @@ import androidx.lifecycle.Transformations
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.scudderapps.moviesup.api.POST_PER_PAGE
-import com.scudderapps.moviesup.api.ApiInterface
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.models.main.Movie
 import com.scudderapps.moviesup.repository.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 
-class TrendingPagedListRepository(private val apiService: ApiInterface) {
+class TrendingPagedListRepository(private val apiService: TmdbApiInterface) {
 
     lateinit var moviePageList: LiveData<PagedList<Movie>>
     lateinit var trendingDataSourceFactory: TrendingDataSourceFactory

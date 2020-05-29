@@ -20,10 +20,9 @@ import butterknife.ButterKnife
 import com.bumptech.glide.Glide
 import com.ms.square.android.expandabletextview.ExpandableTextView
 import com.scudderapps.moviesup.R
-import com.scudderapps.moviesup.adapter.movie.MovieGenreListAdapter
 import com.scudderapps.moviesup.adapter.common.TrailerListAdapter
 import com.scudderapps.moviesup.adapter.tvshows.tvdetails.TvGenreListAdapter
-import com.scudderapps.moviesup.api.ApiInterface
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.common.Backdrop
@@ -108,7 +107,7 @@ class TvAboutFragment(private val tvId: Int) : Fragment() {
     ): View? {
         rootView = inflater.inflate(R.layout.tv_about_fragment, container, false)
         ButterKnife.bind(this, rootView)
-        val apiService: ApiInterface = TheTMDBClient.getClient()
+        val apiService: TmdbApiInterface = TheTMDBClient.getClient()
         tvRepository =
             TvDetailRepository(
                 apiService

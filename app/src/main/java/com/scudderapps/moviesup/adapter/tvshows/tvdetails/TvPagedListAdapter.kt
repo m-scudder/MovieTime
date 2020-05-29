@@ -1,5 +1,7 @@
 package com.scudderapps.moviesup.adapter.tvshows.tvdetails
 
+import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
@@ -17,6 +19,7 @@ import com.scudderapps.moviesup.models.main.TV
 import com.scudderapps.moviesup.repository.NetworkState
 import kotlinx.android.synthetic.main.movie_list_item.view.*
 import kotlinx.android.synthetic.main.network_state_item.view.*
+import android.util.Pair as UtilPair
 
 class TvPagedListAdapter(private val context: Context) :
     PagedListAdapter<TV, RecyclerView.ViewHolder>(MovieDiffCallback()) {

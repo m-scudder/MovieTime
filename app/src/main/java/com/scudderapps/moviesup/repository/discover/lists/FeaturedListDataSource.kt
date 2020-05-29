@@ -1,40 +1,46 @@
-package com.scudderapps.moviesup.repository.movie.genre
+package com.scudderapps.moviesup.repository.discover.lists
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.scudderapps.moviesup.api.ApiInterface
-import com.scudderapps.moviesup.models.common.GenresResponse
+import com.scudderapps.moviesup.api.TmdbApiInterface
+import com.scudderapps.moviesup.models.featuredlist.FeatureMovieLists
+import com.scudderapps.moviesup.models.featuredlist.FeaturedTvLists
 import com.scudderapps.moviesup.repository.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class GenreDataSource(
-    private val apiService: ApiInterface,
-    private val compositeDisposable: CompositeDisposable
+class FeaturedListDataSource(
+    private val apiService: TmdbApiInterface,
+    private val compositeDisposable: CompositeDisposable,
+    private val listId: Int
 ) {
     private val _networkState = MutableLiveData<NetworkState>()
     val networkState: LiveData<NetworkState>
         get() = _networkState
 
-    private val _genresResponse = MutableLiveData<GenresResponse>()
-    val genresResponse: LiveData<GenresResponse>
-        get() = _genresResponse
+    private val _featureMovieResponse = MutableLiveData<FeatureMovieLists>()
+    val featureMovieResponse: LiveData<FeatureMovieLists>
+        get() = _featureMovieResponse
 
-    fun fetchMovieGenresList() {
+    private val _featureTvResponse = MutableLiveData<FeaturedTvLists>()
+    val featureTvResponse: LiveData<FeaturedTvLists>
+        get() = _featureTvResponse
+
+    fun fetchFeaturedMovies() {
         _networkState.postValue(NetworkState.LOADING)
 
         try {
-            apiService.getMovieGenresList()
+            apiService.getFeaturedMovies(listId)
                 ?.subscribeOn(Schedulers.io())
                 ?.subscribe(
                     {
-                        _genresResponse.postValue(it)
+                        _featureMovieResponse.postValue(it)
                         _networkState.postValue(NetworkState.LOADED)
                     },
                     {
                         _networkState.postValue(NetworkState.ERROR)
-                        Log.e("GenreDataSource", it.message)
+                        Log.e("FeaturedListDataSource", it.message)
                     }
                 )?.let {
                     compositeDisposable.add(
@@ -42,24 +48,24 @@ class GenreDataSource(
                     )
                 }
         } catch (e: Exception) {
-            Log.e("GenreDataSource", e.message)
+            Log.e("FeaturedListDataSource", e.message)
         }
     }
 
-    fun fetchTvGenresList() {
+    fun fetchFeaturedTv() {
         _networkState.postValue(NetworkState.LOADING)
 
         try {
-            apiService.getTvGenresList()
+            apiService.getFeaturedTv(listId)
                 ?.subscribeOn(Schedulers.io())
                 ?.subscribe(
                     {
-                        _genresResponse.postValue(it)
+                        _featureTvResponse.postValue(it)
                         _networkState.postValue(NetworkState.LOADED)
                     },
                     {
                         _networkState.postValue(NetworkState.ERROR)
-                        Log.e("GenreDataSource", it.message)
+                        Log.e("FeaturedListDataSource", it.message)
                     }
                 )?.let {
                     compositeDisposable.add(
@@ -67,8 +73,7 @@ class GenreDataSource(
                     )
                 }
         } catch (e: Exception) {
-            Log.e("GenreDataSource", e.message)
+            Log.e("FeaturedListDataSource", e.message)
         }
     }
-
 }

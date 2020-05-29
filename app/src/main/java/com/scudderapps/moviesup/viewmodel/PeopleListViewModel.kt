@@ -8,25 +8,27 @@ import com.scudderapps.moviesup.repository.NetworkState
 import com.scudderapps.moviesup.repository.discover.PeoplePagedListRepository
 import io.reactivex.disposables.CompositeDisposable
 
-class PeopleListViewModel(private val peopleListRepository: PeoplePagedListRepository) :
-    ViewModel() {
+class PeopleListViewModel(
+    private val peopleRepository: PeoplePagedListRepository
+) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
-    val popularPeoplePagedList: LiveData<PagedList<People>> by lazy {
-        peopleListRepository.fetchingPeopleList(compositeDisposable)
-    }
-
-    fun peopleListIsEmpty(): Boolean {
-        return popularPeoplePagedList.value?.isEmpty() ?: true
+    val peoplePagedList: LiveData<PagedList<People>> by lazy {
+        peopleRepository.fetchingPeopleList(compositeDisposable)
     }
 
     val networkState: LiveData<NetworkState> by lazy {
-        peopleListRepository.getNetworkState()
+        peopleRepository.getNetworkState()
+    }
+
+    fun peopleListIsEmpty(): Boolean {
+        return peoplePagedList.value?.isEmpty() ?: true
     }
 
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.dispose()
     }
+
 }

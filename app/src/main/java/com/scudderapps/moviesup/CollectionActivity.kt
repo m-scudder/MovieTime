@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.scudderapps.moviesup.adapter.castandncrew.MovieAdapter
-import com.scudderapps.moviesup.api.ApiInterface
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.repository.NetworkState
 import com.scudderapps.moviesup.repository.movie.moviedetails.MovieDetailRepository
@@ -45,8 +45,8 @@ class CollectionActivity : AppCompatActivity() {
         val data = intent.extras
         var id = data!!.getInt("id")
 
-        val linearLayoutManager = GridLayoutManager(this, 4)
-        val apiService: ApiInterface = TheTMDBClient.getClient()
+        val linearLayoutManager = GridLayoutManager(this, 3)
+        val apiService: TmdbApiInterface = TheTMDBClient.getClient()
 
         movieRepository = MovieDetailRepository(apiService)
         viewModel = getViewModel(id)

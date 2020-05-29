@@ -16,7 +16,7 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.adapter.movie.MoviePageListAdapter
-import com.scudderapps.moviesup.api.ApiInterface
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.repository.NetworkState
 import com.scudderapps.moviesup.repository.movie.movielist.MoviePagedListRepository
@@ -50,7 +50,7 @@ class MovieListFragment(private val type: String) : Fragment() {
     ): View? {
         rootView = inflater.inflate(R.layout.movie_list_fragment, container, false)
         ButterKnife.bind(this, rootView)
-        val apiService: ApiInterface = TheTMDBClient.getClient()
+        val apiService: TmdbApiInterface = TheTMDBClient.getClient()
         moviePagedListRepository = MoviePagedListRepository(apiService)
         listViewModel = movieListViewModel(type)
         populatingViews()
@@ -70,12 +70,12 @@ class MovieListFragment(private val type: String) : Fragment() {
     private fun populatingViews() {
         listViewModel.moviePagedList.observe(viewLifecycleOwner, Observer {
             movieAdapter.submitList(it)
-            val layoutManager = GridLayoutManager(activity, 4)
+            val layoutManager = GridLayoutManager(activity, 3)
             layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
                     val viewType = movieAdapter.getItemViewType(position)
                     return if (viewType == movieAdapter.POPULAR_MOVIE_VIEW_TYPE) 1
-                    else 4
+                    else 3
                 }
             }
             movieView.layoutManager = layoutManager

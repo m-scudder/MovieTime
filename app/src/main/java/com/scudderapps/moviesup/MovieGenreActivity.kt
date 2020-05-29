@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.scudderapps.moviesup.adapter.movie.MoviePageListAdapter
-import com.scudderapps.moviesup.api.ApiInterface
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.repository.NetworkState
 import com.scudderapps.moviesup.repository.discovergenres.movies.MovieDiscoverPagedListRepository
@@ -35,7 +35,6 @@ class MovieGenreActivity : AppCompatActivity() {
     lateinit var moviePagedListRepository: MovieDiscoverPagedListRepository
     private val discoverAdapter =
         MoviePageListAdapter(this)
-    private val layoutManager = GridLayoutManager(this, 4)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,19 +50,19 @@ class MovieGenreActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
 
-        val apiService: ApiInterface = TheTMDBClient.getClient()
+        val apiService: TmdbApiInterface = TheTMDBClient.getClient()
         moviePagedListRepository =
             MovieDiscoverPagedListRepository(
                 apiService
             )
 
         discoverViewModel = discoverViewModel(id)
-
+        val layoutManager = GridLayoutManager(this, 3)
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 val viewType = discoverAdapter.getItemViewType(position)
                 return if (viewType == discoverAdapter.POPULAR_MOVIE_VIEW_TYPE) 1
-                else 4
+                else 3
             }
 
         }

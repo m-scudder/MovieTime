@@ -1,6 +1,8 @@
 package com.scudderapps.moviesup.api
 
 import com.scudderapps.moviesup.models.common.*
+import com.scudderapps.moviesup.models.featuredlist.FeatureMovieLists
+import com.scudderapps.moviesup.models.featuredlist.FeaturedTvLists
 import com.scudderapps.moviesup.models.main.PeopleDetails
 import com.scudderapps.moviesup.models.main.PeopleImages
 import com.scudderapps.moviesup.models.main.PeopleResponse
@@ -14,7 +16,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface ApiInterface {
+interface TmdbApiInterface {
 
     @GET("movie/{type}?region=in")
     fun getMovieList(
@@ -144,4 +146,14 @@ interface ApiInterface {
         @Path("tv_id") tvId: Int,
         @Path("season_number") seasonNumber: Int
     ) : Single<CastResponse>
+
+    @GET("list/{list_id}")
+    fun getFeaturedMovies(
+        @Path("list_id") listId: Int
+    ): Single<FeatureMovieLists>
+
+    @GET("list/{list_id}")
+    fun getFeaturedTv(
+        @Path("list_id") listId: Int
+    ): Single<FeaturedTvLists>
 }

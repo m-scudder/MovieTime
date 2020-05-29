@@ -13,10 +13,7 @@ import butterknife.ButterKnife
 import com.irfaan008.irbottomnavigation.SpaceItem
 import com.irfaan008.irbottomnavigation.SpaceNavigationView
 import com.irfaan008.irbottomnavigation.SpaceOnClickListener
-import com.scudderapps.moviesup.fragments.home.ErrorFragment
-import com.scudderapps.moviesup.fragments.home.MovieFragment
-import com.scudderapps.moviesup.fragments.home.SearchFragment
-import com.scudderapps.moviesup.fragments.home.TvFragment
+import com.scudderapps.moviesup.fragments.home.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var tvFragment: TvFragment
     lateinit var searchFragment: SearchFragment
     lateinit var errorFragment: ErrorFragment
+    lateinit var discoverFragment: DiscoverFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,12 +40,15 @@ class MainActivity : AppCompatActivity() {
         tvFragment = TvFragment()
         searchFragment = SearchFragment()
         errorFragment = ErrorFragment()
+        discoverFragment = DiscoverFragment()
 
         if (isNetworkAvailable()) {
             setFragment(movieFragment)
         } else {
             setFragment(errorFragment)
         }
+
+
 
     }
 
@@ -86,7 +87,11 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                     2 -> {
-
+                        if (isNetworkAvailable()) {
+                            setFragment(discoverFragment)
+                        } else {
+                            setFragment(errorFragment)
+                        }
                     }
                     else -> {
 

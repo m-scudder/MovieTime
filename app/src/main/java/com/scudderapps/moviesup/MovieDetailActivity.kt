@@ -15,7 +15,7 @@ import butterknife.ButterKnife
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.scudderapps.moviesup.adapter.movie.MovieDetailTabAdapter
-import com.scudderapps.moviesup.api.ApiInterface
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.repository.movie.moviedetails.MovieDetailRepository
@@ -65,7 +65,7 @@ class MovieDetailActivity : AppCompatActivity() {
         val data = intent.extras
         var movieId = data!!.getInt("id")
 
-        val apiService: ApiInterface = TheTMDBClient.getClient()
+        val apiService: TmdbApiInterface = TheTMDBClient.getClient()
         movieRepository = MovieDetailRepository(apiService)
         viewModel = getViewModel(movieId)
 
@@ -138,10 +138,5 @@ class MovieDetailActivity : AppCompatActivity() {
                 return MovieDetailViewModel(movieRepository, movieId) as T
             }
         })[MovieDetailViewModel::class.java]
-    }
-
-    override fun onBackPressed() {
-        finish()
-        super.onBackPressed()
     }
 }

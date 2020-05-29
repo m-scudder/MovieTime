@@ -1,9 +1,11 @@
-package com.scudderapps.moviesup.adapter.castandncrew
+package com.scudderapps.moviesup.adapter.home
+
 
 import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,29 +18,30 @@ import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.models.main.People
 import com.scudderapps.moviesup.repository.NetworkState
-import kotlinx.android.synthetic.main.cast_list_item.view.*
 import kotlinx.android.synthetic.main.network_state_item.view.*
+import kotlinx.android.synthetic.main.people_list_item.view.*
 import android.util.Pair as UtilPair
 
-class PeoplePagedListAdapter(private val context: Context) :
+class PeoplePagedListAdapter
+    (private val context: Context) :
     PagedListAdapter<People, RecyclerView.ViewHolder>(MovieDiffCallback()) {
 
-    private val POPULAR_PEOPLE_VIEW_TYPE = 1
+    val POPULAR_PEOPLE_VIEW_TYPE = 1
     private val NETWORK_VIEW_TYPE = 2
     private var networkState: NetworkState? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PeopleItemVieHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         val layoutInflater = LayoutInflater.from(parent.context)
         lateinit var view: View
         return if (viewType == POPULAR_PEOPLE_VIEW_TYPE) {
-            view = layoutInflater.inflate(R.layout.cast_list_item, parent, false)
-            PeopleItemVieHolder(
+            view = layoutInflater.inflate(R.layout.people_list_item, parent, false)
+            MovieItemVieHolder(
                 view
             )
         } else {
             view = layoutInflater.inflate(R.layout.network_state_item, parent, false)
-            PeopleItemVieHolder(
+            NetworkStateItemViewHolder(
                 view
             )
         }
@@ -47,9 +50,9 @@ class PeoplePagedListAdapter(private val context: Context) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == POPULAR_PEOPLE_VIEW_TYPE) {
-            (holder as PeopleItemVieHolder).bindMovieData(getItem(position), context)
+            (holder as MovieItemVieHolder).bindPeopleData(getItem(position), context)
         } else if (getItemViewType(position) == NETWORK_VIEW_TYPE) {
-            (holder as PeopleItemVieHolder).bindNetworkState(networkState)
+            (holder as NetworkStateItemViewHolder).bind(networkState)
         }
     }
 
@@ -79,9 +82,9 @@ class PeoplePagedListAdapter(private val context: Context) :
         }
     }
 
-    class PeopleItemVieHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bindMovieData(people: People?, context: Context) {
-            itemView.castName.text = people?.name
+    class MovieItemVieHolder(view: View) : RecyclerView.ViewHolder(view) {
+        fun bindPeopleData(people: People?, context: Context) {
+            itemView.people_name.text = people?.name
 
             if (!people?.profilePath.isNullOrEmpty()) {
                 val posterUrl = IMAGE_BASE_URL + people?.profilePath
@@ -91,26 +94,42 @@ class PeoplePagedListAdapter(private val context: Context) :
             } else {
                 Glide.with(itemView.context)
                     .load(R.drawable.default_avatar)
+                    .centerInside()
                     .into(itemView.people_image)
             }
+
             itemView.setOnClickListener {
 
                 val intent = Intent(context, CastAndCrewDetailActivity::class.java)
                 intent.putExtra("id", people?.id)
-                val options = ActivityOptions.makeSceneTransitionAnimation(
-                    context as Activity?,
-                    UtilPair<View, String>(itemView.people_image, "peopleImageTransition")
-                )
-                context.startActivity(intent, options.toBundle())
+//                val options = ActivityOptions.makeSceneTransitionAnimation(
+//                    context,
+//                    UtilPair<View, String>(itemView.people_image, "imageTransition")
+//                )
+//                context.startActivity(intent, options.toBundle())
+                intent.flags = FLAG_ACTIVITY_NEW_TASK
+                context.startActivity(intent)
 
             }
         }
+    }
 
-        fun bindNetworkState(networkState: NetworkState?) {
+    class NetworkStateItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+        fun bind(networkState: NetworkState?) {
             if (networkState != null && networkState == NetworkState.LOADING) {
                 itemView.networkStateBar.visibility = View.VISIBLE
-            } else if (networkState != null && networkState == NetworkState.LOADED) {
+            } else {
                 itemView.networkStateBar.visibility = View.GONE
+            }
+            if (networkState != null && networkState == NetworkState.ERROR) {
+                itemView.networkTextView.visibility = View.VISIBLE
+                itemView.networkTextView.text = networkState.msg
+            } else if (networkState != null && networkState == NetworkState.ENDOFLIST) {
+                itemView.networkTextView.visibility = View.VISIBLE
+                itemView.networkTextView.text = "No more items"
+            } else {
+                itemView.networkTextView.visibility = View.GONE
             }
         }
     }
@@ -128,7 +147,7 @@ class PeoplePagedListAdapter(private val context: Context) :
                 notifyItemInserted(super.getItemCount())
             }
         } else if (hasExtraRow && previousState != newNetworkState) {
-            notifyItemChanged(super.getItemCount())
+            notifyItemChanged(super.getItemCount() - 1)
         }
     }
 }

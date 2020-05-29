@@ -19,7 +19,7 @@ import butterknife.ButterKnife
 import com.ms.square.android.expandabletextview.ExpandableTextView
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.adapter.common.TrailerListAdapter
-import com.scudderapps.moviesup.api.ApiInterface
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.repository.tv.seasons.SeasonDetailRepository
 import com.scudderapps.moviesup.viewmodel.TvSeasonDetailViewModel
@@ -62,7 +62,7 @@ class TvSeasonAboutFragment(private val tvId: Int, private val seasonNumber: Int
         Log.d("seasonNumber", seasonNumber.toString())
         ButterKnife.bind(this, rootView)
 
-        val apiService: ApiInterface = TheTMDBClient.getClient()
+        val apiService: TmdbApiInterface = TheTMDBClient.getClient()
         tvSeasonRepository = SeasonDetailRepository(apiService)
         seasonViewModel = getViewModel(tvId, seasonNumber)
 

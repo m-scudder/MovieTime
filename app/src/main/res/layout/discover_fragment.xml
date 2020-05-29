@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    tools:context=".fragments.home.DiscoverFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:text="Movie Genre"
+            android:textAppearance="@style/TitleTheme" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/discover_movie_genre_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Tv Genre"
+            android:textAlignment="viewStart"
+            android:textAppearance="@style/TitleTheme" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/discover_tv_genre_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Popular People"
+            android:textAlignment="viewStart"
+            android:textAppearance="@style/TitleTheme" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/discover_people_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Featured Movie Lists"
+            android:textAlignment="viewStart"
+            android:textAppearance="@style/TitleTheme" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/featured_movie_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Featured TV Lists"
+            android:textAlignment="viewStart"
+            android:textAppearance="@style/TitleTheme" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/featured_tv_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal" />
+
+    </LinearLayout>
+
+</ScrollView>

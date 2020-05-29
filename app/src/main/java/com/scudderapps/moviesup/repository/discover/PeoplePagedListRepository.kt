@@ -1,18 +1,17 @@
 package com.scudderapps.moviesup.repository.discover
 
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.api.POST_PER_PAGE
-import com.scudderapps.moviesup.api.ApiInterface
 import com.scudderapps.moviesup.models.main.People
 import com.scudderapps.moviesup.repository.NetworkState
-import com.scudderapps.moviesup.repository.discover.PeopleDataSource
-import com.scudderapps.moviesup.repository.discover.PeopleDataSourceFactory
 import io.reactivex.disposables.CompositeDisposable
 
-class PeoplePagedListRepository(private val apiService: ApiInterface) {
+class PeoplePagedListRepository(private val apiService: TmdbApiInterface) {
 
     lateinit var peoplePageList: LiveData<PagedList<People>>
     lateinit var peopleDataSourceFactory: PeopleDataSourceFactory
@@ -21,11 +20,7 @@ class PeoplePagedListRepository(private val apiService: ApiInterface) {
         compositeDisposable: CompositeDisposable
     ): LiveData<PagedList<People>> {
 
-        peopleDataSourceFactory =
-            PeopleDataSourceFactory(
-                apiService,
-                compositeDisposable
-            )
+        peopleDataSourceFactory = PeopleDataSourceFactory(apiService, compositeDisposable)
         val config = PagedList.Config
             .Builder()
             .setEnablePlaceholders(false)

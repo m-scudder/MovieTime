@@ -1,14 +1,14 @@
 package com.scudderapps.moviesup.repository.cast
 
 import androidx.lifecycle.LiveData
-import com.scudderapps.moviesup.api.ApiInterface
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.models.common.MovieCredits
 import com.scudderapps.moviesup.models.common.TvCredits
 import com.scudderapps.moviesup.models.main.PeopleDetails
 import com.scudderapps.moviesup.models.main.PeopleImages
 import io.reactivex.disposables.CompositeDisposable
 
-class CastDetailRepository(private val apiService: ApiInterface) {
+class CastDetailRepository(private val apiService: TmdbApiInterface) {
 
     lateinit var peopleDetailDataSource: CastDetailDataSource
 

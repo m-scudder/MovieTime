@@ -327,8 +327,9 @@
 
                 <TextView
                     android:id="@+id/collection_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:layout_gravity="center_vertical"
                     android:textAppearance="@style/HeaderTheme"
                     app:layout_constraintBottom_toBottomOf="@+id/view"

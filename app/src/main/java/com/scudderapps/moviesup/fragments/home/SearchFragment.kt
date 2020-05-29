@@ -15,7 +15,7 @@ import com.jakewharton.rxbinding2.widget.RxTextView
 import com.jakewharton.rxbinding2.widget.TextViewTextChangeEvent
 import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.adapter.home.SearchListAdapter
-import com.scudderapps.moviesup.api.ApiInterface
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.models.main.Movie
 import com.scudderapps.moviesup.models.common.MovieResponse
@@ -72,7 +72,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun settingUpSearchData() {
-        val apiService: ApiInterface = TheTMDBClient.getClient()
+        val apiService: TmdbApiInterface = TheTMDBClient.getClient()
 
         val observer: DisposableObserver<MovieResponse> = getSearchObserver()
 

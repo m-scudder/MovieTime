@@ -1,5 +1,7 @@
 package com.scudderapps.moviesup.adapter.home
 
+import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -12,6 +14,7 @@ import com.scudderapps.moviesup.R
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.models.main.Movie
 import kotlinx.android.synthetic.main.search_list_item.view.*
+import android.util.Pair as UtilPair
 
 class SearchListAdapter(private val movies: ArrayList<Movie>, private val context: Context) :
     RecyclerView.Adapter<SearchListAdapter.SearchListHolder>() {
@@ -52,13 +55,12 @@ class SearchListAdapter(private val movies: ArrayList<Movie>, private val contex
 
                 val intent = Intent(context, MovieDetailActivity::class.java)
                 intent.putExtra("id", movie?.id)
-//                val options = ActivityOptions.makeSceneTransitionAnimation(
-//                    context as Activity?,
-//                    Pair<View, String>(itemView.searchCard, "imageTransition"),
-//                    Pair<View, String>(itemView.search_title, "titleTransition")
-//                )
-//                context.startActivity(intent, options.toBundle())
-                context.startActivity(intent)
+                val options = ActivityOptions.makeSceneTransitionAnimation(
+                    context as Activity?,
+                    UtilPair<View, String>(itemView.searchCard, "imageTransition")
+                )
+                context.startActivity(intent, options.toBundle())
+
 
             }
         }

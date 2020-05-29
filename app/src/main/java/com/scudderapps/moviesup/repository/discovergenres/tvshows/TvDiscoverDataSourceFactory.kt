@@ -3,14 +3,13 @@ package com.scudderapps.moviesup.repository.discovergenres.tvshows
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
-import com.scudderapps.moviesup.api.ApiInterface
-import com.scudderapps.moviesup.models.main.Movie
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.models.main.TV
 import io.reactivex.disposables.CompositeDisposable
 
 
 class TvDiscoverDataSourceFactory(
-    private val apiService: ApiInterface,
+    private val apiService: TmdbApiInterface,
     private val compositeDisposable: CompositeDisposable,
     private val id: Int
 ) : DataSource.Factory<Int, TV>() {
