@@ -156,8 +156,8 @@ class SearchFragment : Fragment() {
 
     override fun onPause() {
         disposable.clear()
-        searchMovieList.clear()
-        searchEditTextView.setText("")
+//        searchMovieList.clear()
+//        searchEditTextView.setText("")
         super.onPause()
     }
 }
