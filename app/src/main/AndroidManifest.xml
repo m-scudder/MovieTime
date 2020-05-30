@@ -12,16 +12,27 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FeaturedTv"></activity>
-        <activity android:name=".FeaturedMovies" />
+        <activity android:name=".FeaturedTv"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".FeaturedMovies"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".TvGenreActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity" />
+
         <activity
             android:name=".SeasonActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".TvDetailActivity" />
-        <activity android:name=".TvDetailActivity" />
-        <activity android:name=".MainActivity">
+
+        <activity android:name=".TvDetailActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,15 +41,19 @@
         </activity>
         <activity
             android:name=".MovieDetailActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".CastAndCrewDetailActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MovieDetailActivity" />
         <activity
             android:name=".MovieGenreActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".CollectionActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MovieDetailActivity" />
 
         <meta-data
