@@ -12,6 +12,8 @@ import androidx.viewpager.widget.ViewPager
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.bumptech.glide.Glide
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.tabs.TabLayout
 import com.scudderapps.moviesup.adapter.tvshows.tvdetails.TvDetailTabAdapter
 import com.scudderapps.moviesup.api.TmdbApiInterface
@@ -44,6 +46,12 @@ class TvDetailActivity : AppCompatActivity() {
     @BindView(R.id.tv_detail_toolbar)
     lateinit var tvToolbar: Toolbar
 
+    @BindView(R.id.tv_collapsing_toolbar_layout)
+    lateinit var collapsingToolbarLayout: CollapsingToolbarLayout
+
+    @BindView(R.id.tv_app_bar_layout)
+    lateinit var appBarLayout: AppBarLayout
+
     @BindView(R.id.tv_detail_tab_layout)
     lateinit var tvDetailTabLayout: TabLayout
 
@@ -58,8 +66,6 @@ class TvDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_tv_detail)
         ButterKnife.bind(this)
         setSupportActionBar(tvToolbar)
-        supportActionBar!!.setTitle("")
-
         val data = intent.extras
         var tvId = data!!.getInt("id")
 
@@ -98,7 +104,7 @@ class TvDetailActivity : AppCompatActivity() {
     private fun bindUi(it: TvDetail) {
         tvTitle.text = it.name
         tvStatus.text = it.status
-
+        collapseTitle(it.name)
         if (!it.firstAirDate.isNullOrEmpty()) {
             val originalFormat: DateFormat = SimpleDateFormat("yyyy-MM-d", Locale.ENGLISH)
             val targetFormat: DateFormat = SimpleDateFormat(getString(R.string.dateFormat))
@@ -140,5 +146,25 @@ class TvDetailActivity : AppCompatActivity() {
                 return TvDetailViewModel(tvRepository, tvId) as T
             }
         })[TvDetailViewModel::class.java]
+    }
+
+    private fun collapseTitle(title: String) {
+        var isShow = true
+        var scrollRange = -1
+        appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { barLayout, verticalOffset ->
+            if (scrollRange == -1) {
+                scrollRange = barLayout?.totalScrollRange!!
+            }
+            if (scrollRange + verticalOffset == 0) {
+                supportActionBar?.setDisplayShowHomeEnabled(true)
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                collapsingToolbarLayout.title = title
+                collapsingToolbarLayout.setCollapsedTitleTextColor(resources.getColor(R.color.orange))
+                isShow = true
+            } else if (isShow) {
+                collapsingToolbarLayout.title = " "
+                isShow = false
+            }
+        })
     }
 }

@@ -13,11 +13,13 @@ import androidx.viewpager.widget.ViewPager
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.bumptech.glide.Glide
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.tabs.TabLayout
 import com.scudderapps.moviesup.adapter.movie.MovieDetailTabAdapter
-import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBClient
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.repository.movie.moviedetails.MovieDetailRepository
 import com.scudderapps.moviesup.viewmodel.MovieDetailViewModel
 import java.text.DateFormat
@@ -47,6 +49,12 @@ class MovieDetailActivity : AppCompatActivity() {
     @BindView(R.id.detail_toolbar)
     lateinit var toolbar: Toolbar
 
+    @BindView(R.id.collapsing_toolbar_layout)
+    lateinit var collapsingToolbarLayout: CollapsingToolbarLayout
+
+    @BindView(R.id.app_bar_layout)
+    lateinit var appBarLayout: AppBarLayout
+
     @BindView(R.id.movie_detail_tab_layout)
     lateinit var movieDetailTabLayout: TabLayout
 
@@ -61,7 +69,7 @@ class MovieDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie_detail)
         ButterKnife.bind(this)
         setSupportActionBar(toolbar)
-            supportActionBar!!.title = ""
+
         val data = intent.extras
         var movieId = data!!.getInt("id")
 
@@ -91,7 +99,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
         viewModel.movieDetails.observe(this, Observer {
             title.text = it.title
-//            supportActionBar!!.title = it.title
+            collapseTitle(it.title)
             if (!it.releaseDate.isNullOrEmpty()) {
                 val originalFormat: DateFormat = SimpleDateFormat("yyyy-MM-d", Locale.ENGLISH)
                 val targetFormat: DateFormat = SimpleDateFormat(getString(R.string.dateFormat))
@@ -129,6 +137,26 @@ class MovieDetailActivity : AppCompatActivity() {
 //        viewModel.networkState.observe(this, Observer {
 //            progressBar.visibility = if (it == NetworkState.LOADING) View.VISIBLE else View.GONE
 //        })
+    }
+
+    private fun collapseTitle(title: String) {
+        var isShow = true
+        var scrollRange = -1
+        appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { barLayout, verticalOffset ->
+            if (scrollRange == -1) {
+                scrollRange = barLayout?.totalScrollRange!!
+            }
+            if (scrollRange + verticalOffset == 0) {
+                supportActionBar?.setDisplayShowHomeEnabled(true)
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                collapsingToolbarLayout.title = title
+                collapsingToolbarLayout.setCollapsedTitleTextColor(resources.getColor(R.color.orange))
+                isShow = true
+            } else if (isShow) {
+                collapsingToolbarLayout.title = " "
+                isShow = false
+            }
+        })
     }
 
     private fun getViewModel(movieId: Int): MovieDetailViewModel {
