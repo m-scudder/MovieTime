@@ -12,6 +12,8 @@ import androidx.viewpager.widget.ViewPager
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.bumptech.glide.Glide
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.tabs.TabLayout
 import com.scudderapps.moviesup.adapter.common.CastDetailTabAdapter
 import com.scudderapps.moviesup.api.TmdbApiInterface
@@ -36,6 +38,12 @@ class CastAndCrewDetailActivity : AppCompatActivity() {
     @BindView(R.id.people_toolbar)
     lateinit var peopleToolbar: Toolbar
 
+    @BindView(R.id.cast_collapsing_toolbar_layout)
+    lateinit var collapsingToolbarLayout: CollapsingToolbarLayout
+
+    @BindView(R.id.cast_app_bar_layout)
+    lateinit var appBarLayout: AppBarLayout
+
     lateinit var peopleDetailRepository: CastDetailRepository
     private lateinit var peopleDetailViewModel: CastDetailViewModel
 
@@ -51,8 +59,6 @@ class CastAndCrewDetailActivity : AppCompatActivity() {
         ButterKnife.bind(this)
 
         setSupportActionBar(peopleToolbar)
-        supportActionBar!!.title = ("")
-
         val peopleDetails = intent.extras
         val id: Int = peopleDetails!!.getInt("id")
 
@@ -89,7 +95,7 @@ class CastAndCrewDetailActivity : AppCompatActivity() {
 
     fun bindUI(it: PeopleDetails) {
         peopleName.text = it.name
-
+        collapseTitle(it.name)
         peopleDepartment.text = it.knownForDepartment
         var profilePath = it.profilePath
         if (!profilePath.isNullOrEmpty()) {
@@ -107,5 +113,25 @@ class CastAndCrewDetailActivity : AppCompatActivity() {
                 return CastDetailViewModel(peopleDetailRepository, peopleID) as T
             }
         })[CastDetailViewModel::class.java]
+    }
+
+    private fun collapseTitle(title: String) {
+        var isShow = true
+        var scrollRange = -1
+        appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { barLayout, verticalOffset ->
+            if (scrollRange == -1) {
+                scrollRange = barLayout?.totalScrollRange!!
+            }
+            if (scrollRange + verticalOffset == 0) {
+                supportActionBar?.setDisplayShowHomeEnabled(true)
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                collapsingToolbarLayout.title = title
+                collapsingToolbarLayout.setCollapsedTitleTextColor(resources.getColor(R.color.orange))
+                isShow = true
+            } else if (isShow) {
+                collapsingToolbarLayout.title = " "
+                isShow = false
+            }
+        })
     }
 }
