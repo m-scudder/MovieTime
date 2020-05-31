@@ -24,20 +24,76 @@
         android:id="@+id/tab_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_bar"
+        app:layout_constraintBottom_toTopOf="@id/top_navigation_constraint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/main_toolbar" />
 
-    <com.irfaan008.irbottomnavigation.SpaceNavigationView
-        android:id="@+id/bottom_navigation_bar"
+    <com.gauravk.bubblenavigation.BubbleNavigationConstraintView
+        android:id="@+id/top_navigation_constraint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:background="@color/grey"
+        android:elevation="16dp"
         android:gravity="bottom"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:space_background_color="@color/colorPrimaryDark" />
+        android:orientation="horizontal"
+        android:padding="12dp"
+        app:bnc_mode="spread"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/l_item_movie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bt_active="true"
+            app:bt_colorActive="@color/colorPrimaryDark"
+            app:bt_colorInactive="@color/colorAccent"
+            app:bt_icon="@drawable/movie"
+            app:bt_shape="@drawable/transition_background_drawable"
+            app:bt_title="Movies"
+            app:bt_titleSize="16sp" />
+
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/l_item_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bt_colorActive="@color/colorPrimaryDark"
+            app:bt_colorInactive="@color/colorAccent"
+            app:bt_icon="@drawable/tv"
+            app:bt_shape="@drawable/transition_background_drawable"
+            app:bt_title="Shows" />
+
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/l_item_discover"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bt_colorActive="@color/colorPrimaryDark"
+            app:bt_colorInactive="@color/colorAccent"
+            app:bt_icon="@drawable/discover"
+            app:bt_shape="@drawable/transition_background_drawable"
+            app:bt_title="Discover" />
+
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/l_item_watchlist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bt_colorActive="@color/colorPrimaryDark"
+            app:bt_colorInactive="@color/colorAccent"
+            app:bt_icon="@drawable/watchlist"
+            app:bt_shape="@drawable/transition_background_drawable"
+            app:bt_title="Watchlist" />
+
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/l_item_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bt_colorActive="@color/colorPrimaryDark"
+            app:bt_colorInactive="@color/colorAccent"
+            app:bt_icon="@drawable/search"
+            app:bt_shape="@drawable/transition_background_drawable"
+            app:bt_title="Search" />
+
+    </com.gauravk.bubblenavigation.BubbleNavigationConstraintView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
