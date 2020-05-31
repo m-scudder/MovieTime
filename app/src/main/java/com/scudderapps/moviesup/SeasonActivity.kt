@@ -14,6 +14,8 @@ import androidx.viewpager.widget.ViewPager
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.bumptech.glide.Glide
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.tabs.TabLayout
 import com.scudderapps.moviesup.adapter.tvshows.seasondetails.SeasonDetailTabAdapter
 import com.scudderapps.moviesup.api.TmdbApiInterface
@@ -41,6 +43,12 @@ class SeasonActivity : AppCompatActivity() {
     @BindView(R.id.tv_season_toolbar)
     lateinit var tvSeasonToolbar: Toolbar
 
+    @BindView(R.id.season_collapsing_toolbar_layout)
+    lateinit var collapsingToolbarLayout: CollapsingToolbarLayout
+
+    @BindView(R.id.season_app_bar_layout)
+    lateinit var appBarLayout: AppBarLayout
+
     @BindView(R.id.tv_season_detail_tab_layout)
     lateinit var tvSeasonDetailTabLayout: TabLayout
 
@@ -58,7 +66,6 @@ class SeasonActivity : AppCompatActivity() {
         setContentView(R.layout.activity_season_detail)
         ButterKnife.bind(this)
         setSupportActionBar(tvSeasonToolbar)
-        supportActionBar!!.title = ""
 
         val data = intent.extras
         val seasonNumber = data!!.getInt("seasonNumber")
@@ -116,7 +123,7 @@ class SeasonActivity : AppCompatActivity() {
 
         tvSeasonDetailViewModel.tvSeasonDetails.observe(this, Observer {
             tvSeasonTitle.text = it.name
-
+            collapseTitle(it.name)
             if (!it.posterPath.isNullOrEmpty()) {
                 val moviePosterURL: String = IMAGE_BASE_URL + it.posterPath
                 Glide.with(this)
@@ -148,5 +155,25 @@ class SeasonActivity : AppCompatActivity() {
                 return TvDetailViewModel(tvDetailRepository, tvId) as T
             }
         })[TvDetailViewModel::class.java]
+    }
+
+    private fun collapseTitle(title: String) {
+        var isShow = true
+        var scrollRange = -1
+        appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { barLayout, verticalOffset ->
+            if (scrollRange == -1) {
+                scrollRange = barLayout?.totalScrollRange!!
+            }
+            if (scrollRange + verticalOffset == 0) {
+                supportActionBar?.setDisplayShowHomeEnabled(true)
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                collapsingToolbarLayout.title = title
+                collapsingToolbarLayout.setCollapsedTitleTextColor(resources.getColor(R.color.orange))
+                isShow = true
+            } else if (isShow) {
+                collapsingToolbarLayout.title = " "
+                isShow = false
+            }
+        })
     }
 }
