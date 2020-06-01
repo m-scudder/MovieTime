@@ -1,8 +1,10 @@
 package com.scudderapps.moviesup
 
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
@@ -15,6 +17,8 @@ import butterknife.ButterKnife
 import com.bumptech.glide.Glide
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.tabs.TabLayout
 import com.scudderapps.moviesup.adapter.movie.MovieDetailTabAdapter
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
@@ -60,6 +64,9 @@ class MovieDetailActivity : AppCompatActivity() {
 
     @BindView(R.id.movie_detail_viewpager)
     lateinit var movieDetailViewPager: ViewPager
+
+    @BindView(R.id.movie_detail_bottom_appbar)
+    lateinit var movieDetailBottomBar: BottomAppBar
 
     private lateinit var viewModel: MovieDetailViewModel
     private lateinit var movieRepository: MovieDetailRepository
@@ -137,6 +144,10 @@ class MovieDetailActivity : AppCompatActivity() {
 //        viewModel.networkState.observe(this, Observer {
 //            progressBar.visibility = if (it == NetworkState.LOADING) View.VISIBLE else View.GONE
 //        })
+
+        movieDetailBottomBar.setNavigationOnClickListener(View.OnClickListener {
+            movieDetailBottomBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
+        })
     }
 
     private fun collapseTitle(title: String) {

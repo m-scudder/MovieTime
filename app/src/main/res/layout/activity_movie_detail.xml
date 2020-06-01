@@ -136,19 +136,18 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <include
-        layout="@layout/bottom_toolbar"
         android:id="@+id/movie_detail_bottom_appbar"
-        android:layout_gravity="bottom"
+        layout="@layout/bottom_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="52dp"
+        android:layout_gravity="bottom" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/movie_detail_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/dark_gray"
+        android:backgroundTint="@color/orange"
         android:src="@drawable/watchlist"
-        app:fabSize="normal"
         app:layout_anchor="@id/movie_detail_bottom_appbar" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
