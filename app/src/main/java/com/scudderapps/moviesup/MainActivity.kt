@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var searchFragment: SearchFragment
     lateinit var errorFragment: ErrorFragment
     lateinit var discoverFragment: DiscoverFragment
+    lateinit var watchlistFragment: WatchlistFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         searchFragment = SearchFragment()
         errorFragment = ErrorFragment()
         discoverFragment = DiscoverFragment()
+        watchlistFragment = WatchlistFragment()
 
         if (isNetworkAvailable()) {
             setFragment(movieFragment)
@@ -70,7 +72,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 3 -> {
                     if (isNetworkAvailable()) {
-//                        setFragment(searchFragment)
+                        setFragment(watchlistFragment)
                     } else {
                         setFragment(errorFragment)
                     }
