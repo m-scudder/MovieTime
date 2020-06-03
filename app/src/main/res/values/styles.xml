@@ -4,10 +4,17 @@
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.Bridge">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="actionButtonStyle">@style/myHamburgerIcon</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowActivityTransitions">true</item>
+        <item name="material_drawer_background">@color/colorPrimaryDark</item>
+        <item name="material_drawer_primary_text">@color/colorAccent</item>
+        <item name="material_drawer_secondary_text">@color/colorAccent</item>
+        <item name="material_drawer_divider">@color/dark_gray</item>
+        <item name="material_drawer_selected">@color/orange</item>
+        <item name="material_drawer_selected_text">@color/colorAccent</item>
     </style>
 
     <style name="ToolBarStyle" parent="AppTheme">
@@ -15,6 +22,10 @@
         <item name="windowActionBar">false</item>
         <item name="titleTextAppearance">@style/HeaderTheme</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="colorControlNormal">@color/colorAccent</item>
+    </style>
+
+    <style name="myHamburgerIcon" parent="Widget.AppCompat.ActionButton">
         <item name="colorControlNormal">@color/colorAccent</item>
     </style>
 

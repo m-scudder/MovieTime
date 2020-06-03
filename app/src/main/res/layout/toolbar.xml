@@ -5,5 +5,4 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:minHeight="@dimen/abc_action_bar_default_height_material"
-    android:theme="@style/ToolBarStyle"
-    app:menu="@menu/main_menu" />
+    android:theme="@style/ToolBarStyle" />
