@@ -23,7 +23,6 @@ import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.repository.movie.moviedetails.MovieDetailRepository
-import com.scudderapps.moviesup.utils.DrawerLayout
 import com.scudderapps.moviesup.viewmodel.MovieDetailViewModel
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -102,13 +101,6 @@ class MovieDetailActivity : AppCompatActivity() {
                 movieDetailTabLayout
             )
         )
-
-        val drawerLayout = DrawerLayout(
-            applicationContext,
-            this,
-            movieDetailBottomBar
-        )
-        drawerLayout.setUpDrawerLayout(savedInstanceState)
 
         viewModel.movieDetails.observe(this, Observer {
             title.text = it.title

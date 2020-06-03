@@ -23,7 +23,6 @@ import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.models.tv.TvDetail
 import com.scudderapps.moviesup.repository.tv.tvdetails.TvDetailRepository
-import com.scudderapps.moviesup.utils.DrawerLayout
 import com.scudderapps.moviesup.viewmodel.TvDetailViewModel
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -105,10 +104,6 @@ class TvDetailActivity : AppCompatActivity() {
         viewModel.tvDetails.observe(this, androidx.lifecycle.Observer {
             bindUi(it)
         })
-
-        val drawerLayout =
-            DrawerLayout(applicationContext, this, tvDetailBottomBar)
-        drawerLayout.setUpDrawerLayout(savedInstanceState)
     }
 
     private fun bindUi(it: TvDetail) {

@@ -7,7 +7,6 @@
     android:backgroundTint="@color/dark_gray"
     app:fabAlignmentMode="end"
     app:fabAnimationMode="slide"
-    app:navigationIcon="@drawable/baseline_menu_24"
     android:theme="@style/myHamburgerIcon"
     app:fabCradleMargin="8dp"
     app:fabCradleRoundedCornerRadius="32dp"
