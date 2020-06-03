@@ -2,14 +2,10 @@ package com.scudderapps.moviesup
 
 import android.os.Bundle
 import android.view.Menu
-import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -22,18 +18,12 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.tabs.TabLayout
-import com.mikepenz.crossfadedrawerlayout.view.CrossfadeDrawerLayout
-import com.mikepenz.materialdrawer.DrawerBuilder
-import com.mikepenz.materialdrawer.interfaces.ICrossfader
-import com.mikepenz.materialdrawer.model.DividerDrawerItem
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem
-import com.mikepenz.materialdrawer.util.DrawerUIUtils
 import com.scudderapps.moviesup.adapter.movie.MovieDetailTabAdapter
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBClient
 import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.repository.movie.moviedetails.MovieDetailRepository
+import com.scudderapps.moviesup.utils.DrawerLayout
 import com.scudderapps.moviesup.viewmodel.MovieDetailViewModel
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -113,7 +103,11 @@ class MovieDetailActivity : AppCompatActivity() {
             )
         )
 
-        val drawerLayout = com.scudderapps.moviesup.utils.DrawerLayout(applicationContext, this, movieDetailBottomBar)
+        val drawerLayout = DrawerLayout(
+            applicationContext,
+            this,
+            movieDetailBottomBar
+        )
         drawerLayout.setUpDrawerLayout(savedInstanceState)
 
         viewModel.movieDetails.observe(this, Observer {
