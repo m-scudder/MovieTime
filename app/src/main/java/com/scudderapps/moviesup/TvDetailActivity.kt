@@ -1,6 +1,7 @@
 package com.scudderapps.moviesup
 
 import android.os.Bundle
+import android.view.Menu
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -14,11 +15,12 @@ import butterknife.ButterKnife
 import com.bumptech.glide.Glide
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.tabs.TabLayout
 import com.scudderapps.moviesup.adapter.tvshows.tvdetails.TvDetailTabAdapter
-import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
 import com.scudderapps.moviesup.api.TheTMDBClient
+import com.scudderapps.moviesup.api.TmdbApiInterface
 import com.scudderapps.moviesup.models.tv.TvDetail
 import com.scudderapps.moviesup.repository.tv.tvdetails.TvDetailRepository
 import com.scudderapps.moviesup.viewmodel.TvDetailViewModel
@@ -52,6 +54,9 @@ class TvDetailActivity : AppCompatActivity() {
     @BindView(R.id.tv_app_bar_layout)
     lateinit var appBarLayout: AppBarLayout
 
+    @BindView(R.id.tv_detail_bottom_appbar)
+    lateinit var tvDetailBottomBar: BottomAppBar
+
     @BindView(R.id.tv_detail_tab_layout)
     lateinit var tvDetailTabLayout: TabLayout
 
@@ -65,7 +70,7 @@ class TvDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tv_detail)
         ButterKnife.bind(this)
-        setSupportActionBar(tvToolbar)
+        setSupportActionBar(tvDetailBottomBar)
         val data = intent.extras
         var tvId = data!!.getInt("id")
 
@@ -156,8 +161,6 @@ class TvDetailActivity : AppCompatActivity() {
                 scrollRange = barLayout?.totalScrollRange!!
             }
             if (scrollRange + verticalOffset == 0) {
-                supportActionBar?.setDisplayShowHomeEnabled(true)
-                supportActionBar?.setDisplayHomeAsUpEnabled(true)
                 collapsingToolbarLayout.title = title
                 collapsingToolbarLayout.setCollapsedTitleTextColor(resources.getColor(R.color.orange))
                 isShow = true
@@ -166,5 +169,11 @@ class TvDetailActivity : AppCompatActivity() {
                 isShow = false
             }
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.bottom_bar_menu, menu)
+        return true
     }
 }

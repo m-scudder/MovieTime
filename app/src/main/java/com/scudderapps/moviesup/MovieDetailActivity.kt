@@ -1,6 +1,7 @@
 package com.scudderapps.moviesup
 
 import android.os.Bundle
+import android.view.Menu
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,7 @@ import butterknife.ButterKnife
 import com.bumptech.glide.Glide
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.tabs.TabLayout
 import com.scudderapps.moviesup.adapter.movie.MovieDetailTabAdapter
 import com.scudderapps.moviesup.api.IMAGE_BASE_URL
@@ -61,6 +63,9 @@ class MovieDetailActivity : AppCompatActivity() {
     @BindView(R.id.movie_detail_viewpager)
     lateinit var movieDetailViewPager: ViewPager
 
+    @BindView(R.id.movie_detail_bottom_appbar)
+    lateinit var movieDetailBottomBar: BottomAppBar
+
     private lateinit var viewModel: MovieDetailViewModel
     private lateinit var movieRepository: MovieDetailRepository
 
@@ -68,7 +73,7 @@ class MovieDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
         ButterKnife.bind(this)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(movieDetailBottomBar)
 
         val data = intent.extras
         var movieId = data!!.getInt("id")
@@ -134,9 +139,6 @@ class MovieDetailActivity : AppCompatActivity() {
             }
         })
 
-//        viewModel.networkState.observe(this, Observer {
-//            progressBar.visibility = if (it == NetworkState.LOADING) View.VISIBLE else View.GONE
-//        })
     }
 
     private fun collapseTitle(title: String) {
@@ -147,8 +149,6 @@ class MovieDetailActivity : AppCompatActivity() {
                 scrollRange = barLayout?.totalScrollRange!!
             }
             if (scrollRange + verticalOffset == 0) {
-                supportActionBar?.setDisplayShowHomeEnabled(true)
-                supportActionBar?.setDisplayHomeAsUpEnabled(true)
                 collapsingToolbarLayout.title = title
                 collapsingToolbarLayout.setCollapsedTitleTextColor(resources.getColor(R.color.orange))
                 isShow = true
@@ -167,4 +167,11 @@ class MovieDetailActivity : AppCompatActivity() {
             }
         })[MovieDetailViewModel::class.java]
     }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.bottom_bar_menu, menu)
+        return true
+    }
+
 }
